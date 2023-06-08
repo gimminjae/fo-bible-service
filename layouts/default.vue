@@ -1,8 +1,8 @@
 <template>
-    <div>
-        <LayoutHeader></LayoutHeader>
-        default.vue
-        <LayoutFooter></LayoutFooter>
+    <div data-theme="light">
+        <LayoutHeader/>
+        <NuxtPage />
+        <LayoutFooter/>
     </div>
 </template>
 <script setup>
