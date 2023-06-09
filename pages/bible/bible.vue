@@ -1,6 +1,7 @@
 <template>
     <div>
-        <BibleSearchForm/>
+        <BibleFormBibleSearchType1/>
+        <BibleFormBibleSearchType2/>
         bible
     </div>
 </template>
