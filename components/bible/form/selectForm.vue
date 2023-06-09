@@ -1,7 +1,6 @@
 <template>
     <div>
-        <BibleSearchForm/>
-        bible
+        selectForm
     </div>
 </template>
 <script setup>
