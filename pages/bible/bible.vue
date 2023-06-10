@@ -1,7 +1,6 @@
 <template>
     <div>
-        <BibleFormTotal/>
-        {{ bibleSearchInfo }}
+        <BibleFormTotal @click-btn="findBible"/>
         bible
     </div>
 </template>
@@ -14,5 +13,8 @@ const bibleSearchInfo = ref({
 const bibleInfo = ref({
 
 })
+const findBible = () => {
+    console.log(bibleSearchInfo)
+}
 provide('bibleSearchInfo', bibleSearchInfo)
 </script>

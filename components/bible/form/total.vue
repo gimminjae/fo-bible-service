@@ -1,11 +1,12 @@
 <template>
     <div class="flex justify-stretch m-1">
-        <BibleFormBibleSearchType1 v-if="formType === 'input'" :bibleSearchInfo="bibleSearchInfo"/>
+        <BibleFormBibleSearchType1 v-if="formType === 'input'"/>
         <BibleFormBibleSearchType2 v-if="formType === 'select'"/>
-        <button class="btn btn-sm">검색</button>
+        <button class="btn btn-sm" @click="clickBtn">검색</button>
     </div>
 </template>
 <script setup>
-const bibleSearchInfo = inject('bibleSearchInfo')
+const emits = defineEmits(['clickBtn'])
 const formType = ref('input')
+const clickBtn = () => { emits('clickBtn') }
 </script>
