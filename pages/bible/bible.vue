@@ -31,7 +31,7 @@ const bibleInfos = ref({
 const findBibleType1 = async () => {
     console.log(bibleSearchInfo)
     try {
-        const result = await axios.get(`/api/bibleverse/type1?bookName=${bibleSearchInfo.value.bookName}&chapter=${bibleSearchInfo.value.chapter}&verse=${bibleSearchInfo.value.verse}`)
+        const result = await axios.get(`/api/bibleverse/input?bookName=${bibleSearchInfo.value.bookName}&chapter=${bibleSearchInfo.value.chapter}&verse=${bibleSearchInfo.value.verse}`)
         console.log(result)
         bibleInfos.value = result.data
         router.replace({ hash: `#verse_${bibleSearchInfo.value.verse-1}` });
@@ -46,13 +46,16 @@ const findBibleType1 = async () => {
 const findBibleType3 = async () => {
     try {
         console.log(bibleSearchString)
-        // const result = await axios.get(`/api/bibleverse/type1?bookName=${bibleSearchInfo.value.bookName}&chapter=${bibleSearchInfo.value.chapter}&verse=${bibleSearchInfo.value.verse}`)
-        // console.log(result)
-        // bibleInfos.value = result.data
-        // router.replace({ hash: `#verse_${bibleSearchInfo.value.verse-1}` });
-        // if(bibleInfos.value.length <= 0) {
+        const result = await axios.get(`/api/bibleverse/inputString?bibleSearchString=${bibleSearchString.value}`)
+        console.log(result)
+        bibleInfos.value = result.data
+        let searchParams = bibleSearchString.split(' ')
+        if(searchParams.length > 2) {
+            router.replace({ hash: `#verse_${bibleSearchString.split(' ')[2]-1}` });
+        }
+        if(bibleInfos.value.length <= 0) {
             
-        // }
+        }
     } catch(error) {
         console.log(error)
         alert(error)
