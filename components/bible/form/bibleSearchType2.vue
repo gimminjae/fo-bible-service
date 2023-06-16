@@ -1,5 +1,5 @@
 <template>
-    <div class="grid grid-flow-col justify-stretch mx-1 gap-1">
+    <div class="grid grid-flow-col justify-around mx-1 gap-1">
         <BasicSelect v-model="bibleSearchInfo.book" :options="bibleList" :defaultValue="'성경'"/>
         <BasicSelect/>
         <BasicSelect/>

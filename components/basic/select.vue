@@ -1,6 +1,6 @@
 <template>
     <div>
-        <select class="select select-bordered select-sm max-w-xs" name="" id="" :value="modelValue" @change="changeData">
+        <select class="select select-primary select-sm max-w-xs" name="" id="" :value="modelValue" @change="changeData">
             <option value="">{{ defaultValue }}</option>
             <option v-for="option in options" :value="option.value">
                 {{ option.text }}

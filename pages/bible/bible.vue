@@ -16,7 +16,6 @@
 </template>
 <script setup>
 import axios from 'axios'
-import bibles from '~/bible/objects/bibles';
 
 const router = useRouter()
 const bibleSearchString = ref('')
