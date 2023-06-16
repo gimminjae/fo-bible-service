@@ -18,6 +18,7 @@
 import axios from 'axios'
 
 const router = useRouter()
+const bibleSearchString = ref('')
 const bibleSearchInfo = ref({
     book: '',
     bookName: '',
@@ -42,8 +43,29 @@ const findBibleType1 = async () => {
         alert(error)
     }
 }
-const findBible = () => {
-    findBibleType1()
+const findBibleType3 = async () => {
+    try {
+        console.log(bibleSearchString)
+        // const result = await axios.get(`/api/bibleverse/type1?bookName=${bibleSearchInfo.value.bookName}&chapter=${bibleSearchInfo.value.chapter}&verse=${bibleSearchInfo.value.verse}`)
+        // console.log(result)
+        // bibleInfos.value = result.data
+        // router.replace({ hash: `#verse_${bibleSearchInfo.value.verse-1}` });
+        // if(bibleInfos.value.length <= 0) {
+            
+        // }
+    } catch(error) {
+        console.log(error)
+        alert(error)
+    }
+}
+const findBible = (formType) => {
+    console.log('formType: ', formType)
+    if(formType === 'input') {
+        findBibleType1()
+    } else if (formType === 'inputString') {
+        findBibleType3()
+    }
 }
 provide('bibleSearchInfo', bibleSearchInfo)
+provide('bibleSearchString', bibleSearchString)
 </script>

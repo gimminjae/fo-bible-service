@@ -7,6 +7,7 @@
         </select>
         <BibleFormBibleSearchType1 v-if="formType === 'input'"/>
         <BibleFormBibleSearchType2 v-if="formType === 'select'"/>
+        <BibleFormBibleSearchType3 v-if="formType === 'inputString'"/>
         <button class="btn btn-sm" @click="clickBtn">검색</button>
     </div>
 </template>
@@ -29,7 +30,7 @@ const options = ref([
 ])
 const emits = defineEmits(['clickBtn'])
 const formType = ref('input')
-const clickBtn = () => { emits('clickBtn') }
+const clickBtn = () => { emits('clickBtn', formType.value) }
 
 let formTypeCookie = cookieUtil.get('formType')
 if(formTypeCookie != null && formTypeCookie.length > 0) {
