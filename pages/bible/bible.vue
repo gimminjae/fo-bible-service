@@ -26,9 +26,7 @@ const bibleSearchInfo = ref({
     chapter: '',
     verse: ''
 })
-const bibleInfos = ref({
-
-})
+const bibleInfos = ref({})
 const findBibleType1 = async () => {
     try {
         const result = await axios.get(`/api/bibleverse/input?bookName=${bibleSearchInfo.value.bookName}&chapter=${bibleSearchInfo.value.chapter}&verse=${bibleSearchInfo.value.verse}`)
@@ -39,7 +37,18 @@ const findBibleType1 = async () => {
         }
     } catch(error) {
         console.log(error)
-        alert(error)
+    }
+}
+const findBibleType2 = async () => {
+    try {
+        const result = await axios.get(`/api/bibleverse/select?book=${bibleSearchInfo.value.book}&chapter=${bibleSearchInfo.value.chapter}&verse=${bibleSearchInfo.value.verse}`)
+        bibleInfos.value = result.data
+        router.replace({ hash: `#verse_${bibleSearchInfo.value.verse-1}` });
+        if(bibleInfos.value.length <= 0) {
+            
+        }
+    } catch(error) {
+        console.log(error)
     }
 }
 const findBibleType3 = async () => {
@@ -55,13 +64,13 @@ const findBibleType3 = async () => {
         }
     } catch(error) {
         console.log(error)
-        alert(error)
     }
 }
 const findBible = (formType) => {
-    console.log(bibles.getKoBible())
     if(formType === 'input') {
         findBibleType1()
+    } else if (formType === 'select') {
+        findBibleType2
     } else if (formType === 'inputString') {
         findBibleType3()
     }
