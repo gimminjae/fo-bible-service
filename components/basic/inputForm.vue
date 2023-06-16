@@ -1,6 +1,6 @@
 <template>
     <div>
-        <input type="text" placeholder="Type here" class="input input-bordered input-sm w-full max-w-xs"
+        <input type="text" :placeholder="placeholder" class="input input-bordered input-sm w-full max-w-xs"
             :value="modelValue" @input="inputEvent($event)" />
     </div>
 </template>
@@ -9,6 +9,10 @@ const props = defineProps({
     modelValue: {
      type: String,
      default: ''
+   },
+   placeholder: {
+    type: String, 
+    default: ''
    }
 })
 const emits = defineEmits(['update:modelValue'])

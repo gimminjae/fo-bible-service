@@ -1,11 +1,11 @@
 <template>
-    <div>
+    <div class="">
         <BibleFormTotal @click-btn="findBible" />
         <div class="mx-1 my-1" v-if="bibleInfos.length > 0">
             {{ bibleInfos[0].bookName }} {{ bibleInfos[0].chapter }}장
             <ul>
                 <li v-for="bible in bibleInfos" class="m-2">
-                    <div class="flex">
+                    <div class="flex" :id="`verse_${bible.verse}`">
                         <p class="mr-2">{{ bible.verse }}</p>
                         <p>{{ bible.content }}</p>
                     </div>
@@ -17,6 +17,7 @@
 <script setup>
 import axios from 'axios'
 
+const router = useRouter()
 const bibleSearchInfo = ref({
     book: '',
     bookName: '',
@@ -32,6 +33,7 @@ const findBibleType1 = async () => {
         const result = await axios.get(`/api/bibleverse/type1?bookName=${bibleSearchInfo.value.bookName}&chapter=${bibleSearchInfo.value.chapter}&verse=${bibleSearchInfo.value.verse}`)
         console.log(result)
         bibleInfos.value = result.data
+        router.replace({ hash: `#verse_${bibleSearchInfo.value.verse-1}` });
         if(bibleInfos.value.length <= 0) {
             
         }
