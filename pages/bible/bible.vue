@@ -16,6 +16,7 @@
 </template>
 <script setup>
 import axios from 'axios'
+import bibles from '~/bible/objects/bibles';
 
 const router = useRouter()
 const bibleSearchString = ref('')
@@ -58,6 +59,7 @@ const findBibleType3 = async () => {
     }
 }
 const findBible = (formType) => {
+    console.log(bibles.getKoBible())
     if(formType === 'input') {
         findBibleType1()
     } else if (formType === 'inputString') {
