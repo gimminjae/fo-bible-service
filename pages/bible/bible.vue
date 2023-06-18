@@ -2,7 +2,7 @@
     <div class="">
         <BibleFormTotal @click-btn="findBible" />
         <div class="mx-1 my-1" v-if="bibleInfos.length > 0">
-            {{ bibleInfos[0].bookName }} {{ bibleInfos[0].chapter }}장
+            <p class="text-gray-400">{{ bibleInfos[0].bookName }} {{ bibleInfos[0].chapter }}장</p>
             <ul>
                 <li v-for="bible in bibleInfos" class="m-2">
                     <div class="flex" :id="`verse_${bible.verse}`">
