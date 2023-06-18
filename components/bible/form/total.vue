@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-around my-2 mx-3 sticky top-5">
+    <div class="navbar bg-base-100 flex justify-around fixed top-0">
         <select class="select select-primary select-sm max-w-xs" name="" id="" v-model="formType" @change="changeFormType">
             <option v-for="option in options" :value="option.value">
                 {{ option.text }}
