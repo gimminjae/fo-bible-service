@@ -3,7 +3,7 @@
         <div class="navbar bg-base-100 fixed top-0">
             <div class="flex-none">
                 <button class="btn btn-square btn-ghost" @click="useRouter().back()">
-                    {{ backChar }}
+                    <i class="fa-solid fa-chevron-left"></i>
                 </button>
             </div>
             <div class="flex-1">
@@ -26,7 +26,6 @@
 import bibles from '~/bible/objects/bibles'
 import cookieUtil from '~/composables/cookie';
 
-const backChar = ref('<<')
 const router = useRouter()
 const bibleList = bibles.getKoBible()
 

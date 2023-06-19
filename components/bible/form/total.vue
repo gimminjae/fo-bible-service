@@ -1,5 +1,5 @@
 <template>
-    <div class="navbar bg-base-100 flex justify-between fixed top-0">
+    <div :class="`navbar bg-base-100 flex fixed top-0 ${formType === 'input' ? 'justify-between' : 'justify-start'}`">
         <select class="select select-primary select-sm max-w-xs" name="" id="" v-model="formType" @change="changeFormType">
             <option v-for="option in options" :value="option.value">
                 {{ option.text }}
