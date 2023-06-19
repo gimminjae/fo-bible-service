@@ -1,5 +1,5 @@
 <template>
-    <div class="navbar bg-base-100 flex justify-around fixed top-0">
+    <div class="navbar bg-base-100 flex justify-between fixed top-0">
         <select class="select select-primary select-sm max-w-xs" name="" id="" v-model="formType" @change="changeFormType">
             <option v-for="option in options" :value="option.value">
                 {{ option.text }}
@@ -7,7 +7,6 @@
         </select>
         <BibleFormBibleSearchType1 v-if="formType === 'input'"/>
         <BibleFormBibleSearchType2 v-if="formType === 'select'"/>
-        <BibleFormBibleSearchType3 v-if="formType === 'inputString'"/>
         <button v-if="formType !== 'select'" class="btn btn-sm" @click="clickBtn">검색</button>
     </div>
 </template>
@@ -18,10 +17,6 @@ const options = ref([
     {
         text: '입력',
         value: 'input',
-    },
-    {
-        text: '한줄입력',
-        value: 'inputString',
     },
     {
         text: '선택',
