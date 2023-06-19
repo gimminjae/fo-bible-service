@@ -6,7 +6,7 @@
                 {{ bible.bookName}}
             </div>
             <div class="collapse-content grid grid-cols-5 gap-4">
-                <button v-for="chapter in bible.chapterCount" class="btn" @click="findBibleEvent(bible, chapter)">{{ chapter }}</button>
+                <button v-for="chapter in bible.chapterCount" class="btn" @click="goBible(bible, chapter)">{{ chapter }}</button>
             </div>
         </div>
     </div>
@@ -16,11 +16,9 @@ import bibles from '~/bible/objects/bibles'
 import cookieUtil from '~/composables/cookie';
 
 const router = useRouter()
-const emits=defineEmits(['findBible'])
 const bibleList = bibles.getKoBible()
 
-const findBibleEvent = (bible, chapter) => {
-    emits('findBible', bible)
+const goBible = (bible, chapter) => {
     cookieUtil.set('recentBible', `${bible.bookName} ${chapter}`)
     router.replace({ path: '/bible/bible' })
 }
