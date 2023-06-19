@@ -1,12 +1,14 @@
 <template>
-    <div class="grid grid-flow-col justify-around mx-1 gap-2" @click="console.log(bibleSearchInfo)">
-        <button class="btn btn-sm">
-            {{ bibleSearchInfo.bookName }}
-            <div class="badge badge-secondary">
-                {{ bibleSearchInfo.chapter }}
-            </div>
-        </button>
-    </div>
+    <NuxtLink to="/bible/search">
+        <div class="grid grid-flow-col justify-around mx-1 gap-2">
+            <button class="btn btn-sm">
+                {{ bibleSearchInfo.bookName }}
+                <div class="badge badge-secondary">
+                    {{ bibleSearchInfo.chapter }}
+                </div>
+            </button>
+        </div>
+    </NuxtLink>
 </template>
 <script setup>
 import bibles from '~/bible/objects/bibles';
