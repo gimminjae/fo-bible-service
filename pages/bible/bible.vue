@@ -17,8 +17,6 @@
 <script setup>
 import axios from 'axios'
 
-
-const bibleSelectBox = ref(false)
 const router = useRouter()
 const bibleSearchString = ref('')
 const bibleSearchInfo = ref({
@@ -32,7 +30,7 @@ const findBibleType1 = async () => {
     try {
         const result = await axios.get(`/api/bibleverse/input?bookName=${bibleSearchInfo.value.bookName}&chapter=${bibleSearchInfo.value.chapter}&verse=${bibleSearchInfo.value.verse}`)
         bibleInfos.value = result.data
-        router.replace({ hash: `#verse_${bibleSearchInfo.value.verse - 1}` });
+        router.push({ hash: `#verse_${bibleSearchInfo.value.verse - 1}`, behavior: 'smooth' })
         if (bibleInfos.value.length <= 0) {
 
         }
@@ -74,14 +72,6 @@ const findBible = (formType) => {
         findBibleType2
     } else if (formType === 'inputString') {
         findBibleType3()
-    }
-}
-const changeBibleSelectBoxShowYn = () => {
-    console.log('gerge')
-    if (bibleSelectBox.value === false) {
-        bibleSelectBox.value === true
-    } else {
-        bibleSelectBox.value === false
     }
 }
 provide('bibleSearchInfo', bibleSearchInfo)

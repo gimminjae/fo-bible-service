@@ -8,7 +8,7 @@
         <BibleFormBibleSearchType1 v-if="formType === 'input'"/>
         <BibleFormBibleSearchType2 v-if="formType === 'select'"/>
         <BibleFormBibleSearchType3 v-if="formType === 'inputString'"/>
-        <button class="btn btn-sm" @click="clickBtn">검색</button>
+        <button v-if="formType !== 'select'" class="btn btn-sm" @click="clickBtn">검색</button>
     </div>
 </template>
 <script setup>
