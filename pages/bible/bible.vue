@@ -18,6 +18,17 @@
 import axios from 'axios'
 import cookieUtil from '~/composables/cookie';
 
+
+const recentBible = ref(cookieUtil.get('recentBible'))
+const router = useRouter()
+const bibleSearchInfo = ref({
+    book: '',
+    bookName: '',
+    chapter: '',
+    verse: ''
+})
+const bibleInfos = ref({})
+
 /**
  * method
  */
@@ -52,24 +63,18 @@ const findBible = (formType) => {
         findBibleType2
     }
 }
+const loadRecentBible = () => {
+    if(recentBible.value.length === 0 || recentBible.value == null) {
+        recentBible.value = '창세기 1'
+    }
+    bibleSearchInfo.value.bookName = recentBible.value.split(' ')[0]
+    bibleSearchInfo.value.chapter = recentBible.value.split(' ')[1]
+    findBible('input')
+}
 /**
  * method end
  */
 
-const recentBible = cookieUtil.get('recentBible')
-const router = useRouter()
-const bibleSearchInfo = ref({
-    book: '',
-    bookName: '',
-    chapter: '',
-    verse: ''
-})
-const bibleInfos = ref({})
-const loadRecentBible = () => {
-    bibleSearchInfo.value.bookName = recentBible.split(' ')[0]
-    bibleSearchInfo.value.chapter = recentBible.split(' ')[1]
-    findBible('input')
-}
 loadRecentBible()
 provide('bibleSearchInfo', bibleSearchInfo)
 </script>
