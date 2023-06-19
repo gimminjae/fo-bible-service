@@ -16,16 +16,12 @@
 </template>
 <script setup>
 import axios from 'axios'
+import cookieUtil from '~/composables/cookie';
 
-const router = useRouter()
-const bibleSearchInfo = ref({
-    book: '',
-    bookName: '',
-    chapter: '',
-    verse: ''
-})
-const bibleInfos = ref({})
-const findBibleType1 = async () => {
+/**
+ * method
+ */
+ const findBibleType1 = async () => {
     try {
         const result = await axios.get(`/api/bibleverse/input?bookName=${bibleSearchInfo.value.bookName}&chapter=${bibleSearchInfo.value.chapter}&verse=${bibleSearchInfo.value.verse}`)
         bibleInfos.value = result.data
@@ -56,5 +52,24 @@ const findBible = (formType) => {
         findBibleType2
     }
 }
+/**
+ * method end
+ */
+
+const recentBible = cookieUtil.get('recentBible')
+const router = useRouter()
+const bibleSearchInfo = ref({
+    book: '',
+    bookName: '',
+    chapter: '',
+    verse: ''
+})
+const bibleInfos = ref({})
+const loadRecentBible = () => {
+    bibleSearchInfo.value.bookName = recentBible.split(' ')[0]
+    bibleSearchInfo.value.chapter = recentBible.split(' ')[1]
+    findBible('input')
+}
+loadRecentBible()
 provide('bibleSearchInfo', bibleSearchInfo)
 </script>

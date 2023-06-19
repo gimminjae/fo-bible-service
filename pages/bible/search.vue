@@ -18,7 +18,6 @@ import cookieUtil from '~/composables/cookie';
 const router = useRouter()
 const emits=defineEmits(['findBible'])
 const bibleList = bibles.getKoBible()
-console.log(bibleList)
 
 const findBibleEvent = (bible, chapter) => {
     emits('findBible', bible)
