@@ -1,10 +1,11 @@
 <template>
     <div class="">
         <BibleFormTotal @click-btn="findBible" />
+        <button @click="copyVerse">복사</button>
         <div class="mx-1 my-1" v-if="bibleInfos.length > 0">
             <p class="text-gray-400">{{ bibleInfos[0].bookName }} {{ bibleInfos[0].chapter }}장</p>
             <ul>
-                <li v-for="bible in bibleInfos" class="m-2">
+                <li v-for="bible in bibleInfos" :class="{'m-2': true, underline: verseClass(bible.verse)}" @click="clickVerse(bible.verse)">
                     <div class="flex" :id="`verse_${bible.verse}`">
                         <p class="mr-2">{{ bible.verse }}</p>
                         <p>{{ bible.content }}</p>
@@ -28,10 +29,29 @@ const bibleSearchInfo = ref({
     verse: ''
 })
 const bibleInfos = ref({})
+const clipBoard = ref([])
 
 /**
  * method
  */
+const copyVerse = () => {
+    this.$copyText('text').then(() => alert('복사'))
+}
+const clickVerse = (verse) => {
+    if(clipBoard.value.includes(verse)) {
+        for(let i = 0; i < clipBoard.value.length; i++) {
+            if(clipBoard.value[i] === verse) {
+                clipBoard.value.splice(i)
+            }
+        }
+    } else {
+        clipBoard.value.push(verse)
+    }
+    console.log(clipBoard.value)
+}
+const verseClass = (verse) => {
+    return clipBoard.value.includes(verse) ? true : false
+}
  const findBibleType1 = async () => {
     try {
         const result = await axios.get(`/api/bibleverse/input?bookName=${bibleSearchInfo.value.bookName}&chapter=${bibleSearchInfo.value.chapter}&verse=${bibleSearchInfo.value.verse}`)

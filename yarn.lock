@@ -3194,6 +3194,11 @@ hash-sum@^2.0.0:
   resolved "https://registry.yarnpkg.com/hash-sum/-/hash-sum-2.0.0.tgz#81d01bb5de8ea4a214ad5d6ead1b523460b0b45a"
   integrity sha512-WdZTbAByD+pHfl/g9QSsBIIwy8IT+EsPiKDs0KNX+zSHhdDLFKdZu0BQHljvO+0QI/BasbMSUa8wYNCZTvhslg==
 
+highlightjs@^8.7.0:
+  version "8.7.0"
+  resolved "https://registry.yarnpkg.com/highlightjs/-/highlightjs-8.7.0.tgz#13397cd8dd8ad7d4cfe77adffb8088a10ee3b708"
+  integrity sha512-rTuniSaQTEWwVghKSCNzUlEzvvTJCUSZ9ssJGzxTtzf/TN7f4gnrfghqjqt3bduFcw56NxRBYKfgfr49OuSM4Q==
+
 hookable@^5.5.3:
   version "5.5.3"
   resolved "https://registry.yarnpkg.com/hookable/-/hookable-5.5.3.tgz#6cfc358984a1ef991e2518cb9ed4a778bbd3215d"
@@ -5300,6 +5305,11 @@ pretty-bytes@^6.1.0:
   resolved "https://registry.yarnpkg.com/pretty-bytes/-/pretty-bytes-6.1.0.tgz#1d1cc9aae1939012c74180b679da6684616bf804"
   integrity sha512-Rk753HI8f4uivXi4ZCIYdhmG1V+WKzvRMg/X+M42a6t7D07RcmopXJMDNk6N++7Bl75URRGsb40ruvg7Hcp2wQ==
 
+primer-css@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/primer-css/-/primer-css-3.0.1.tgz#24df67944189b970f2035ca17a4e2c09b5b15532"
+  integrity sha512-q6lHTvcaT+rtq/9awinkLWc6lL1kOdrQXmGxIad0B7g6QmbweNoaePsByM5Hyq0jNRMB+Sji9aDv0/aiVRO5hA==
+
 proc-log@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/proc-log/-/proc-log-3.0.0.tgz#fb05ef83ccd64fd7b20bbe9c8c1070fc08338dd8"
@@ -6564,6 +6574,14 @@ vue-bundle-renderer@^1.0.3:
   integrity sha512-EfjX+5TTUl70bki9hPuVp+54JiZOvFIfoWBcfXsSwLzKEiDYyHNi5iX8srnqLIv3YRnvxgbntdcG1WPq0MvffQ==
   dependencies:
     ufo "^1.1.1"
+
+vue-clipboard@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/vue-clipboard/-/vue-clipboard-0.0.1.tgz#7037ec8fe032f6622d46d5686124abff92eed878"
+  integrity sha512-YdfhDDqPDulpMYlioxL40H/vjF+o1J4L7HJfquJgeH7mke+ODdM50n2aVjIDP3CoNCewlONZMhPnSHEGgMpVnA==
+  dependencies:
+    highlightjs "^8.7.0"
+    primer-css "^3.0.1"
 
 vue-devtools-stub@^0.1.0:
   version "0.1.0"
