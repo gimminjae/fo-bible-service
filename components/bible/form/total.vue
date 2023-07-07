@@ -1,13 +1,13 @@
 <template>
-    <div :class="`navbar bg-base-100 flex fixed top-0 ${formType === 'input' ? 'justify-between' : 'justify-start'}`">
-        <select class="select select-primary select-sm max-w-xs" name="" id="" v-model="formType" @change="changeFormType">
-            <option v-for="option in options" :value="option.value">
-                {{ option.text }}
-            </option>
-        </select>
+    <div :class="`navbar bg-base-100 flex sticky top-0 gap-1 ${formType === 'input' ? 'justify-between' : 'justify-start'}`">
+<!--        <select class="select select-primary select-sm max-w-xs" name="" id="" v-model="formType" @change="changeFormType">-->
+<!--            <option v-for="option in options" :value="option.value">-->
+<!--                {{ option.text }}-->
+<!--            </option>-->
+<!--        </select>-->
         <BibleFormBibleSearchType1 v-if="formType === 'input'"/>
         <BibleFormBibleSearchType2 v-if="formType === 'select'"/>
-        <button v-if="formType !== 'select'" class="btn btn-sm" @click="clickBtn">검색</button>
+        <button v-if="formType === 'select'" class="btn btn-sm" @click="clickBtn">확인</button>
     </div>
 </template>
 <script setup>

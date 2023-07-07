@@ -1,6 +1,5 @@
 <template>
-    <div class="navbar bg-base-100"></div>
-    <div class="btm-nav fixed bottom-0">
+    <div class="btm-nav sticky bottom-0">
         <button @click="changeActive('')" :class="{'active': active === '' }" disabled>
             <i class="fa-solid fa-chart-simple"></i>
         </button>

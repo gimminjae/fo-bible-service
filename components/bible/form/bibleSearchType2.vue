@@ -9,6 +9,7 @@
             </button>
         </div>
     </NuxtLink>
+    <BasicInputForm v-model="bibleSearchInfo.verse" :placeholder="'절'" style="width: 20%"/>
 </template>
 <script setup>
 import bibles from '~/bible/objects/bibles';

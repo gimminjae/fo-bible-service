@@ -1,9 +1,9 @@
 <template>
     <div class="">
-        <BibleFormTotal @click-btn="findBible" />
-        <button @click="copyVerse">복사</button>
-        <div class="mx-1 my-1" v-if="bibleInfos.length > 0">
-            <p class="text-gray-400">{{ bibleInfos[0].bookName }} {{ bibleInfos[0].chapter }}장</p>
+        <BibleFormTotal @click-btn="findVerse" class=""/>
+<!--        <button @click="copyVerse">복사</button>-->
+        <div class="" v-if="bibleInfos.length > 0"> <!--style="padding-bottom: 20%; padding-top: 5%;"-->
+<!--            <p class="text-gray-400">{{ bibleInfos[0].bookName }} {{ bibleInfos[0].chapter }}장</p>-->
             <ul>
                 <li v-for="bible in bibleInfos" :class="{'m-2': true, underline: verseClass(bible.verse)}" @click="clickVerse(bible.verse)">
                     <div class="flex" :id="`verse_${bible.verse}`">
@@ -56,7 +56,7 @@ const verseClass = (verse) => {
     try {
         const result = await axios.get(`/api/bibleverse/input?bookName=${bibleSearchInfo.value.bookName}&chapter=${bibleSearchInfo.value.chapter}&verse=${bibleSearchInfo.value.verse}`)
         bibleInfos.value = result.data
-        router.push({ hash: `#verse_${bibleSearchInfo.value.verse - 1}`, behavior: 'smooth' })
+        // router.push({ hash: `#verse_${bibleSearchInfo.value.verse - 1}`, behavior: 'smooth' })
         if (bibleInfos.value.length <= 0) {
 
         }
@@ -64,11 +64,18 @@ const verseClass = (verse) => {
         console.log(error)
     }
 }
+const findVerse = () => {
+    console.log('findVerse')
+    router.push({ hash: `#verse_${bibleSearchInfo.value.verse}` }).then(() => {
+        // Adjust the scroll position after navigation
+        const element = document.querySelector(`#verse_${bibleSearchInfo.value.verse}`);
+        window.scrollTo({ top: -10, behavior: 'smooth' });
+    });
+}
 const findBibleType2 = async () => {
     try {
         const result = await axios.get(`/api/bibleverse/select?book=${bibleSearchInfo.value.book}&chapter=${bibleSearchInfo.value.chapter}&verse=${bibleSearchInfo.value.verse}`)
         bibleInfos.value = result.data
-        router.replace({ hash: `#verse_${bibleSearchInfo.value.verse - 1}` });
         if (bibleInfos.value.length <= 0) {
 
         }
