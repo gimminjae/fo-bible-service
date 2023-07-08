@@ -18,7 +18,7 @@
                           <label class="label">
                               <span class="label-text">Password</span>
                           </label>
-                          <input type="text" v-model="loginDto.password" placeholder="password" class="input input-bordered" />
+                          <input type="password" v-model="loginDto.password" placeholder="password" class="input input-bordered" />
                           <div class="flex justify-between">
                               <label class="label">
                                   <a href="#" class="label-text-alt link link-hover">아이디를 잊으셨나요??</a>
@@ -39,6 +39,7 @@
 </template>
 <script setup>
 import axios from "axios";
+import cookieUtil from "~/composables/cookie";
 
 const router = useRouter()
 const loginDto = ref({
@@ -49,7 +50,8 @@ const login = async () => {
     try {
         const result = await axios.post(`/api/members/login?username=${loginDto.value.username}&password=${loginDto.value.password}`)
         console.log(result)
-        result.value = result
+        cookieUtil.setWithMaxAge('accessToken', result.data.accessToken, 60 * 30)
+        cookieUtil.setWithMaxAge('refreshToken', result.data.refreshToken, 60 * 60 * 24 * 30)
         router.replace({ path: '/' })
     } catch (error) {
         alert('로그인 실패 : 아이디 혹은 비밀번호를 확인하세요')
