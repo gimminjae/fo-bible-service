@@ -7,7 +7,7 @@
 <!--        </select>-->
 <!--        <BibleFormBibleSearchType1 v-if="formType === 'input'"/>-->
         <BibleFormBibleSearchType2/> <!-- v-if="formType === 'select'" -->
-        <button v-if="formType === 'select'" class="btn btn-sm" @click="clickBtn">확인</button>
+        <button class="btn btn-sm" @click="clickBtn">확인</button>
     </div>
 </template>
 <script setup>

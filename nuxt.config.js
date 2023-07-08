@@ -1,7 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-export default {
+import { defineNuxtConfig } from 'nuxt/config';
+export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss',
+    '@pinia/nuxt'
   ],
   devtools: { enabled: true },
   vite: {
@@ -14,4 +16,8 @@ export default {
       },
     },
   },
-}
+})
+
+// export default defineNuxtConfig({
+//   modules: ['@pinia/nuxt']
+// })
