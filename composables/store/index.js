@@ -46,7 +46,6 @@ export const useStore = defineStore('main', {
     }),
     mutations: {
         setMember(member) {
-            console.log('setmember')
             localStorage.setItem('member', JSON.stringify(member))
         },
     },
@@ -60,10 +59,9 @@ export const useStore = defineStore('main', {
             localStorage.setItem('loggedInMember', JSON.stringify(member))
             commit('setLoggedInMember', member)
         },
-        logout({commit}) {
+        logout() {
             // Remove member from local storage
-            localStorage.removeItem('loggedInMember')
-            commit('clearLoggedInMember')
+            localStorage.removeItem('member')
         },
         checkLocalStorage({commit}) {
             // Check if member is already logged in from previous session

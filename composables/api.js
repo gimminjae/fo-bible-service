@@ -25,7 +25,7 @@ const get = async (url) => {
                         Authentication: cookieUtil.get('accessToken')
                     }
                 })
-                store.mutations.setMember(meResult.data.member)
+                store.setMember(meResult.data.member)
 
             } catch(error) {
 
@@ -47,7 +47,7 @@ const post = async (url, data) => {
                 Authentication: cookieUtil.get('accessToken')
             }
         })
-        store.mutations.setLoggedInMember('member', meResult.data.member)
+        store.setMember(meResult.data.member)
         if(meResult.data.member === '') {
             try {
                 const { data } = await axios.get(`/api/members/regenAccessToken?refreshToken=${cookieUtil.get('refreshToken')}`)
@@ -61,7 +61,7 @@ const post = async (url, data) => {
                         Authentication: cookieUtil.get('accessToken')
                     }
                 })
-                store.mutations.setLoggedInMember('member', meResult.data.member)
+                store.setMember(meResult.data.member)
 
             } catch(error) {
 
@@ -83,7 +83,7 @@ const patch = async (url, data) => {
                 Authentication: cookieUtil.get('accessToken')
             }
         })
-        store.mutations.setLoggedInMember('member', meResult.data.member)
+        store.setMember(meResult.data.member)
         if(meResult.data.member === '') {
             try {
                 const { data } = await axios.get(`/api/members/regenAccessToken?refreshToken=${cookieUtil.get('refreshToken')}`)
@@ -97,7 +97,7 @@ const patch = async (url, data) => {
                         Authentication: cookieUtil.get('accessToken')
                     }
                 })
-                store.mutations.setLoggedInMember('member', meResult.data.member)
+                store.setMember(meResult.data.member)
 
             } catch(error) {
 
@@ -119,7 +119,7 @@ const put = async (url, data) => {
                 Authentication: cookieUtil.get('accessToken')
             }
         })
-        store.mutations.setLoggedInMember('member', meResult.data.member)
+        store.setMember(meResult.data.member)
         if(meResult.data.member === '') {
             try {
                 const { data } = await axios.get(`/api/members/regenAccessToken?refreshToken=${cookieUtil.get('refreshToken')}`)
@@ -133,7 +133,7 @@ const put = async (url, data) => {
                         Authentication: cookieUtil.get('accessToken')
                     }
                 })
-                store.mutations.setLoggedInMember('member', meResult.data.member)
+                store.setMember(meResult.data.member)
 
             } catch(error) {
 
@@ -155,7 +155,7 @@ const remove = async (url, data) => {
                 Authentication: cookieUtil.get('accessToken')
             }
         })
-        store.mutations.setLoggedInMember('member', meResult.data.member)
+        store.setMember(meResult.data.member)
         if(meResult.data.member === '') {
             try {
                 const { data } = await axios.get(`/api/members/regenAccessToken?refreshToken=${cookieUtil.get('refreshToken')}`)
@@ -169,7 +169,7 @@ const remove = async (url, data) => {
                         Authentication: cookieUtil.get('accessToken')
                     }
                 })
-                store.mutations.setLoggedInMember('member', meResult.data.member)
+                store.setMember(meResult.data.member)
 
             } catch(error) {
 

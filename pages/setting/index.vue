@@ -20,12 +20,16 @@
 </template>
 <script setup>
 import cookieUtil from "~/composables/cookie";
+import {api} from "~/composables/api";
+import {useStore} from "~/composables/store";
 
 const router = useRouter()
+const store = useStore()
 const logout = () => {
     api.remove(`/api/members/logout`)
     cookieUtil.remove('accessToken')
     cookieUtil.remove('refreshToken')
+    store.logout()
     router.replace({ path: '/' })
 }
 </script>
