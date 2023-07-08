@@ -2,21 +2,22 @@ import axios from 'axios'
 import cookieUtil from "~/composables/cookie";
 import {routers} from "~/composables/router";
 
-const get = (url) => {
+const get = async (url) => {
     try {
-        axios.get(`/api/members/me`, {
+        const meResult = await axios.get(`/api/members/me`, {
             headers: {
                 Authentication: cookieUtil.get('accessToken')
             }
         })
-    } catch(error) {
-        try {
-            const accessToken = axios.get(`/api/members/regenAccessToken?refreshToken=${cookieUtil.get('refreshToken')}`)
-            console.log(accessToken)
-            cookieUtil.setWithMaxAge('accessToken', accessToken, 60 * 30)
-        } catch(error) {
-            routers.replace({ path: '/member/login'})
+        if(meResult.data.member === '') {
+            try {
+                const { data } = await axios.get(`/api/members/regenAccessToken?refreshToken=${cookieUtil.get('refreshToken')}`)
+                cookieUtil.setWithMaxAge('accessToken', data, 60 * 30)
+            } catch(error) {
+                routers.replace({ path: '/member/login'})
+            }
         }
+    } catch(error) {
     }
     try {
         const result = axios.get(url)
@@ -25,21 +26,22 @@ const get = (url) => {
         alert(error.message)
     }
 }
-const post = (url, data) => {
+const post = async (url, data) => {
     try {
-        axios.get(`/api/members/me`, {
+        const meResult = await axios.get(`/api/members/me`, {
             headers: {
                 Authentication: cookieUtil.get('accessToken')
             }
         })
-    } catch(error) {
-        try {
-            const accessToken = axios.get(`/api/members/regenAccessToken?refreshToken=${cookieUtil.get('refreshToken')}`)
-            console.log(accessToken)
-            cookieUtil.setWithMaxAge('accessToken', accessToken, 60 * 30)
-        } catch(error) {
-            routers.replace({ path: '/member/login'})
+        if(meResult.data.member === '') {
+            try {
+                const { data } = await axios.get(`/api/members/regenAccessToken?refreshToken=${cookieUtil.get('refreshToken')}`)
+                cookieUtil.setWithMaxAge('accessToken', data, 60 * 30)
+            } catch(error) {
+                routers.replace({ path: '/member/login'})
+            }
         }
+    } catch(error) {
     }
     try {
         const result = axios.post(url, data)
@@ -48,21 +50,22 @@ const post = (url, data) => {
         alert(error.message)
     }
 }
-const patch = (url, data) => {
+const patch = async (url, data) => {
     try {
-        axios.get(`/api/members/me`, {
+        const meResult = await axios.get(`/api/members/me`, {
             headers: {
                 Authentication: cookieUtil.get('accessToken')
             }
         })
-    } catch(error) {
-        try {
-            const accessToken = axios.get(`/api/members/regenAccessToken?refreshToken=${cookieUtil.get('refreshToken')}`)
-            console.log(accessToken)
-            cookieUtil.setWithMaxAge('accessToken', accessToken, 60 * 30)
-        } catch(error) {
-            routers.replace({ path: '/member/login'})
+        if(meResult.data.member === '') {
+            try {
+                const { data } = await axios.get(`/api/members/regenAccessToken?refreshToken=${cookieUtil.get('refreshToken')}`)
+                cookieUtil.setWithMaxAge('accessToken', data, 60 * 30)
+            } catch(error) {
+                routers.replace({ path: '/member/login'})
+            }
         }
+    } catch(error) {
     }
     try {
         const result = axios.patch(url, data)
@@ -71,21 +74,22 @@ const patch = (url, data) => {
         alert(error.message)
     }
 }
-const put = (url, data) => {
+const put = async (url, data) => {
     try {
-        axios.get(`/api/members/me`, {
+        const meResult = await axios.get(`/api/members/me`, {
             headers: {
                 Authentication: cookieUtil.get('accessToken')
             }
         })
-    } catch(error) {
-        try {
-            const accessToken = axios.get(`/api/members/regenAccessToken?refreshToken=${cookieUtil.get('refreshToken')}`)
-            console.log(accessToken)
-            cookieUtil.setWithMaxAge('accessToken', accessToken, 60 * 30)
-        } catch(error) {
-            routers.replace({ path: '/member/login'})
+        if(meResult.data.member === '') {
+            try {
+                const { data } = await axios.get(`/api/members/regenAccessToken?refreshToken=${cookieUtil.get('refreshToken')}`)
+                cookieUtil.setWithMaxAge('accessToken', data, 60 * 30)
+            } catch(error) {
+                routers.replace({ path: '/member/login'})
+            }
         }
+    } catch(error) {
     }
     try {
         const result = axios.put(url, data)
@@ -94,21 +98,22 @@ const put = (url, data) => {
         alert(error.message)
     }
 }
-const remove = (url, data) => {
+const remove = async (url, data) => {
     try {
-        axios.get(`/api/members/me`, {
+        const meResult = await axios.get(`/api/members/me`, {
             headers: {
                 Authentication: cookieUtil.get('accessToken')
             }
         })
-    } catch(error) {
-        try {
-            const accessToken = axios.get(`/api/members/regenAccessToken?refreshToken=${cookieUtil.get('refreshToken')}`)
-            console.log(accessToken)
-            cookieUtil.setWithMaxAge('accessToken', accessToken, 60 * 30)
-        } catch(error) {
-            routers.replace({ path: '/member/login'})
+        if(meResult.data.member === '') {
+            try {
+                const { data } = await axios.get(`/api/members/regenAccessToken?refreshToken=${cookieUtil.get('refreshToken')}`)
+                cookieUtil.setWithMaxAge('accessToken', data, 60 * 30)
+            } catch(error) {
+                routers.replace({ path: '/member/login'})
+            }
         }
+    } catch(error) {
     }
     try {
         const result = axios.delete(url, data)
