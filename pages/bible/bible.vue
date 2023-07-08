@@ -16,8 +16,8 @@
     </div>
 </template>
 <script setup>
-import axios from 'axios'
 import cookieUtil from '~/composables/cookie';
+import {api} from "~/composables/api";
 
 
 const recentBible = ref(cookieUtil.get('recentBible'))
@@ -54,7 +54,7 @@ const verseClass = (verse) => {
 }
  const findBibleType1 = async () => {
     try {
-        const result = await axios.get(`/api/bibleverse/input?bookName=${bibleSearchInfo.value.bookName}&chapter=${bibleSearchInfo.value.chapter}&verse=${bibleSearchInfo.value.verse}`)
+        const result = await api.get(`/api/bibleverse/input?bookName=${bibleSearchInfo.value.bookName}&chapter=${bibleSearchInfo.value.chapter}&verse=${bibleSearchInfo.value.verse}`)
         bibleInfos.value = result.data
         // router.push({ hash: `#verse_${bibleSearchInfo.value.verse - 1}`, behavior: 'smooth' })
         if (bibleInfos.value.length <= 0) {
@@ -74,7 +74,7 @@ const findVerse = () => {
 }
 const findBibleType2 = async () => {
     try {
-        const result = await axios.get(`/api/bibleverse/select?book=${bibleSearchInfo.value.book}&chapter=${bibleSearchInfo.value.chapter}&verse=${bibleSearchInfo.value.verse}`)
+        const result = await api.get(`/api/bibleverse/select?book=${bibleSearchInfo.value.book}&chapter=${bibleSearchInfo.value.chapter}&verse=${bibleSearchInfo.value.verse}`)
         bibleInfos.value = result.data
         if (bibleInfos.value.length <= 0) {
 

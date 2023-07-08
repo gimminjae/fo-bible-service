@@ -38,8 +38,8 @@
                               <span class="label-text">이메일</span>
                           </label>
                           <label class="input-group">
-                              <input v-model="memberInfo.email" @input="validEmail = false" type="text" placeholder="" class="input input-bordered" />
-                              <span @click="sendEmail">인증코드전송</span>
+                              <input v-model="memberInfo.email" type="text" placeholder="" class="input input-bordered" />
+                              <span @click="sendEmail">코드전송</span>
                           </label>
                       </div>
                       <div v-if="sendEmailYn" class="form-control">
@@ -68,7 +68,7 @@
                           <input v-model="memberInfo.password2" type="password" placeholder="" class="input input-bordered" />
                       </div>
                       <div class="form-control mt-6">
-                          <button class="btn btn-primary" @click="signup" v-bind:disabled="!validEmail && !validNickname && !validUsername">회원가입</button>
+                          <button class="btn btn-primary" @click="signup">회원가입</button> <!-- v-bind:disabled="validTotal" -->
                       </div>
                   </div>
               </div>
@@ -77,7 +77,7 @@
   </div>
 </template>
 <script setup>
-import axios from "axios";
+import {api} from "~/composables/api";
 
 const router = useRouter()
 const memberInfo = ref({
@@ -100,7 +100,7 @@ const validNickname = ref(false)
 const nicknameError = ref('')
 const confirmEmailCode = async () => {
     try {
-        await axios.get(`/api/members/confirmEmailCode?email=${memberInfo.value.email}&authCode=${emailCode.value}`)
+        await api.get(`/api/members/confirmEmailCode?email=${memberInfo.value.email}&authCode=${emailCode.value}`)
         alert('인증되었습니다.')
         validEmail.value = true
     } catch(error) {
@@ -113,7 +113,7 @@ const sendEmail = async () => {
         return
     }
     try {
-        await axios.get(`/api/members/confirmEmail?email=${memberInfo.value.email}`)
+        await api.get(`/api/members/confirmEmail?email=${memberInfo.value.email}`)
         alert('메일이 발송되었습니다')
         sendEmailYn.value = true
     } catch(error) {
@@ -140,7 +140,7 @@ const confirm = async (type) => {
         param = memberInfo.value.nickname
     }
     try {
-        await axios.get(`${url}${path}?${type}=${param}`)
+        await api.get(`${url}${path}?${type}=${param}`)
         if(type === 'username') {
             validUsername.value = true
         } else if(type === 'nickname') {
@@ -165,7 +165,7 @@ const signup = async () => {
         return
     }
     try {
-        const result = await axios.post(`/api/members/signup`, memberInfo.value)
+        const result = await api.post(`/api/members/signup`, memberInfo.value)
         result.value = result
         router.replace({ path: '/member/login' })
     } catch (error) {

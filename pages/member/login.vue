@@ -48,7 +48,7 @@ const loginDto = ref({
 })
 const login = async () => {
     try {
-        const result = await axios.post(`/api/members/login?username=${loginDto.value.username}&password=${loginDto.value.password}`)
+        const result = await api.post(`/api/members/login?username=${loginDto.value.username}&password=${loginDto.value.password}`)
         console.log(result)
         cookieUtil.setWithMaxAge('accessToken', result.data.accessToken, 60 * 30)
         cookieUtil.setWithMaxAge('refreshToken', result.data.refreshToken, 60 * 60 * 24 * 30)
