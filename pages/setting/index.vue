@@ -26,9 +26,9 @@
                 <NuxtLink to="/member/login"><li v-if="!store.$state.member.memId" class="mx-5 my-10">로그인</li></NuxtLink>
                 <li v-if="store.$state.member.memId" class="mx-5 my-10" @click="logout">로그아웃</li>
                 <NuxtLink to="/setting/email" v-if="store.$state.member.memId"><li class="mx-5 my-10">이메일 변경</li></NuxtLink>
-                <li v-if="store.$state.member.memId" class="mx-5 my-10">닉네임 변경</li>
-                <li v-if="store.$state.member.memId" class="mx-5 my-10">비밀번호 변경</li>
-                <li v-if="!store.$state.member.memId" class="mx-5 my-10"><NuxtLink to="/member/signup">회원가입</NuxtLink></li>
+                <NuxtLink to="/setting/nickname"><li v-if="store.$state.member.memId" class="mx-5 my-10">닉네임 변경</li></NuxtLink>
+                <NuxtLink to="/setting/password"><li v-if="store.$state.member.memId" class="mx-5 my-10">비밀번호 변경</li></NuxtLink>
+                <NuxtLink to="/member/signup"><li v-if="!store.$state.member.memId" class="mx-5 my-10">회원가입</li></NuxtLink>
                 <NuxtLink to="/" v-if="store.$state.member.memId"><li class="mx-5 my-10">개발자에게 건의/신고</li></NuxtLink>
             </ul>
         </div>
@@ -40,6 +40,7 @@ import {routers} from "~/composables/router";
 import {api} from "~/composables/api";
 import {useStore} from "~/composables/store";
 
+api.getMe()
 const store = useStore()
 const logout = () => {
     api.remove(`/api/members/logout`)
