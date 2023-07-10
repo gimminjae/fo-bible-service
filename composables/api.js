@@ -17,7 +17,7 @@ const get = async (url) => {
                 const { data } = await axios.get(`/api/members/regenAccessToken?refreshToken=${cookieUtil.get('refreshToken')}`)
                 cookieUtil.setWithMaxAge('accessToken', data, 60 * 30)
             } catch(error) {
-                routers.replace({ path: '/member/login'})
+                // routers.replace({ path: '/member/login'})
             }
             try {
                 const meResult = await axios.get(`/api/members/me`, {

@@ -38,10 +38,12 @@
   </div>
 </template>
 <script setup>
-import axios from "axios";
 import cookieUtil from "~/composables/cookie";
+import {useStore} from "~/composables/store";
+import axios from "axios";
 
 const router = useRouter()
+const store = useStore()
 const loginDto = ref({
     username: '',
     password: ''
@@ -49,9 +51,14 @@ const loginDto = ref({
 const login = async () => {
     try {
         const result = await api.post(`/api/members/login?username=${loginDto.value.username}&password=${loginDto.value.password}`)
-        console.log(result)
         cookieUtil.setWithMaxAge('accessToken', result.data.accessToken, 60 * 30)
         cookieUtil.setWithMaxAge('refreshToken', result.data.refreshToken, 60 * 60 * 24 * 30)
+        const meResult = await axios.get(`/api/members/me`, {
+            headers: {
+                Authentication: cookieUtil.get('accessToken')
+            }
+        })
+        store.setMember(meResult.data.member)
         router.replace({ path: '/' })
     } catch (error) {
         alert('로그인 실패 : 아이디 혹은 비밀번호를 확인하세요')

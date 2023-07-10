@@ -1,58 +1,33 @@
-// import { createStore } from 'vuex'
-//
-// export const store = createStore({
-//     state() {
-//         return {
-//             loggedInMember: {}
-//         }
-//     },
-//     mutations: {
-//         setLoggedInMember(state, member) {
-//             state.loggedInMember = member
-//         },
-//         clearLoggedInMember(state) {
-//             state.loggedInMember = null
-//         }
-//     },
-//     actions: {
-//         login({ commit }, member) {
-//             // Save member to local storage
-//             localStorage.setItem('loggedInMember', JSON.stringify(member))
-//             commit('setLoggedInMember', member)
-//         },
-//         logout({ commit }) {
-//             // Remove member from local storage
-//             localStorage.removeItem('loggedInMember')
-//             commit('clearLoggedInMember')
-//         },
-//         checkLocalStorage({ commit }) {
-//             // Check if member is already logged in from previous session
-//             const loggedInMember = localStorage.getItem('loggedInMember')
-//             if (loggedInMember) {
-//                 commit('setLoggedInMember', JSON.parse(loggedInMember))
-//             }
-//         }
-//     }
-// })
-
-
 import {defineStore} from 'pinia'
 
-export const useStore = defineStore('main', {
+export const useStore = defineStore('member', {
     state: () => ({
         member: {
-
+            memId: '',
+            nickname: '',
+            createDateTime: '',
+            role: ''
         }
     }),
     mutations: {
         setMember(member) {
-            localStorage.setItem('member', JSON.stringify(member))
+            // localStorage.setItem('member', JSON.stringify(member))
         },
     },
     actions: {
         setMember(member) {
-            console.log('setMember')
-            localStorage.setItem('member', JSON.stringify(member))
+            console.log(this.member)
+            // localStorage.setItem('member', JSON.stringify(member))
+            this.member.memId = member.memId
+            this.member.createDateTime = member.createDateTime
+            this.member.nickname = member.nickname
+            this.member.role = member.role
+        },
+        removeMember() {
+            this.member.memId = ''
+            this.member.createDateTime = ''
+            this.member.nickname = ''
+            this.member.role = ''
         },
         login({commit}, member) {
             // Save member to local storage
