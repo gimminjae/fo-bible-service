@@ -13,7 +13,6 @@
 </template>
 <script setup>
 import bibles from '~/bible/objects/bibles';
-
 const bibleSearchInfo = inject('bibleSearchInfo')
 
 const bibleList = bibles.getKoBible()

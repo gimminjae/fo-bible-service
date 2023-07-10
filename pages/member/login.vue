@@ -39,11 +39,10 @@
 </template>
 <script setup>
 import cookieUtil from "~/composables/cookie";
-import {useStore} from "~/composables/store";
 import axios from "axios";
+import router from "~/composables/router";
+import store from "~/composables/store"
 
-const router = useRouter()
-const store = useStore()
 const loginDto = ref({
     username: '',
     password: ''
@@ -59,7 +58,7 @@ const login = async () => {
             }
         })
         store.setMember(meResult.data.member)
-        router.replace({ path: '/' })
+        router.push({ path: '/bible/bible' })
     } catch (error) {
         alert('로그인 실패 : 아이디 혹은 비밀번호를 확인하세요')
     }

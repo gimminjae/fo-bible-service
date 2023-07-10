@@ -6,7 +6,8 @@ export const useStore = defineStore('member', {
             memId: '',
             nickname: '',
             createDateTime: '',
-            role: ''
+            role: '',
+            email: ''
         }
     }),
     mutations: {
@@ -16,27 +17,25 @@ export const useStore = defineStore('member', {
     },
     actions: {
         setMember(member) {
-            console.log(this.member)
             // localStorage.setItem('member', JSON.stringify(member))
             this.member.memId = member.memId
             this.member.createDateTime = member.createDateTime
             this.member.nickname = member.nickname
             this.member.role = member.role
+            this.member.email = member.email
         },
         removeMember() {
             this.member.memId = ''
             this.member.createDateTime = ''
             this.member.nickname = ''
             this.member.role = ''
-        },
-        login({commit}, member) {
-            // Save member to local storage
-            localStorage.setItem('loggedInMember', JSON.stringify(member))
-            commit('setLoggedInMember', member)
+            this.member.email = ''
         },
         logout() {
             // Remove member from local storage
-            localStorage.removeItem('member')
+            // localStorage.removeItem('member')
+            this.removeMember()
+            api.get(`/api/members/me`)
         },
         checkLocalStorage({commit}) {
             // Check if member is already logged in from previous session

@@ -5,7 +5,7 @@
         <div class="" v-if="bibleInfos.length > 0"> <!--style="padding-bottom: 20%; padding-top: 5%;"-->
 <!--            <p class="text-gray-400">{{ bibleInfos[0].bookName }} {{ bibleInfos[0].chapter }}장</p>-->
             <ul>
-                <li v-for="bible in bibleInfos" :class="{'m-2': true, underline: verseClass(bible.verse)}" @click="clickVerse(bible.verse)">
+                <li v-for="bible in bibleInfos" :class="{'text-sky-400': verseCorrect(bible.verse), 'm-2': true, underline: verseClass(bible.verse)}" @click="clickVerse(bible.verse)">
                     <div class="flex" :id="`verse_${bible.verse}`">
                         <p class="mr-2">{{ bible.verse }}</p>
                         <p>{{ bible.content }}</p>
@@ -49,6 +49,9 @@ const clickVerse = (verse) => {
     }
     console.log(clipBoard.value)
 }
+const verseCorrect = (verse) => {
+    return verse.toString() === bibleSearchInfo.value.verse
+}
 const verseClass = (verse) => {
     return clipBoard.value.includes(verse) ? true : false
 }
@@ -65,11 +68,10 @@ const verseClass = (verse) => {
     }
 }
 const findVerse = () => {
-    console.log('findVerse')
-    router.push({ hash: `#verse_${bibleSearchInfo.value.verse}` }).then(() => {
+    router.push({ hash: `#verse_${bibleSearchInfo.value.verse-2}` }).then(() => {
         // Adjust the scroll position after navigation
-        const element = document.querySelector(`#verse_${bibleSearchInfo.value.verse}`);
-        window.scrollTo({ top: -10, behavior: 'smooth' });
+        // const element = document.querySelector(`#verse_${bibleSearchInfo.value.verse}`);
+        // window.scrollTo({ top: -10, behavior: 'smooth' });
     });
 }
 const findBibleType2 = async () => {
