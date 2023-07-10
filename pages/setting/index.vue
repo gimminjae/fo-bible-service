@@ -23,19 +23,20 @@
         </div>
         <div class="">
             <ul>
-                <li v-if="!store.$state.member.memId" class="mx-5 my-10"><NuxtLink to="/member/login">로그인</NuxtLink></li>
+                <NuxtLink to="/member/login"><li v-if="!store.$state.member.memId" class="mx-5 my-10">로그인</li></NuxtLink>
                 <li v-if="store.$state.member.memId" class="mx-5 my-10" @click="logout">로그아웃</li>
-                <li v-if="store.$state.member.memId" class="mx-5 my-10">이메일 변경</li>
+                <NuxtLink to="/setting/email" v-if="store.$state.member.memId"><li class="mx-5 my-10">이메일 변경</li></NuxtLink>
                 <li v-if="store.$state.member.memId" class="mx-5 my-10">닉네임 변경</li>
                 <li v-if="store.$state.member.memId" class="mx-5 my-10">비밀번호 변경</li>
                 <li v-if="!store.$state.member.memId" class="mx-5 my-10"><NuxtLink to="/member/signup">회원가입</NuxtLink></li>
+                <NuxtLink to="/" v-if="store.$state.member.memId"><li class="mx-5 my-10">개발자에게 건의/신고</li></NuxtLink>
             </ul>
         </div>
     </div>
 </template>
 <script setup>
 import cookieUtil from "~/composables/cookie";
-import router from "~/composables/router";
+import {routers} from "~/composables/router";
 import {api} from "~/composables/api";
 import {useStore} from "~/composables/store";
 
@@ -45,6 +46,6 @@ const logout = () => {
     cookieUtil.remove('accessToken')
     cookieUtil.remove('refreshToken')
     store.logout()
-    router.push({ path: '/bible/bible' })
+    routers.push({ path: '/bible/bible' })
 }
 </script>

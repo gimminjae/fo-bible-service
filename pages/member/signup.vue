@@ -78,8 +78,8 @@
 </template>
 <script setup>
 import {api} from "~/composables/api";
+import {routers} from "~/composables/router"
 
-const router = useRouter()
 const memberInfo = ref({
     username: '',
     password: '',
@@ -113,7 +113,7 @@ const sendEmail = async () => {
         return
     }
     try {
-        await api.get(`/api/members/confirmEmail?email=${memberInfo.value.email}`)
+        await api.post(`/api/members/confirmEmail/${memberInfo.value.email}`)
         alert('메일이 발송되었습니다')
         sendEmailYn.value = true
     } catch(error) {
@@ -167,7 +167,7 @@ const signup = async () => {
     try {
         const result = await api.post(`/api/members/signup`, memberInfo.value)
         result.value = result
-        router.replace({ path: '/member/login' })
+        routers.replace({ path: '/member/login' })
     } catch (error) {
         alert(`회원가입 실패: ${error.message}`)
     }

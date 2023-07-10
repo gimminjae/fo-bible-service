@@ -39,26 +39,26 @@
 </template>
 <script setup>
 import cookieUtil from "~/composables/cookie";
-import axios from "axios";
-import router from "~/composables/router";
-import store from "~/composables/store"
+import {routers} from "~/composables/router";
+import {useStore} from "~/composables/store"
 
 const loginDto = ref({
     username: '',
     password: ''
 })
+const store = useStore()
 const login = async () => {
     try {
         const result = await api.post(`/api/members/login?username=${loginDto.value.username}&password=${loginDto.value.password}`)
         cookieUtil.setWithMaxAge('accessToken', result.data.accessToken, 60 * 30)
         cookieUtil.setWithMaxAge('refreshToken', result.data.refreshToken, 60 * 60 * 24 * 30)
-        const meResult = await axios.get(`/api/members/me`, {
+        const meResult = await api.get(`/api/members/me`, {
             headers: {
                 Authentication: cookieUtil.get('accessToken')
             }
         })
         store.setMember(meResult.data.member)
-        router.push({ path: '/bible/bible' })
+        routers.push({ path: '/bible/bible' })
     } catch (error) {
         alert('로그인 실패 : 아이디 혹은 비밀번호를 확인하세요')
     }
