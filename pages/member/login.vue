@@ -12,17 +12,14 @@
                           <label class="label">
                               <span class="label-text">ID</span>
                           </label>
-                          <input type="text" v-model="loginDto.username" placeholder="id" class="input input-bordered" />
+                          <input type="text" v-model="loginDto.email" placeholder="id" class="input input-bordered" />
                       </div>
                       <div class="form-control">
                           <label class="label">
                               <span class="label-text">Password</span>
                           </label>
                           <input type="password" v-model="loginDto.password" placeholder="password" class="input input-bordered" />
-                          <div class="flex justify-between">
-                              <label class="label">
-                                  <a href="#" class="label-text-alt link link-hover">아이디를 잊으셨나요??</a>
-                              </label>
+                          <div class="flex justify-end">
                               <label class="label">
                                   <a href="#" class="label-text-alt link link-hover">비밀번호를 잊으셨나요?</a>
                               </label>
@@ -43,13 +40,13 @@ import {routers} from "~/composables/router";
 import {useStore} from "~/composables/store"
 
 const loginDto = ref({
-    username: '',
+    email: '',
     password: ''
 })
 const store = useStore()
 const login = async () => {
     try {
-        const result = await api.post(`/api/members/login?username=${loginDto.value.username}&password=${loginDto.value.password}`)
+        const result = await api.post(`/api/members/login?email=${loginDto.value.email}&password=${loginDto.value.password}`)
         cookieUtil.setWithMaxAge('accessToken', result.data.accessToken, 60 * 30)
         cookieUtil.setWithMaxAge('refreshToken', result.data.refreshToken, 60 * 60 * 24 * 30)
         const meResult = await api.get(`/api/members/me`, {
