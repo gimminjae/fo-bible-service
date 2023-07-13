@@ -100,11 +100,14 @@ const validNickname = ref(false)
 const nicknameError = ref('')
 const confirmEmailCode = async () => {
     try {
-        await api.get(`/api/members/confirmEmailCode?email=${memberInfo.value.email}&authCode=${emailCode.value}`)
+        await api.post(`/api/members/confirmEmailCode`, {
+            email: memberInfo.value.email,
+            authCode: emailCode.value
+        })
         alert('인증되었습니다.')
         validEmail.value = true
     } catch(error) {
-        alert(error.message)
+        alert(error)
     }
 }
 const sendEmail = async () => {
@@ -129,12 +132,18 @@ const confirm = async (type) => {
             alert('아이디를 입력하세요')
             return
         }
+        if(memberInfo.value.username.length >= 5 && memberInfo.value.username.length <= 10) {
+            alert("아이디는 5 ~ 10자 이어야 합니다.")
+        }
         path = 'confirmUsernameDuplication'
         param = memberInfo.value.username
     } else if(type === 'nickname') {
         if(memberInfo.value.nickname.trim() === '') {
             alert('닉네임를 입력하세요')
             return
+        }
+        if(memberInfo.value.nickname.length >= 5 && memberInfo.value.nickname.length <= 10) {
+            alert("닉네임은 5 ~ 10자 이어야 합니다.")
         }
         path = 'confirmNicknameDuplication'
         param = memberInfo.value.nickname
@@ -169,7 +178,7 @@ const signup = async () => {
         result.value = result
         routers.replace({ path: '/member/login' })
     } catch (error) {
-        alert(`회원가입 실패: ${error.message}`)
+        alert(`회원가입 실패: ${error}`)
     }
 }
 </script>
