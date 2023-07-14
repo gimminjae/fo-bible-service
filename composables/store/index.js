@@ -35,7 +35,6 @@ export const useStore = defineStore('member', {
             // Remove member from local storage
             // localStorage.removeItem('member')
             this.removeMember()
-            api.get(`/api/members/me`)
         },
         checkLocalStorage({commit}) {
             // Check if member is already logged in from previous session
