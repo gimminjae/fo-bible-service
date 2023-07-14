@@ -41,7 +41,7 @@ const clickVerse = (verse) => {
     if(clipBoard.value.includes(verse)) {
         for(let i = 0; i < clipBoard.value.length; i++) {
             if(clipBoard.value[i] === verse) {
-                clipBoard.value.splice(i)
+                clipBoard.value.splice(i, 1)
             }
         }
     } else {
@@ -53,7 +53,7 @@ const verseCorrect = (verse) => {
     return verse.toString() === bibleSearchInfo.value.verse
 }
 const verseClass = (verse) => {
-    return clipBoard.value.includes(verse) ? true : false
+    return clipBoard.value.includes(verse)
 }
  const findBibleType1 = async () => {
     try {
@@ -93,7 +93,7 @@ const findBible = (formType) => {
     }
 }
 const loadRecentBible = () => {
-    if(recentBible.value.length === 0 || recentBible.value == null) {
+    if(recentBible.value.length === 0) {
         recentBible.value = '창세기 1'
     }
     bibleSearchInfo.value.bookName = recentBible.value.split(' ')[0]
