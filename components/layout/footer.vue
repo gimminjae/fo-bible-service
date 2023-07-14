@@ -9,9 +9,9 @@
 <!--        <NuxtLink to="/setting" @click="changeActive('setting')" :class="{'active': active === 'setting' }">-->
 <!--            <i class="fa-solid fa-gear"></i>-->
 <!--        </NuxtLink>-->
-        <button :class="{ 'disabled': !store.$state.member.memId }">
+        <NuxtLink to="/chart" :class="{ 'disabled': !store.$state.member.memId }">
             <i class="fa-solid fa-chart-simple"></i>
-        </button>
+        </NuxtLink>
         <NuxtLink to="/bible/bible">
             <i class="fa-solid fa-book-bible"></i>
         </NuxtLink>
