@@ -9,24 +9,11 @@
                   <div class="card-body">
                       <div class="form-control">
                           <label class="label">
-                              <span class="label-text">아이디</span>
-                          </label>
-                          <label class="input-group">
-                              <input v-model="memberInfo.username" @input="validUsername = false" type="text" placeholder="" class="input input-bordered" />
-                              <span @click="confirm('username')">중복확인</span>
-                          </label>
-                      </div>
-                      <div>
-                          <p v-if="validUsername" class="text-blue-500 text-sm">사용가능합니다.</p>
-                          <p v-else class="text-red-500 text-sm">{{ usernameError }}</p>
-                      </div>
-                      <div class="form-control">
-                          <label class="label">
                               <span class="label-text">닉네임</span>
                           </label>
                           <label class="input-group">
                               <input v-model="memberInfo.nickname" @input="validNickname = false" type="text" placeholder="" class="input input-bordered" />
-                              <span @click="confirm('nickname')">중복확인</span>
+                              <span @click="confirm('nickname')">검증</span>
                           </label>
                       </div>
                       <div>
@@ -81,7 +68,6 @@ import {api} from "~/composables/api";
 import {routers} from "~/composables/router"
 
 const memberInfo = ref({
-    username: '',
     password: '',
     password2: '',
     email: '',
@@ -89,9 +75,6 @@ const memberInfo = ref({
 })
 const emailCode = ref('')
 const sendEmailYn = ref(false)
-
-const validUsername = ref(false)
-const usernameError = ref('')
 
 const validEmail = ref(false)
 const emailError = ref('')
@@ -120,24 +103,14 @@ const sendEmail = async () => {
         alert('메일이 발송되었습니다')
         sendEmailYn.value = true
     } catch(error) {
-        alert(error.message)
+        alert(error)
     }
 }
 const confirm = async (type) => {
     let url = '/api/members/'
     let path = ''
     let param = ''
-    if(type === 'username') {
-        if(memberInfo.value.username.trim() === '') {
-            alert('아이디를 입력하세요')
-            return
-        }
-        if(memberInfo.value.username.length >= 5 && memberInfo.value.username.length <= 10) {
-            alert("아이디는 5 ~ 10자 이어야 합니다.")
-        }
-        path = 'confirmUsernameDuplication'
-        param = memberInfo.value.username
-    } else if(type === 'nickname') {
+    if(type === 'nickname') {
         if(memberInfo.value.nickname.trim() === '') {
             alert('닉네임를 입력하세요')
             return
@@ -150,22 +123,18 @@ const confirm = async (type) => {
     }
     try {
         await api.get(`${url}${path}?${type}=${param}`)
-        if(type === 'username') {
-            validUsername.value = true
-        } else if(type === 'nickname') {
+        if(type === 'nickname') {
             validNickname.value = true
         }
     } catch(error) {
-        if(type === 'username') {
-            usernameError.value = error.message
-        } else if(type === 'nickname') {
-            nicknameError.value = error.message
+        if(type === 'nickname') {
+            nicknameError.value = error
         }
         console.log(error)
     }
 }
 const signup = async () => {
-    if(!validUsername.value || !validNickname.value || !validEmail.value) {
+    if(!validNickname.value || !validEmail.value) {
         alert('요구사항이 모두 충족되지 않았습니다.')
         return
     }

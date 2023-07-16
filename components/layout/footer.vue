@@ -9,9 +9,9 @@
 <!--        <NuxtLink to="/setting" @click="changeActive('setting')" :class="{'active': active === 'setting' }">-->
 <!--            <i class="fa-solid fa-gear"></i>-->
 <!--        </NuxtLink>-->
-        <button disabled>
+        <NuxtLink to="/chart" :class="{ 'disabled': !store.$state.member.memId }">
             <i class="fa-solid fa-chart-simple"></i>
-        </button>
+        </NuxtLink>
         <NuxtLink to="/bible/bible">
             <i class="fa-solid fa-book-bible"></i>
         </NuxtLink>
@@ -21,9 +21,12 @@
     </div>
 </template>
 <script setup>
+import {useStore} from "~/composables/store";
+
 const route = useRoute()
 const active = ref('bible-bible')
 const routeName = ref('')
+const store = useStore()
 routeName.value = route.name;
 const changeActive = (pageType) => {
     active.value = pageType

@@ -5,7 +5,7 @@
         <div class="" v-if="bibleInfos.length > 0"> <!--style="padding-bottom: 20%; padding-top: 5%;"-->
 <!--            <p class="text-gray-400">{{ bibleInfos[0].bookName }} {{ bibleInfos[0].chapter }}장</p>-->
             <ul>
-                <li v-for="bible in bibleInfos" :class="{'text-sky-400': verseCorrect(bible.verse), 'm-2': true, underline: verseClass(bible.verse)}" @click="clickVerse(bible.verse)">
+                <li v-for="bible in bibleInfos" :class="{'text-sky-400': verseCorrect(bible.verse), 'm-2': true, 'underline decoration-dashed': verseClass(bible.verse)}" @click="clickVerse(bible.verse)">
                     <div class="flex" :id="`verse_${bible.verse}`">
                         <p class="mr-2">{{ bible.verse }}</p>
                         <p>{{ bible.content }}</p>
@@ -41,7 +41,7 @@ const clickVerse = (verse) => {
     if(clipBoard.value.includes(verse)) {
         for(let i = 0; i < clipBoard.value.length; i++) {
             if(clipBoard.value[i] === verse) {
-                clipBoard.value.splice(i)
+                clipBoard.value.splice(i, 1)
             }
         }
     } else {
@@ -53,7 +53,7 @@ const verseCorrect = (verse) => {
     return verse.toString() === bibleSearchInfo.value.verse
 }
 const verseClass = (verse) => {
-    return clipBoard.value.includes(verse) ? true : false
+    return clipBoard.value.includes(verse)
 }
  const findBibleType1 = async () => {
     try {
@@ -93,7 +93,7 @@ const findBible = (formType) => {
     }
 }
 const loadRecentBible = () => {
-    if(recentBible.value.length === 0 || recentBible.value == null) {
+    if(recentBible.value.length === 0) {
         recentBible.value = '창세기 1'
     }
     bibleSearchInfo.value.bookName = recentBible.value.split(' ')[0]
