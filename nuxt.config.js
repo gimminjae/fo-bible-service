@@ -1,6 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import { defineNuxtConfig } from 'nuxt/config';
 export default defineNuxtConfig({
+  build: {
+    transpile: ['@vuepic/vue-datepicker']
+  },
   modules: [
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt'

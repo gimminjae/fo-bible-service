@@ -5,18 +5,26 @@
       </div>
       <div class="mx-auto card w-96 bg-neutral text-neutral-content">
           <div class="card-body items-center text-center">
+              <div class="form=control">
+                  <label class="label">
+                      <span class="label-text">읽기표 이름</span>
+                  </label>
+                  <label class="">
+                      <input class="input input-bordered" type="text" v-model="planName" />
+                  </label>
+              </div>
               <div class="form-control">
                   <label class="label">
                       <span class="label-text">시작</span>
                   </label>
                   <label class="">
-                      <input type="text" placeholder="" class="input input-bordered"/>
+                      <VueDatePicker v-model="startDate" inline auto-apply month-name-format="long" />
                   </label>
                   <label class="label">
                       <span class="label-text">종료</span>
                   </label>
                   <label class="">
-                      <input type="text" placeholder="" class="input input-bordered"/>
+                      <VueDatePicker v-model="endDate" inline auto-apply month-name-format="long" />
                   </label>
               </div>
               <div class="form-control">
@@ -53,8 +61,8 @@
                   </div>
               </div>
               <div class="card-actions justify-end">
-                  <button class="btn btn-primary">만들기</button>
-                  <button class="btn btn-ghost">취소</button>
+                  <button class="btn btn-primary" @click="savePlan">만들기</button>
+                  <NuxtLink to="/plan" class="btn btn-ghost">취소</NuxtLink>
               </div>
           </div>
       </div>
@@ -64,5 +72,26 @@
 </template>
 <script setup>
 import { ref } from 'vue'
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
 
+const startDate = ref()
+const endDate = ref()
+const planName = ref('')
+
+const savePlan = async () => {
+    console.log({
+        planName: planName.value,
+        startDate: startDate.value.toString(),
+        endDate: endDate.value.toString(),
+        oldCount: document.getElementById('oldCount').value,
+        newCount: document.getElementById('newCount').value
+    })
+    // await api.post(`/api/plan`, {
+    //     startDate: startDate.value,
+    //     endDate: endDate.value,
+    //     oldCount: document.getElementById('oldCount'),
+    //     newCount: document.getElementById('newCount')
+    // })
+}
 </script>

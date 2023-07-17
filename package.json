@@ -18,6 +18,7 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
     "@pinia/nuxt": "^0.4.11",
+    "@vuepic/vue-datepicker": "^5.4.0",
     "pinia": "^2.1.4",
     "vue-clipboard": "^0.0.1"
   }
