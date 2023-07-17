@@ -33,7 +33,7 @@
                           <span class="label-text">구약</span>
                       </label>
                       <label class="">
-                          <input id="oldCount" type="range" min="1" max="5" value="1" class="range" step="1"/>
+                          <input id="oldGoalCount" type="range" min="1" max="5" value="1" class="range" step="1"/>
                           <div class="w-full flex justify-between text-xs px-2">
                               <span>1</span>
                               <span>2</span>
@@ -49,7 +49,7 @@
                           <span class="label-text">신약</span>
                       </label>
                       <label class="">
-                          <input id="newCount" type="range" min="1" max="5" value="1" class="range" step="1"/>
+                          <input id="newGoalCount" type="range" min="1" max="5" value="1" class="range" step="1"/>
                           <div class="w-full flex justify-between text-xs px-2">
                               <span>1</span>
                               <span>2</span>
@@ -84,14 +84,15 @@ const savePlan = async () => {
         planName: planName.value,
         startDate: startDate.value.toString(),
         endDate: endDate.value.toString(),
-        oldCount: document.getElementById('oldCount').value,
-        newCount: document.getElementById('newCount').value
+        oldGoalCount: document.getElementById('oldGoalCount').value,
+        newGoalCount: document.getElementById('newGoalCount').value
     })
-    // await api.post(`/api/plan`, {
-    //     startDate: startDate.value,
-    //     endDate: endDate.value,
-    //     oldCount: document.getElementById('oldCount'),
-    //     newCount: document.getElementById('newCount')
-    // })
+    await api.post(`/api/plan`, {
+        planName: planName.value,
+        startDate: startDate.value.toString(),
+        endDate: endDate.value.toString(),
+        oldGoalCount: document.getElementById('oldGoalCount').value,
+        newGoalCount: document.getElementById('newGoalCount').value
+    })
 }
 </script>
