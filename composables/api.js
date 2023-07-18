@@ -33,7 +33,11 @@ const getMe = async () => {
 const get = async (url) => {
     getMe()
     try {
-        const result = axios.get(url)
+        const result = axios.get(url, {
+            headers: {
+                Authentication: cookieUtil.get('accessToken')
+            }
+        })
         return result
     } catch (error) {
         alert(error.message)
@@ -42,7 +46,11 @@ const get = async (url) => {
 const post = async (url, data) => {
     getMe()
     try {
-        const result = axios.post(url, data)
+        const result = axios.post(url, data, {
+            headers: {
+                Authentication: cookieUtil.get('accessToken')
+            }
+        })
         return result
     } catch (error) {
         alert(error.message)

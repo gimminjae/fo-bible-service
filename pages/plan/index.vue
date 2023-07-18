@@ -7,8 +7,18 @@
             <NuxtLink class="btn btn-primary btn-sm" to="/plan/new">읽기표 만들기</NuxtLink>
             <!-- Open the modal using ID.showModal() method -->
         </div>
+        <div>
+            {{ planList }}
+        </div>
     </div>
 </template>
 <script setup>
 import {ref} from 'vue'
+
+const planList = ref([])
+const callDatas = async () => {
+    const result = await api.get(`/api/plan`)
+    planList.value = result.data
+}
+callDatas()
 </script>

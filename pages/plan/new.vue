@@ -18,14 +18,18 @@
                       <span class="label-text">시작</span>
                   </label>
                   <label class="">
-                      <VueDatePicker v-model="startDate" inline auto-apply month-name-format="long" />
+                      <VueDatePicker v-model="startDate" inline auto-apply :format="format" :preview-format="format" />
                   </label>
                   <label class="label">
                       <span class="label-text">종료</span>
                   </label>
                   <label class="">
-                      <VueDatePicker v-model="endDate" inline auto-apply month-name-format="long" />
+                      <VueDatePicker v-model="endDate" inline auto-apply :format="format" :preview-format="format" />
                   </label>
+              </div>
+              <div>
+                  {{ startDate }}
+                  {{ endDate }}
               </div>
               <div class="form-control">
                   <div>
@@ -75,10 +79,17 @@ import { ref } from 'vue'
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 
-const startDate = ref()
-const endDate = ref()
+const startDate = ref('')
+const endDate = ref('')
 const planName = ref('')
 
+const format = (date) => {
+    const day = date.getDate()
+    const month = date.getMonth() + 1
+    const year = date.getFullYear()
+
+    return `${year}-${month}-${day}`
+}
 const savePlan = async () => {
     console.log({
         planName: planName.value,
@@ -89,8 +100,8 @@ const savePlan = async () => {
     })
     await api.post(`/api/plan`, {
         planName: planName.value,
-        startDate: startDate.value.toString(),
-        endDate: endDate.value.toString(),
+        startDate: startDate.value,
+        endDate: endDate.value,
         oldGoalCount: document.getElementById('oldGoalCount').value,
         newGoalCount: document.getElementById('newGoalCount').value
     })
