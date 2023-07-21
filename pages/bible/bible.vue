@@ -18,8 +18,7 @@
 <script setup>
 import cookieUtil from '~/composables/cookie';
 import {api} from "~/composables/api";
-import {routers} from "~/composables/router"
-
+import router from "~/composables/router"
 
 const recentBible = ref(cookieUtil.get('recentBible'))
 const bibleSearchInfo = ref({
@@ -68,7 +67,7 @@ const verseClass = (verse) => {
     }
 }
 const findVerse = () => {
-    routers.push({ hash: `#verse_${bibleSearchInfo.value.verse-2}` }).then(() => {
+    router.push({ hash: `#verse_${bibleSearchInfo.value.verse-2}` }).then(() => {
         // Adjust the scroll position after navigation
         // const element = document.querySelector(`#verse_${bibleSearchInfo.value.verse}`);
         // window.scrollTo({ top: -10, behavior: 'smooth' });

@@ -36,7 +36,7 @@
 </template>
 <script setup>
 import cookieUtil from "~/composables/cookie";
-import {routers} from "~/composables/router";
+import router from "~/composables/router";
 import {api} from "~/composables/api";
 import {useStore} from "~/composables/store";
 
@@ -47,6 +47,6 @@ const logout = () => {
     cookieUtil.remove('accessToken')
     cookieUtil.remove('refreshToken')
     store.logout()
-    routers.push({ path: '/bible/bible' })
+    router.push({ path: '/bible/bible' })
 }
 </script>

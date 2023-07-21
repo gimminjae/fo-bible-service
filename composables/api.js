@@ -1,6 +1,6 @@
 import axios from 'axios'
 import cookieUtil from "~/composables/cookie";
-import {routers} from "~/composables/router";
+import router from "~/composables/router";
 import {useStore} from "~/composables/store";
 
 const store = useStore()
@@ -69,7 +69,7 @@ const patch = async (url, data) => {
                 const { data } = await axios.get(`/api/members/regenAccessToken?refreshToken=${cookieUtil.get('refreshToken')}`)
                 cookieUtil.setWithMaxAge('accessToken', data, 60 * 30)
             } catch(error) {
-                routers.replace({ path: '/member/login'})
+                router.replace({ path: '/member/login'})
             }
             try {
                 const meResult = await axios.get(`/api/members/me`, {
@@ -109,7 +109,7 @@ const put = async (url, data) => {
                 const { data } = await axios.get(`/api/members/regenAccessToken?refreshToken=${cookieUtil.get('refreshToken')}`)
                 cookieUtil.setWithMaxAge('accessToken', data, 60 * 30)
             } catch(error) {
-                routers.replace({ path: '/member/login'})
+                router.replace({ path: '/member/login'})
             }
             try {
                 const meResult = await axios.get(`/api/members/me`, {
@@ -149,7 +149,7 @@ const remove = async (url) => {
                 const { data } = await axios.get(`/api/members/regenAccessToken?refreshToken=${cookieUtil.get('refreshToken')}`)
                 cookieUtil.setWithMaxAge('accessToken', data, 60 * 30)
             } catch(error) {
-                routers.replace({ path: '/member/login'})
+                router.replace({ path: '/member/login'})
             }
             try {
                  const meResult = await axios.get(`/api/members/me`, {
