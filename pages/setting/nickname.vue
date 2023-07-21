@@ -10,7 +10,7 @@
                 <div class="form-control">
                     <div class="stat">
                         <div class="stat-title">현재 닉네임</div>
-                        <div class="">{{ store.$state.member.nickname }}</div>
+                        <div class="">{{ store().$state.member.nickname }}</div>
                         <!--                <div class="stat-desc text-secondary">31 tasks remaining</div>-->
                     </div>
                 </div>
@@ -37,9 +37,9 @@
 </div>
 </template>
 <script setup>
-import {useStore} from "~/composables/store";
+import {store} from "~/composables/store";
+import router from "~/composables/router";
 
-const store = useStore()
 const validNickname = ref(false)
 const nickname = ref('')
 const nicknameError = ref('')
@@ -63,7 +63,7 @@ const changeNickname = async () => {
     try {
         await api.patch(`/api/members/nickname/${nickname.value}`)
         alert('닉네임이 변경되었습니다.')
-        routers.replace({ path: '/setting' })
+        router.replace({ path: '/setting' })
     } catch(error) {
         alert(error.message)
     }

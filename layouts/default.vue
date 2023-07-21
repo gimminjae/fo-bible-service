@@ -7,4 +7,7 @@
     </div>
 </template>
 <script setup>
+import {api} from "~/composables/api";
+
+api.getMe()
 </script>

@@ -10,7 +10,7 @@
                         <div class="form-control">
                             <div class="stat">
                                 <div class="stat-title">현재 이메일</div>
-                                <div class="">{{ store.$state.member.email }}</div>
+                                <div class="">{{ store().$state.member.email }}</div>
                                 <!--                <div class="stat-desc text-secondary">31 tasks remaining</div>-->
                             </div>
                         </div>
@@ -39,9 +39,9 @@
     </div>
 </template>
 <script setup>
-import {useStore} from "~/composables/store";
+import {store} from "~/composables/store";
+import router from "~/composables/router";
 
-const store = useStore()
 const sendEmailYn = ref(false)
 const emailCode = ref('')
 const email = ref('')
@@ -70,7 +70,7 @@ const changeEmail = async () => {
         })
         await api.patch(`/api/members/email/${email.value}`)
         alert('이메일이 변경되었습니다.')
-        routers.replace({ path: '/setting' })
+        router.replace({ path: '/setting' })
     } catch(error) {
         alert(error.message)
     }

@@ -1,9 +1,8 @@
 import axios from 'axios'
 import cookieUtil from "~/composables/cookie";
 import router from "~/composables/router";
-import {useStore} from "~/composables/store";
+import {store} from "~/composables/store";
 
-const store = useStore()
 const getMe = async () => {
     const meResult = await axios.get(`/api/members/me`, {
         headers: {
@@ -23,12 +22,12 @@ const getMe = async () => {
                     Authentication: cookieUtil.get('accessToken')
                 }
             })
-            store.setMember(meResult.data.member)
+            store().setMember(meResult.data.member)
         } catch(error) {
 
         }
     }
-    store.setMember(meResult.data.member)
+    store().setMember(meResult.data.member)
 }
 const get = async (url) => {
     getMe()
@@ -63,7 +62,7 @@ const patch = async (url, data) => {
                 Authentication: cookieUtil.get('accessToken')
             }
         })
-        store.setMember(meResult.data.member)
+        store().setMember(meResult.data.member)
         if(meResult.data.member === '') {
             try {
                 const { data } = await axios.get(`/api/members/regenAccessToken?refreshToken=${cookieUtil.get('refreshToken')}`)
@@ -77,7 +76,7 @@ const patch = async (url, data) => {
                         Authentication: cookieUtil.get('accessToken')
                     }
                 })
-                store.setMember(meResult.data.member)
+                store().setMember(meResult.data.member)
 
             } catch(error) {
 
@@ -103,7 +102,7 @@ const put = async (url, data) => {
                 Authentication: cookieUtil.get('accessToken')
             }
         })
-        store.setMember(meResult.data.member)
+        store().setMember(meResult.data.member)
         if(meResult.data.member === '') {
             try {
                 const { data } = await axios.get(`/api/members/regenAccessToken?refreshToken=${cookieUtil.get('refreshToken')}`)
@@ -117,7 +116,7 @@ const put = async (url, data) => {
                         Authentication: cookieUtil.get('accessToken')
                     }
                 })
-                store.setMember(meResult.data.member)
+                store().setMember(meResult.data.member)
 
             } catch(error) {
 
@@ -143,7 +142,7 @@ const remove = async (url) => {
                 Authentication: cookieUtil.get('accessToken')
             }
         })
-        store.setMember(meResult.data.member)
+        store().setMember(meResult.data.member)
         if(meResult.data.member === '') {
             try {
                 const { data } = await axios.get(`/api/members/regenAccessToken?refreshToken=${cookieUtil.get('refreshToken')}`)
@@ -157,7 +156,7 @@ const remove = async (url) => {
                         Authentication: cookieUtil.get('accessToken')
                     }
                 })
-                store.setMember(meResult.data.member)
+                store().setMember(meResult.data.member)
 
             } catch(error) {
 

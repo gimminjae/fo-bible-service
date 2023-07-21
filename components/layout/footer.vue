@@ -9,7 +9,7 @@
 <!--        <NuxtLink to="/setting" @click="changeActive('setting')" :class="{'active': active === 'setting' }">-->
 <!--            <i class="fa-solid fa-gear"></i>-->
 <!--        </NuxtLink>-->
-        <NuxtLink to="/plan" :class="{ 'disabled': !store.$state.member.memId }">
+        <NuxtLink to="/plan" :class="{ 'disabled': !store().$state.member.memId }">
             <i class="fa-solid fa-chart-simple"></i>
         </NuxtLink>
         <NuxtLink to="/bible/bible">
@@ -21,7 +21,5 @@
     </div>
 </template>
 <script setup>
-import {useStore} from "~/composables/store";
-
-const store = useStore()
+import {store} from "~/composables/store";
 </script>
