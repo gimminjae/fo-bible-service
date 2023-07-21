@@ -23,12 +23,5 @@
 <script setup>
 import {useStore} from "~/composables/store";
 
-const route = useRoute()
-const active = ref('bible-bible')
-const routeName = ref('')
 const store = useStore()
-routeName.value = route.name;
-const changeActive = (pageType) => {
-    active.value = pageType
-}
 </script>
