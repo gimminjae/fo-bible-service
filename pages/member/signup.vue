@@ -65,7 +65,7 @@
 </template>
 <script setup>
 import {api} from "~/composables/api";
-import {routers} from "~/composables/router"
+import router from "~/composables/router"
 
 const memberInfo = ref({
     password: '',
@@ -145,7 +145,7 @@ const signup = async () => {
     try {
         const result = await api.post(`/api/members/signup`, memberInfo.value)
         result.value = result
-        routers.replace({ path: '/member/login' })
+        router.replace({ path: '/member/login' })
     } catch (error) {
         alert(`회원가입 실패: ${error}`)
     }

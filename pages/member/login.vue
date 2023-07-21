@@ -36,14 +36,14 @@
 </template>
 <script setup>
 import cookieUtil from "~/composables/cookie";
-import {routers} from "~/composables/router";
-import {useStore} from "~/composables/store"
+import router from "~/composables/router";
+import useStore from "~/composables/store"
 
 const loginDto = ref({
     email: '',
     password: ''
 })
-const store = useStore()
+const store = useStore
 const login = async () => {
     try {
         const result = await api.post(`/api/members/login?email=${loginDto.value.email}&password=${loginDto.value.password}`)
@@ -55,7 +55,7 @@ const login = async () => {
             }
         })
         store.setMember(meResult.data.member)
-        routers.push({ path: '/bible/bible' })
+        router.push({ path: '/bible/bible' })
     } catch (error) {
         alert('로그인 실패 : 아이디 혹은 비밀번호를 확인하세요')
     }
