@@ -22,7 +22,7 @@
       <div class="stats stats-vertical lg:stats-horizontal shadow" v-for="status in planInfo.goalStatus">
           <div v-if="tab === 'old' && status.testament" class="stat">{{ status.bookName }}</div>
           <div v-if="tab === 'old' && status.testament" class="stat">
-              <div class="grid grid-cols-10 gap-3">
+              <div class="grid grid-cols-10 gap-x-3 gap-y-1">
                   <div class="indicator" v-for="(verse, index) in status.verseStatus">
                       <!--                  <span class="indicator-item badge badge-xs badge-ghost">{{ verse }}</span>-->
                       <button class="btn btn-xs">{{ index + 1 }}</button>
