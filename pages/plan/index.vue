@@ -27,6 +27,7 @@
 <script setup>
 import {ref} from 'vue'
 import {store} from "~/composables/store";
+import {api} from "~/composables/api";
 
 const planList = ref([])
 const callDatas = async () => {
