@@ -9,7 +9,7 @@
         </div>
         <div class="flex justify-center flex-wrap gap-3 overflow-auto">
             <div class="card w-96 bg-neutral text-neutral-content" v-for="plan in planList">
-                <div class="card-body">
+                <NuxtLink class="card-body" :to="{ path: `/plan/detail`, query: { planId: plan.planId } }">
                     <h2 class="card-title">
                         {{ plan.planName }}
                         <div class="badge badge-secondary">{{ plan.goalPercent }} %</div>
@@ -19,7 +19,7 @@
                         <div class="badge badge-outline">시작일 {{ plan.startDate }}</div>
                         <div class="badge badge-outline">종료일 {{ plan.endDate }}</div>
                     </div>
-                </div>
+                </NuxtLink>
             </div>
         </div>
     </div>

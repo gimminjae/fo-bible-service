@@ -4,6 +4,12 @@ const router = {
     },
     push: (data) => {
         useRouter().push(data)
+    },
+    param: (data) => {
+        return useRouter().getRoutes(data)
+    },
+    getCurrentRoute: () => {
+        return useRouter().currentRoute
     }
 }
 
