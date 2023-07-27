@@ -11,7 +11,7 @@
                         <div class="flex gap-3">
                             <div class="form-control">
                                 <label class="label cursor-pointer">
-                                    <span :class="`badge badge-${mode ? 'primary' : 'ghost'} label-text mr-2`">{{ mode ? '+ 모드' : '- 모드' }}</span>
+                                    <span class="mr-2">{{ mode ? '+ 모드' : '- 모드' }}</span> <!-- :class="`badge badge-${mode ? 'primary' : 'ghost'} label-text mr-2`" -->
                                     <input type="checkbox" class="toggle" checked @change="changeMode"/>
                                 </label>
                             </div>
