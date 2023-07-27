@@ -7,9 +7,9 @@
 </template>
 <script setup>
 const router = useRouter()
-useHead({
-    bodyAttrs: {
-        'data-theme': 'light'
-    }
-})
+// useHead({
+//     bodyAttrs: {
+//         'data-theme': 'light'
+//     }
+// })
 </script>

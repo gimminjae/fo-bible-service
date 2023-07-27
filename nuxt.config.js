@@ -6,8 +6,14 @@ export default defineNuxtConfig({
   },
   modules: [
     '@nuxtjs/tailwindcss',
-    '@pinia/nuxt'
+    '@pinia/nuxt',
+    '@nuxtjs/color-mode'
   ],
+  colorMode: {
+    preference: 'dark', // default theme
+    dataValue: 'theme', // activate data-theme in <html> tag
+    classSuffix: ''
+  },
   devtools: { enabled: true },
   vite: {
     server: {
