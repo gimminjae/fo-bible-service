@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="navbar bg-base-100 flex justify-around sticky top-0">
+        <div class="navbar bg-base-100 flex justify-around sticky top-0 z-10">
             <h1>{{ planInfo.planName }}</h1>
         </div>
         <div class="flex justify-center">
@@ -44,7 +44,7 @@
             <a :class="`tab tab-bordered ${ tab === 'old' ? 'tab-active' : ''}`" @click="changeTab('old')">구약</a>
             <a :class="`tab tab-bordered ${ tab === 'new' ? 'tab-active' : ''}`" @click="changeTab('new')">신약</a>
         </div>
-        <div @click="pickBible(status)" class="stats stats-vertical lg:stats-horizontal shadow"
+        <div @click="pickBible(status)" class="stats stats-vertical lg:stats-horizontal shadow overflow-auto"
              v-for="status in planInfo.goalStatus">
             <div v-if="tab === 'old' && status.testament" class="stat">{{ status.bookName }}</div>
             <div v-if="tab === 'old' && status.testament" class="stat">

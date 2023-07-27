@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="navbar bg-base-100 flex justify-around sticky top-0">
+        <div class="navbar bg-base-100 flex justify-around sticky top-0 z-10">
             <h1>{{ store().$state.member.nickname }}님의 성경읽기표</h1>
         </div>
         <div class="flex justify-end mr-3 mb-3">
