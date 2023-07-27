@@ -1,5 +1,5 @@
 <template>
-  <div data-theme="dark">
+  <div>
     <NuxtLayout>
       <NuxtPage/>
     </NuxtLayout>
@@ -7,4 +7,9 @@
 </template>
 <script setup>
 const router = useRouter()
+useHead({
+    bodyAttrs: {
+        'data-theme': 'light'
+    }
+})
 </script>
