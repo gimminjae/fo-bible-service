@@ -27,10 +27,6 @@
                       <VueDatePicker v-model="endDate" inline auto-apply :format="format" :preview-format="format" />
                   </label>
               </div>
-              <div>
-                  {{ startDate }}
-                  {{ endDate }}
-              </div>
               <div class="form-control">
                   <div>
                       <label class="label">
@@ -98,12 +94,17 @@ const savePlan = async () => {
         oldGoalCount: document.getElementById('oldGoalCount').value,
         newGoalCount: document.getElementById('newGoalCount').value
     })
-    await api.post(`/api/plan`, {
-        planName: planName.value,
-        startDate: startDate.value,
-        endDate: endDate.value,
-        oldGoalCount: document.getElementById('oldGoalCount').value,
-        newGoalCount: document.getElementById('newGoalCount').value
-    })
+    try {
+        await api.post(`/api/plan`, {
+            planName: planName.value,
+            startDate: startDate.value,
+            endDate: endDate.value,
+            oldGoalCount: document.getElementById('oldGoalCount').value,
+            newGoalCount: document.getElementById('newGoalCount').value
+        })
+        router.replace({ path: '/plan'})
+    } catch(error) {
+        console.log(error)
+    }
 }
 </script>
