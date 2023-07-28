@@ -54,7 +54,7 @@
             <div class="flex justify-end mr-3">
                 <div class="flex gap-2">
                     <button class="btn btn-secondary btn-sm">수정</button>
-                    <button class="btn btn-error btn-sm">삭제</button>
+                    <button class="btn btn-error btn-sm" @click="deletePlan">삭제</button>
                 </div>
             </div>
             <div class="flex gap-3 mt-3 justify-center">
@@ -157,6 +157,18 @@ const emptyBible = () => {
 }
 const changeMode = () => {
     mode.value = !mode.value
+}
+const deletePlan = async () => {
+    if(!confirm('삭제되면 복구할 수 없습니다.\n삭제하시겠습니까?')) {
+        return
+    }
+    try {
+        await api.remove(`/api/plan/${planInfo.value.planId}`)
+        alert('삭제되었습니다.')
+        router.replace({ path: '/plan'})
+    } catch(error) {
+        console.log(error)
+    }
 }
 const mode = ref(true)
 getPlan()
