@@ -37,7 +37,7 @@
                         </div>
                     </div>
                     <div class="flex justify-center gap-3">
-                        <button class="btn btn-primary btn-wide" @click="console.log(modifiedBibleDetail.verseStatus)">
+                        <button class="btn btn-primary btn-wide" @click="savePlanStatus(modifiedBibleDetail.verseStatus)">
                             저장
                         </button>
                         <!--                        <button class="btn btn-wide">닫기</button>-->
@@ -133,10 +133,10 @@ planId.value = route.query.planId
 const planInfo = ref({})
 const bibleDetail = ref({})
 const modifiedBibleDetail = ref({})
+const mode = ref(true)
 const getPlan = async () => {
     try {
         const {data} = await api.get(`/api/plan/${planId.value}`)
-        console.log(data)
         planInfo.value = data
     } catch (error) {
         console.log(error)
@@ -146,10 +146,9 @@ const changeTab = (value) => {
     tab.value = value
 }
 const pickBible = (bible) => {
-    console.log(bible)
     bibleDetail.value = bible
     modifiedBibleDetail.value = JSON.parse(JSON.stringify(bible))
-
+    mode.value = true
 }
 const emptyBible = () => {
     bibleDetail.value = {}
@@ -170,12 +169,15 @@ const deletePlan = async () => {
         console.log(error)
     }
 }
+const savePlanStatus = (verseStatus) => {
+    bibleDetail.value.verseStatus = verseStatus
+    modifiedBibleDetail.value = {}
+}
 const plusOrMinus = (index) => {
     if(!mode.value && modifiedBibleDetail.value.verseStatus[index] <= 0) {
         return
     }
     mode.value ? modifiedBibleDetail.value.verseStatus[index]++ : modifiedBibleDetail.value.verseStatus[index]--
 }
-const mode = ref(true)
 getPlan()
 </script>
