@@ -169,9 +169,17 @@ const deletePlan = async () => {
         console.log(error)
     }
 }
-const savePlanStatus = (verseStatus) => {
-    bibleDetail.value.verseStatus = verseStatus
-    modifiedBibleDetail.value = {}
+const savePlanStatus = async (verseStatus) => {
+    try {
+        bibleDetail.value.verseStatus = verseStatus
+        await api.patch(`/api/plan/${planInfo.value.planId}`, planInfo.value)
+        const { data } = await api.get(`/api/plan/${planInfo.value.planId}`)
+        planInfo.value = data
+        modifiedBibleDetail.value = {}
+    } catch(error) {
+        console.log(error)
+        alert('저장 실패: 다시 시도하세요')
+    }
 }
 const plusOrMinus = (index) => {
     if(!mode.value && modifiedBibleDetail.value.verseStatus[index] <= 0) {
