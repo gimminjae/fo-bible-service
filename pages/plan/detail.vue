@@ -29,7 +29,7 @@
                         <div class="grid grid-cols-5 gap-3">
                             <div class="indicator" v-for="(verse, index) in modifiedBibleDetail.verseStatus">
                                 <span class="indicator-item badge badge-xs badge-secondary">{{ verse }}</span>
-                                <button :class="`btn ${verse > 0 ? 'btn-info' : ''}`"
+                                <button :class="`btn ${verse > 0 ? modifiedBibleDetail.testament ? verse >= planInfo.oldGoalCount ? 'btn-success' : 'btn-info' : verse >= planInfo.newGoalCount ? 'btn-success' : 'btn-info' : ''} : ''}`"
                                         @click="plusOrMinus(index)">
                                     {{ index + 1 }}
                                 </button>
@@ -107,7 +107,7 @@
             <div v-if="tab === 'old' && status.testament" class="stat">
                 <div class="grid grid-cols-10 gap-x-3 gap-y-1">
                     <div class="indicator" v-for="(verse, index) in status.verseStatus">
-                        <button :class="`btn btn-xs ${verse > 0 ? 'btn-info' : ''}`">{{ index + 1 }}</button>
+                        <button :class="`btn btn-xs ${verse > 0 ? verse >= planInfo.oldGoalCount ? 'btn-success' : 'btn-info' : ''}`">{{ index + 1 }}</button>
                     </div>
                 </div>
             </div>
@@ -115,7 +115,7 @@
             <div v-if="tab === 'new' && !status.testament" class="stat">
                 <div class="grid grid-cols-10 gap-3">
                     <div class="indicator" v-for="(verse, index) in status.verseStatus">
-                        <button :class="`btn btn-xs ${verse > 0 ? 'btn-info' : ''}`">{{ index + 1 }}</button>
+                        <button :class="`btn btn-xs ${verse > 0 ? verse >= planInfo.newGoalCount ? 'btn-success' : 'btn-info' : ''}`">{{ index + 1 }}</button>
                     </div>
                 </div>
             </div>
