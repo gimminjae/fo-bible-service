@@ -30,7 +30,7 @@
                             <div class="indicator" v-for="(verse, index) in modifiedBibleDetail.verseStatus">
                                 <span class="indicator-item badge badge-xs badge-secondary">{{ verse }}</span>
                                 <button :class="`btn ${verse > 0 ? 'btn-info' : ''}`"
-                                        @click="mode ? modifiedBibleDetail.verseStatus[index]++ : modifiedBibleDetail.verseStatus[index]--">
+                                        @click="plusOrMinus(index)">
                                     {{ index + 1 }}
                                 </button>
                             </div>
@@ -169,6 +169,12 @@ const deletePlan = async () => {
     } catch(error) {
         console.log(error)
     }
+}
+const plusOrMinus = (index) => {
+    if(!mode.value && modifiedBibleDetail.value.verseStatus[index] <= 0) {
+        return
+    }
+    mode.value ? modifiedBibleDetail.value.verseStatus[index]++ : modifiedBibleDetail.value.verseStatus[index]--
 }
 const mode = ref(true)
 getPlan()
