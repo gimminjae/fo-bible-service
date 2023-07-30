@@ -3,5 +3,6 @@
         index.vue
     </div>
 </template>
-<script>
+<script setup>
+router.replace({ path: '/bible/bible'})
 </script>
