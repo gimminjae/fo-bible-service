@@ -18,13 +18,13 @@
                       <span class="label-text">시작</span>
                   </label>
                   <label class="">
-                      <VueDatePicker v-model="startDate" inline auto-apply :format="format" :preview-format="format" />
+                      <VueDatePicker v-model="startDate" auto-apply :format="format" />
                   </label>
                   <label class="label">
                       <span class="label-text">종료</span>
                   </label>
                   <label class="">
-                      <VueDatePicker v-model="endDate" inline auto-apply :format="format" :preview-format="format" />
+                      <VueDatePicker v-model="endDate" auto-apply :format="format" />
                   </label>
               </div>
               <div class="form-control">
@@ -87,13 +87,10 @@ const format = (date) => {
     return `${year}-${month}-${day}`
 }
 const savePlan = async () => {
-    console.log({
-        planName: planName.value,
-        startDate: startDate.value.toString(),
-        endDate: endDate.value.toString(),
-        oldGoalCount: document.getElementById('oldGoalCount').value,
-        newGoalCount: document.getElementById('newGoalCount').value
-    })
+    if(!planName.value || !startDate.value || !endDate.value) {
+        alert("비어있는 항목이 있습니다\n확인하고 다시 시도하세요.")
+        return
+    }
     try {
         await api.post(`/api/plan`, {
             planName: planName.value,
@@ -104,7 +101,7 @@ const savePlan = async () => {
         })
         router.replace({ path: '/plan'})
     } catch(error) {
-        console.log(error)
+        alert(error)
     }
 }
 </script>

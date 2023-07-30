@@ -53,7 +53,7 @@
         <div v-if="tab === 'Main'">
             <div class="flex justify-end mr-3">
                 <div class="flex gap-2">
-                    <button class="btn btn-secondary btn-sm">수정</button>
+                    <NuxtLink :to="{ path: `/plan/modify`, query: { planId: planInfo.planId } }" class="btn btn-secondary btn-sm">수정</NuxtLink>
                     <button class="btn btn-error btn-sm" @click="deletePlan">삭제</button>
                 </div>
             </div>
