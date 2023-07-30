@@ -1,6 +1,6 @@
 <template>
     <div class="">
-        <BibleFormTotal @click-btn="findVerse" class=""/>
+        <BibleFormTotal @click-btn="findVerse" class="" @click-move-chapter="moveChapter" />
 <!--        <button @click="copyVerse">복사</button>-->
         <div class="" v-if="bibleInfos.length > 0"> <!--style="padding-bottom: 20%; padding-top: 5%;"-->
 <!--            <p class="text-gray-400">{{ bibleInfos[0].bookName }} {{ bibleInfos[0].chapter }}장</p>-->
@@ -35,6 +35,15 @@ const clipBoard = ref([])
  */
 const copyVerse = () => {
     this.$copyText('text').then(() => alert('복사'))
+}
+const moveChapter = (mode) => {
+    console.log(mode)
+    if (mode === 'left') {
+        bibleSearchInfo.value.chapter = Number(bibleSearchInfo.value.chapter) - 1
+    } else {
+        bibleSearchInfo.value.chapter = Number(bibleSearchInfo.value.chapter) + 1
+    }
+    findBible('input')
 }
 const clickVerse = (verse) => {
     if(clipBoard.value.includes(verse)) {
@@ -73,23 +82,8 @@ const findVerse = () => {
         // window.scrollTo({ top: -10, behavior: 'smooth' });
     });
 }
-const findBibleType2 = async () => {
-    try {
-        const result = await api.get(`/api/bibleverse/select?book=${bibleSearchInfo.value.book}&chapter=${bibleSearchInfo.value.chapter}&verse=${bibleSearchInfo.value.verse}`)
-        bibleInfos.value = result.data
-        if (bibleInfos.value.length <= 0) {
-
-        }
-    } catch (error) {
-        console.log(error)
-    }
-}
 const findBible = (formType) => {
-    if (formType === 'input') {
-        findBibleType1()
-    } else if (formType === 'select') {
-        findBibleType2
-    }
+    findBibleType1()
 }
 const loadRecentBible = () => {
     if(recentBible.value.length === 0) {
