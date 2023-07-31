@@ -1,6 +1,7 @@
 <template>
     <div class="">
-        <BibleFormTotal @click-btn="findVerse" class="" @click-move-chapter="moveChapter" />
+        <BibleFormTotal @verse-change="findVerse" class="" @click-move-chapter="moveChapter" />
+<!--        <div id="verse_0"></div>-->
 <!--        <button @click="copyVerse">복사</button>-->
         <div class="" v-if="bibleInfos.length > 0"> <!--style="padding-bottom: 20%; padding-top: 5%;"-->
 <!--            <p class="text-gray-400">{{ bibleInfos[0].bookName }} {{ bibleInfos[0].chapter }}장</p>-->
@@ -65,25 +66,27 @@ const verseClass = (verse) => {
 }
  const findBibleType1 = async () => {
     try {
-        const result = await api.get(`/api/bibleverse/input?bookName=${bibleSearchInfo.value.bookName}&chapter=${bibleSearchInfo.value.chapter}&verse=${bibleSearchInfo.value.verse}`)
-        bibleInfos.value = result.data
+        const { data } = await api.get(`/api/bibleverse/input?bookName=${bibleSearchInfo.value.bookName}&chapter=${bibleSearchInfo.value.chapter}&verse=${bibleSearchInfo.value.verse}`)
         // router.push({ hash: `#verse_${bibleSearchInfo.value.verse - 1}`, behavior: 'smooth' })
         if (bibleInfos.value.length <= 0) {
 
         }
+        return data
     } catch (error) {
         console.log(error)
     }
 }
 const findVerse = () => {
-    router.push({ hash: `#verse_${bibleSearchInfo.value.verse-2}` }).then(() => {
+    console.log('find verse')
+    router.push({ hash: `#verse_${bibleSearchInfo.value.verse-2 < 0 ? 1 : bibleSearchInfo.value.verse-2}` }).then(() => {
         // Adjust the scroll position after navigation
         // const element = document.querySelector(`#verse_${bibleSearchInfo.value.verse}`);
         // window.scrollTo({ top: -10, behavior: 'smooth' });
     });
 }
-const findBible = (formType) => {
-    findBibleType1()
+const findBible = async (formType) => {
+    const result = await findBibleType1()
+    bibleInfos.value = result
 }
 const loadRecentBible = () => {
     if(recentBible.value.length === 0) {

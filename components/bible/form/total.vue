@@ -7,8 +7,8 @@
 <!--        </select>-->
 <!--        <BibleFormBibleSearchType1 v-if="formType === 'input'"/>-->
         <div>
-            <BibleFormBibleSearchType2/> <!-- v-if="formType === 'select'" -->
-            <button class="btn btn-sm" @click="clickBtn">확인</button>
+            <BibleFormBibleSearchType2 @verse-change="verseChange"/> <!-- v-if="formType === 'select'" -->
+<!--            <button class="btn btn-sm">확인</button>-->
         </div>
         <div class="flex justify-between gap-3">
             <button class="btn btn-circle btn-sm btn-outline ml-3" @click="clickMoveChapter('left')">
@@ -35,9 +35,9 @@ const options = ref([
         value: 'select',
     }
 ])
-const emits = defineEmits(['clickBtn', 'clickMoveChapter'])
+const emits = defineEmits(['verseChange', 'clickMoveChapter'])
 const formType = ref('input')
-const clickBtn = () => { emits('clickBtn', formType.value) }
+const verseChange = () => { emits('verseChange', formType.value) }
 const clickMoveChapter = (mode) => { emits('clickMoveChapter', mode)}
 let formTypeCookie = cookieUtil.get('formType')
 if(formTypeCookie != null && formTypeCookie.length > 0) {

@@ -9,16 +9,18 @@
             </button>
         </div>
     </NuxtLink>
-    <BasicInputForm v-model="bibleSearchInfo.verse" :placeholder="'절'" style="width: 20%"/>
+    <BasicInputForm v-model="bibleSearchInfo.verse" @input="verseChange" :placeholder="'절'" style="width: 20%"/>
 </template>
 <script setup>
 import bibles from '~/bible/objects/bibles';
 const bibleSearchInfo = inject('bibleSearchInfo')
-
+const emits = defineEmits(['verseChange'])
 const bibleList = bibles.getKoBible()
 bibleList.forEach(bible => {
     bible.text = bible.bookName
     bible.value = bible.bibleIndex
-
 });
+const verseChange = () => {
+    emits('verseChange')
+}
 </script>
