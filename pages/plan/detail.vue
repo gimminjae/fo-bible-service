@@ -66,7 +66,7 @@
                         <div class="stat-title">기간</div>
                         <div class="stat-value text-primary text-lg">{{ planInfo.startDate }}</div>
                         <div class="stat-value text-primary text-lg">~ {{ planInfo.endDate }}</div>
-                        <div class="stat-desc">n일 남았습니다.</div>
+                        <div class="stat-desc">{{ planInfo.restDay }}일 남았습니다.</div>
                     </div>
                 </div>
                 <div class="stats shadow">
@@ -86,7 +86,7 @@
 
                     <div class="stat">
                         <div class="stat-title">진행도</div>
-                        <div class="stat-value text-lg">하루에 n 장씩 읽어야 해요!</div>
+                        <div class="stat-value text-lg">하루에 {{ planInfo.readCountPerDay}} 장씩 읽어야 해요!</div>
 <!--                        <div class="stat-actions">-->
 <!--                            <button class="btn btn-sm btn-success">체크하러 가기</button>-->
 <!--                        </div>-->
