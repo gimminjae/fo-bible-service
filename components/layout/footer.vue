@@ -9,9 +9,9 @@
 <!--        <NuxtLink to="/setting" @click="changeActive('setting')" :class="{'active': active === 'setting' }">-->
 <!--            <i class="fa-solid fa-gear"></i>-->
 <!--        </NuxtLink>-->
-        <NuxtLink to="/plan" :class="{ 'disabled': !store().$state.member.memId }">
+        <div @click="goPlan"> <!-- :class="{ 'disabled': !store().$state.member.memId }" -->
             <i class="fa-solid fa-chart-simple"></i>
-        </NuxtLink>
+        </div>
         <NuxtLink to="/bible/bible">
             <i class="fa-solid fa-book-bible"></i>
         </NuxtLink>
@@ -22,4 +22,13 @@
 </template>
 <script setup>
 import {store} from "~/composables/store";
+
+const goPlan = () => {
+    if(!store().$state.member.memId) {
+        alert('로그인이 필요한 서비스입니다.')
+        router.push({ path: '/member/login' })
+    } else {
+        router.push({ path: '/plan' })
+    }
+}
 </script>
