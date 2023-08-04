@@ -140,6 +140,27 @@ const bibles = {
     },
     getKoBible() {
         return this.bibles_ko
+    },
+    getBibleByBookName(bookName) {
+        let bibleList = this.bibles_ko
+        let returnValue = null
+        bibleList.forEach(bible => {
+            if(bible.bookName === bookName) {
+                returnValue = bible
+            }
+        })
+        return returnValue
+    },
+    getBibleByBookIndex(bookIndex) {
+        bookIndex = Number(bookIndex)
+        let bibleList = this.bibles_ko
+        let returnValue = null
+        bibleList.forEach(bible => {
+            if(bible.bookIndex === bookIndex) {
+                returnValue = bible
+            }
+        })
+        return returnValue
     }
 }
 

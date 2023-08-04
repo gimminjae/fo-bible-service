@@ -20,6 +20,7 @@
 import cookieUtil from '~/composables/cookie';
 import {api} from "~/composables/api";
 import router from "~/composables/router"
+import bibles from "~/bible/objects/bibles";
 
 const recentBible = ref(cookieUtil.get('recentBible'))
 const bibleSearchInfo = ref({
@@ -37,14 +38,29 @@ const clipBoard = ref([])
 const copyVerse = () => {
     this.$copyText('text').then(() => alert('복사'))
 }
-const moveChapter = (mode) => {
-    console.log(mode)
+const moveChapter = async (mode) => {
     if (mode === 'left') {
+        if(bibleSearchInfo.value.bookName === '창세기' && Number(bibleSearchInfo.value.chapter) === 1) return
         bibleSearchInfo.value.chapter = Number(bibleSearchInfo.value.chapter) - 1
     } else {
+        if(bibleSearchInfo.value.bookName === '요한계시록' && Number(bibleSearchInfo.value.chapter) === 22) return
         bibleSearchInfo.value.chapter = Number(bibleSearchInfo.value.chapter) + 1
     }
-    findBible('input')
+    if(Number(bibleSearchInfo.value.chapter) === 0) {
+        let presentBible = bibles.getBibleByBookName(bibleSearchInfo.value.bookName)
+        let bible = bibles.getBibleByBookIndex(presentBible.bookIndex-1)
+        bibleSearchInfo.value.bookName = bible.bookName
+        bibleSearchInfo.value.chapter = bible.chapterCount
+    }
+    try {
+        await findBible()
+    } catch(error) {
+        let presentBible = bibles.getBibleByBookName(bibleSearchInfo.value.bookName)
+        let bible = bibles.getBibleByBookIndex(presentBible.bookIndex+1)
+        bibleSearchInfo.value.bookName = bible.bookName
+        bibleSearchInfo.value.chapter = 1
+        await findBible()
+    }
 }
 const clickVerse = (verse) => {
     if(clipBoard.value.includes(verse)) {
@@ -64,29 +80,19 @@ const verseCorrect = (verse) => {
 const verseClass = (verse) => {
     return clipBoard.value.includes(verse)
 }
- const findBibleType1 = async () => {
-    try {
-        const { data } = await api.get(`/api/bibleverse/input?bookName=${bibleSearchInfo.value.bookName}&chapter=${bibleSearchInfo.value.chapter}&verse=${bibleSearchInfo.value.verse}`)
-        // router.push({ hash: `#verse_${bibleSearchInfo.value.verse - 1}`, behavior: 'smooth' })
-        if (bibleInfos.value.length <= 0) {
-
-        }
-        return data
-    } catch (error) {
-        console.log(error)
-    }
-}
 const findVerse = () => {
-    console.log('find verse')
     router.push({ hash: `#verse_${bibleSearchInfo.value.verse-2 < 0 ? 1 : bibleSearchInfo.value.verse-2}` }).then(() => {
         // Adjust the scroll position after navigation
         // const element = document.querySelector(`#verse_${bibleSearchInfo.value.verse}`);
         // window.scrollTo({ top: -10, behavior: 'smooth' });
     });
 }
-const findBible = async (formType) => {
-    const result = await findBibleType1()
-    bibleInfos.value = result
+const findBible = async () => {
+    cookieUtil.set('recentBible', `${bibleSearchInfo.value.bookName} ${bibleSearchInfo.value.chapter}`)
+    bibleInfos.value = await getBible()
+}
+const getBible = async () => {
+    return (await api.get(`/api/bibleverse/input?bookName=${bibleSearchInfo.value.bookName}&chapter=${bibleSearchInfo.value.chapter}&verse=${bibleSearchInfo.value.verse}`)).data
 }
 const loadRecentBible = () => {
     if(recentBible.value.length === 0) {
@@ -94,7 +100,7 @@ const loadRecentBible = () => {
     }
     bibleSearchInfo.value.bookName = recentBible.value.split(' ')[0]
     bibleSearchInfo.value.chapter = recentBible.value.split(' ')[1]
-    findBible('input')
+    findBible()
 }
 /**
  * method end
