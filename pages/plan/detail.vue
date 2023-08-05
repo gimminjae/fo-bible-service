@@ -37,8 +37,11 @@
                         </div>
                     </div>
                     <div class="flex justify-center gap-3">
-                        <button class="btn btn-primary btn-wide" @click="savePlanStatus(modifiedBibleDetail.verseStatus)">
+                        <button class="btn btn-primary" @click="savePlanStatus(modifiedBibleDetail.verseStatus)">
                             저장
+                        </button>
+                        <button class="btn btn-info" @click="allClick">
+                            모두체크
                         </button>
                         <!--                        <button class="btn btn-wide">닫기</button>-->
                     </div>
@@ -179,6 +182,11 @@ const savePlanStatus = async (verseStatus) => {
     } catch(error) {
         console.log(error)
         alert('저장 실패: 다시 시도하세요')
+    }
+}
+const allClick = () => {
+    for (let i = 0; i < modifiedBibleDetail.value.verseStatus.length; i++) {
+        plusOrMinus(i)
     }
 }
 const plusOrMinus = (index) => {
