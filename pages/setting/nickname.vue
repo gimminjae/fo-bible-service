@@ -19,7 +19,7 @@
                         <span class="label-text">닉네임</span>
                     </label>
                     <label class="input-group">
-                        <input v-model="nickname" @input="validNickname.value = false" type="text" placeholder="" class="input input-bordered" />
+                        <input v-model="nickname" @input="validNickname = false" type="text" placeholder="" class="input input-bordered" />
                         <span @click="checkDuplication">중복확인</span>
                     </label>
                 </div>
@@ -39,33 +39,34 @@
 <script setup>
 import {store} from "~/composables/store";
 import router from "~/composables/router";
+import toastAlert from "~/composables/toast";
 
 const validNickname = ref(false)
 const nickname = ref('')
 const nicknameError = ref('')
 const checkDuplication = async () => {
     if(nickname.value.trim() === '') {
-        alert('닉네임을 입력하세요')
+        toastAlert.warn('닉네임을 입력하세요')
         return
     }
     try {
         await api.get(`/api/members/confirmNicknameDuplication?nickname=${nickname.value}`)
         validNickname.value = true
     } catch(error) {
-        nicknameError.value = error.message
+        nicknameError.value = error.response.data
     }
 }
 const changeNickname = async () => {
     if(validNickname.value === false) {
-        alert('중복확인을 진행해주세요.')
+        toastAlert.info('중복확인을 진행해주세요.')
         return
     }
     try {
         await api.patch(`/api/members/nickname/${nickname.value}`)
-        alert('닉네임이 변경되었습니다.')
+        toastAlert.success('닉네임이 변경되었습니다.')
         router.replace({ path: '/setting' })
     } catch(error) {
-        alert(error.response.data)
+        toastAlert.error(error.response.data)
     }
 }
 </script>
