@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="navbar bg-base-100 flex justify-around sticky top-0 z-10">
-            <h1>{{ store().$state.member.nickname }}님의 성경읽기표</h1>
+            <h1><b>{{ store().$state.member.nickname }}</b>님의 성경읽기표</h1>
         </div>
         <div class="flex justify-end mr-3 mb-3">
             <NuxtLink class="btn btn-primary btn-sm" to="/plan/new">읽기표 만들기</NuxtLink>

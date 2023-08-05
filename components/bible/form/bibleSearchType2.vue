@@ -3,7 +3,7 @@
         <div class="grid grid-flow-col justify-around mx-1 gap-2">
             <button class="btn btn-sm">
                 {{ bibleSearchInfo.bookName }}
-                <div class="badge badge-secondary">
+                <div class="badge badge-secondary ml-2">
                     {{ bibleSearchInfo.chapter }}
                 </div>
             </button>
