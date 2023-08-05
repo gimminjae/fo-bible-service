@@ -128,9 +128,9 @@ const confirm = async (type) => {
         }
     } catch(error) {
         if(type === 'nickname') {
-            nicknameError.value = error
+            nicknameError.value = error.response.data
         }
-        console.log(error)
+        console.log(error.response.data)
     }
 }
 const signup = async () => {
@@ -147,7 +147,7 @@ const signup = async () => {
         result.value = result
         router.replace({ path: '/member/login' })
     } catch (error) {
-        alert(`회원가입 실패: ${error}`)
+        alert(`회원가입 실패: ${error.response.data}`)
     }
 }
 </script>
