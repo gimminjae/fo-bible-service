@@ -24,6 +24,7 @@
 import {store} from "~/composables/store";
 
 const goPlan = () => {
+    api.getMe()
     if(!store().$state.member.memId) {
         alert('로그인이 필요한 서비스입니다.')
         router.push({ path: '/member/login' })
