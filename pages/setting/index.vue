@@ -30,7 +30,7 @@
                 <NuxtLink to="/member/signup">
                     <li v-if="!store().$state.member.memId" class="mx-5 my-10">회원가입</li>
                 </NuxtLink>
-                <NuxtLink to="/" v-if="store().$state.member.memId">
+                <NuxtLink to="/setting/proposal" v-if="store().$state.member.memId">
                     <li class="mx-5 my-10">개발자에게 건의/신고</li>
                 </NuxtLink>
                 <li class="mx-5 my-10">
