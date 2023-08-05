@@ -86,7 +86,7 @@
 
                     <div class="stat">
                         <div class="stat-title">진행도</div>
-                        <div class="stat-value text-lg">하루에 {{ planInfo.readCountPerDay}} 장씩 읽어야 해요!</div>
+                        <div class="stat-value text-lg">하루에 <b class="text-yellow-50">{{ planInfo.readCountPerDay}}</b>장씩 읽으세요!</div>
 <!--                        <div class="stat-actions">-->
 <!--                            <button class="btn btn-sm btn-success">체크하러 가기</button>-->
 <!--                        </div>-->
