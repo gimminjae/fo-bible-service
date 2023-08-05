@@ -99,7 +99,7 @@ const sendEmail = async () => {
         return
     }
     try {
-        await api.post(`/api/members/confirmEmail/${memberInfo.value.email}`)
+        api.post(`/api/members/confirmEmail/${memberInfo.value.email}`)
         alert('메일이 발송되었습니다')
         sendEmailYn.value = true
     } catch(error) {

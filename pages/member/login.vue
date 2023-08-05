@@ -79,7 +79,7 @@ const closeModal = () => {
 }
 const issueTemporaryPw = async (email) => {
     try {
-        await api.post(`/api/members/lost-password/${email}`)
+        api.post(`/api/members/lost-password/${email}`)
         alert('변경된 비밀번호가 이메일로 전송되었습니다.\n로그인 후 비밀번호를 변경해주세요.')
     } catch (error) {
         alert(error.response.data)
