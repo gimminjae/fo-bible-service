@@ -70,7 +70,7 @@ const changePassword = async () => {
         logout()
         router.replace({ path: '/bible/bible' })
     } catch(error) {
-        alert(error.message)
+        alert(error.response.data)
     }
 }
 </script>

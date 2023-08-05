@@ -90,7 +90,7 @@ const confirmEmailCode = async () => {
         alert('인증되었습니다.')
         validEmail.value = true
     } catch(error) {
-        alert(error)
+        alert(error.response.data)
     }
 }
 const sendEmail = async () => {
@@ -103,7 +103,7 @@ const sendEmail = async () => {
         alert('메일이 발송되었습니다')
         sendEmailYn.value = true
     } catch(error) {
-        alert(error)
+        alert(error.response.data)
     }
 }
 const confirm = async (type) => {

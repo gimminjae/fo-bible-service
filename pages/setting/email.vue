@@ -55,7 +55,7 @@ const sendEmail = async () => {
         alert('메일이 전송되었습니다.')
         sendEmailYn.value = true
     } catch(error) {
-        alert(error.message)
+        alert(error.response.data)
     }
 }
 const changeEmail = async () => {
@@ -72,7 +72,7 @@ const changeEmail = async () => {
         alert('이메일이 변경되었습니다.')
         router.replace({ path: '/setting' })
     } catch(error) {
-        alert(error.message)
+        alert(error.response.data)
     }
 }
 </script>

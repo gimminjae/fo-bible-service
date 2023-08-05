@@ -1,5 +1,17 @@
 <template>
   <div>
+      <div v-if="findPwModal" class="fixed bottom-1/2 modal-box z-10 shadow-base-300 card flex justify-center">
+          <div class="card-body items-center text-center whitespace-nowrap">
+<!--              <h2 class="card-title">Cookies!</h2>-->
+              <p>가입된 이메일을 입력하세요.</p>
+              <p>이메일로 새로 발급되는 비밀번호가 전송됩니다.</p>
+              <input type="text" v-model="email" placeholder="email" class="input input-bordered" />
+              <div class="card-actions justify-end">
+                  <button class="btn btn-primary" @click="issueTemporaryPw(email)">비밀번호 발급</button>
+                  <button class="btn btn-ghost btn-outline" @click="closeModal">취소</button>
+              </div>
+          </div>
+      </div>
       <div class="hero min-h-screen bg-base-200">
           <div class="hero-content flex-col lg:flex-row-reverse">
               <div class="text-center lg:text-left">
@@ -21,7 +33,7 @@
                           <input type="password" v-model="loginDto.password" placeholder="password" class="input input-bordered" />
                           <div class="flex justify-end">
                               <label class="label">
-                                  <a href="#" class="label-text-alt link link-hover">비밀번호를 잊으셨나요?</a>
+                                  <button class="label-text-alt link link-hover" @click="findPwModal = true">비밀번호를 잊으셨나요?</button>
                               </label>
                           </div>
                       </div>
@@ -43,6 +55,7 @@ const loginDto = ref({
     email: '',
     password: ''
 })
+const findPwModal = ref(false)
 const login = async () => {
     try {
         const result = await api.post(`/api/members/login?email=${loginDto.value.email}&password=${loginDto.value.password}`)
@@ -57,6 +70,21 @@ const login = async () => {
         router.push({ path: '/bible/bible' })
     } catch (error) {
         alert('로그인 실패 : 아이디 혹은 비밀번호를 확인하세요')
+    }
+}
+const email = ref('')
+const closeModal = () => {
+    findPwModal.value = false
+    email.value = ''
+}
+const issueTemporaryPw = async (email) => {
+    try {
+        await api.post(`/api/members/lost-password/${email}`)
+        alert('변경된 비밀번호가 이메일로 전송되었습니다.\n로그인 후 비밀번호를 변경해주세요.')
+    } catch (error) {
+        alert(error.response.data)
+    } finally {
+        closeModal()
     }
 }
 </script>

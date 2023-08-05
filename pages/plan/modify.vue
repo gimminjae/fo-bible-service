@@ -108,7 +108,7 @@ const updatePlan = async () => {
         await api.put(`/api/plan`, planInfo.value)
         router.replace({ path: '/plan'})
     } catch(error) {
-        alert(error)
+        alert(error.response.data)
     }
 }
 getPlan()

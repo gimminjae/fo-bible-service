@@ -65,7 +65,7 @@ const changeNickname = async () => {
         alert('닉네임이 변경되었습니다.')
         router.replace({ path: '/setting' })
     } catch(error) {
-        alert(error.message)
+        alert(error.response.data)
     }
 }
 </script>

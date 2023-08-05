@@ -39,7 +39,7 @@ const get = async (url) => {
         })
         return result
     } catch (error) {
-        alert(error.message)
+        alert(error.response.data)
     }
 }
 const post = async (url, data) => {
@@ -52,7 +52,7 @@ const post = async (url, data) => {
         })
         return result
     } catch (error) {
-        alert(error.message)
+        alert(error.response.data)
     }
 }
 const patch = async (url, data) => {
@@ -92,7 +92,7 @@ const patch = async (url, data) => {
         })
         return result
     } catch (error) {
-        alert(error.message)
+        alert(error.response.data)
     }
 }
 const put = async (url, data) => {
@@ -132,7 +132,7 @@ const put = async (url, data) => {
         })
         return result
     } catch (error) {
-        alert(error.message)
+        alert(error.response.data)
     }
 }
 const remove = async (url) => {
@@ -172,7 +172,7 @@ const remove = async (url) => {
         })
         return result
     } catch (error) {
-        alert(error.message)
+        alert(error.response.data)
     }
 }
 export const api = {

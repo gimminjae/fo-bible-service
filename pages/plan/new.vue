@@ -101,7 +101,7 @@ const savePlan = async () => {
         })
         router.replace({ path: '/plan'})
     } catch(error) {
-        alert(error)
+        alert(error.response.data)
     }
 }
 </script>
