@@ -1,12 +1,14 @@
 <template>
     <div class="">
-        <BibleFormTotal @verse-change="findVerse" class="" @click-move-chapter="moveChapter" />
-<!--        <div id="verse_0"></div>-->
-<!--        <button @click="copyVerse">복사</button>-->
+        <BibleFormTotal @verse-change="findVerse" class="" @click-move-chapter="moveChapter"/>
+        <!--        <div id="verse_0"></div>-->
+        <!--        <button @click="copyVerse">복사</button>-->
         <div class="" v-if="bibleInfos.length > 0"> <!--style="padding-bottom: 20%; padding-top: 5%;"-->
-<!--            <p class="text-gray-400">{{ bibleInfos[0].bookName }} {{ bibleInfos[0].chapter }}장</p>-->
+            <!--            <p class="text-gray-400">{{ bibleInfos[0].bookName }} {{ bibleInfos[0].chapter }}장</p>-->
             <ul>
-                <li v-for="bible in bibleInfos" :class="{'text-sky-400': verseCorrect(bible.verse), 'm-2': true, 'underline decoration-dashed': verseClass(bible.verse)}" @click="clickVerse(bible.verse)">
+                <li v-for="bible in bibleInfos"
+                    :class="{'text-sky-400': verseCorrect(bible.verse), 'm-2': true, 'underline decoration-dashed': verseClass(bible.verse)}"
+                    @click="clickVerse(bible.verse)">
                     <div class="flex" :id="`verse_${bible.verse}`">
                         <p class="mr-2">{{ bible.verse }}</p>
                         <p>{{ bible.content }}</p>
@@ -21,6 +23,8 @@ import cookieUtil from '~/composables/cookie';
 import {api} from "~/composables/api";
 import router from "~/composables/router"
 import bibles from "~/bible/objects/bibles";
+import toastAlert from "~/composables/toast";
+import routes from "~/composables/route";
 
 const recentBible = ref(cookieUtil.get('recentBible'))
 const bibleSearchInfo = ref({
@@ -32,6 +36,9 @@ const bibleSearchInfo = ref({
 const bibleInfos = ref({})
 const clipBoard = ref([])
 
+onMounted(() => {
+    routes.alertRouteQuery()
+})
 /**
  * method
  */
@@ -40,32 +47,32 @@ const copyVerse = () => {
 }
 const moveChapter = async (mode) => {
     if (mode === 'left') {
-        if(bibleSearchInfo.value.bookName === '창세기' && Number(bibleSearchInfo.value.chapter) === 1) return
+        if (bibleSearchInfo.value.bookName === '창세기' && Number(bibleSearchInfo.value.chapter) === 1) return
         bibleSearchInfo.value.chapter = Number(bibleSearchInfo.value.chapter) - 1
     } else {
-        if(bibleSearchInfo.value.bookName === '요한계시록' && Number(bibleSearchInfo.value.chapter) === 22) return
+        if (bibleSearchInfo.value.bookName === '요한계시록' && Number(bibleSearchInfo.value.chapter) === 22) return
         bibleSearchInfo.value.chapter = Number(bibleSearchInfo.value.chapter) + 1
     }
-    if(Number(bibleSearchInfo.value.chapter) === 0) {
+    if (Number(bibleSearchInfo.value.chapter) === 0) {
         let presentBible = bibles.getBibleByBookName(bibleSearchInfo.value.bookName)
-        let bible = bibles.getBibleByBookIndex(presentBible.bookIndex-1)
+        let bible = bibles.getBibleByBookIndex(presentBible.bookIndex - 1)
         bibleSearchInfo.value.bookName = bible.bookName
         bibleSearchInfo.value.chapter = bible.chapterCount
     }
     try {
         await findBible()
-    } catch(error) {
+    } catch (error) {
         let presentBible = bibles.getBibleByBookName(bibleSearchInfo.value.bookName)
-        let bible = bibles.getBibleByBookIndex(presentBible.bookIndex+1)
+        let bible = bibles.getBibleByBookIndex(presentBible.bookIndex + 1)
         bibleSearchInfo.value.bookName = bible.bookName
         bibleSearchInfo.value.chapter = 1
         await findBible()
     }
 }
 const clickVerse = (verse) => {
-    if(clipBoard.value.includes(verse)) {
-        for(let i = 0; i < clipBoard.value.length; i++) {
-            if(clipBoard.value[i] === verse) {
+    if (clipBoard.value.includes(verse)) {
+        for (let i = 0; i < clipBoard.value.length; i++) {
+            if (clipBoard.value[i] === verse) {
                 clipBoard.value.splice(i, 1)
             }
         }
@@ -81,7 +88,7 @@ const verseClass = (verse) => {
     return clipBoard.value.includes(verse)
 }
 const findVerse = () => {
-    router.push({ hash: `#verse_${bibleSearchInfo.value.verse-2 < 0 ? 1 : bibleSearchInfo.value.verse-2}` }).then(() => {
+    router.push({hash: `#verse_${bibleSearchInfo.value.verse - 2 < 0 ? 1 : bibleSearchInfo.value.verse - 2}`}).then(() => {
         // Adjust the scroll position after navigation
         // const element = document.querySelector(`#verse_${bibleSearchInfo.value.verse}`);
         // window.scrollTo({ top: -10, behavior: 'smooth' });
@@ -95,7 +102,7 @@ const getBible = async () => {
     return (await api.get(`/api/bibleverse/input?bookName=${bibleSearchInfo.value.bookName}&chapter=${bibleSearchInfo.value.chapter}&verse=${bibleSearchInfo.value.verse}`)).data
 }
 const loadRecentBible = () => {
-    if(recentBible.value.length === 0) {
+    if (recentBible.value.length === 0) {
         recentBible.value = '창세기 1'
     }
     bibleSearchInfo.value.bookName = recentBible.value.split(' ')[0]
