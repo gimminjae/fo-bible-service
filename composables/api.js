@@ -2,6 +2,7 @@ import axios from 'axios'
 import cookieUtil from "~/composables/cookie";
 import router from "~/composables/router";
 import {store} from "~/composables/store";
+import toastAlert from "~/composables/toast";
 
 const getMe = async () => {
     const meResult = await axios.get(`/api/members/me`, {
@@ -39,7 +40,7 @@ const get = async (url) => {
         })
         return result
     } catch (error) {
-        alert(error.response.data)
+        toastAlert.error(error.response.data)
     }
 }
 const post = async (url, data) => {
@@ -52,7 +53,7 @@ const post = async (url, data) => {
         })
         return result
     } catch (error) {
-        alert(error.response.data)
+        toastAlert.error(error.response.data)
     }
 }
 const patch = async (url, data) => {
@@ -92,7 +93,7 @@ const patch = async (url, data) => {
         })
         return result
     } catch (error) {
-        alert(error.response.data)
+        toastAlert.error(error.response.data)
     }
 }
 const put = async (url, data) => {
@@ -132,7 +133,7 @@ const put = async (url, data) => {
         })
         return result
     } catch (error) {
-        alert(error.response.data)
+        toastAlert.error(error.response.data)
     }
 }
 const remove = async (url) => {
@@ -172,7 +173,7 @@ const remove = async (url) => {
         })
         return result
     } catch (error) {
-        alert(error.response.data)
+        toastAlert.error(error.response.data)
     }
 }
 export const api = {

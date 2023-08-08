@@ -50,6 +50,7 @@
 import cookieUtil from "~/composables/cookie";
 import router from "~/composables/router";
 import {store} from "~/composables/store"
+import toastAlert from "~/composables/toast";
 
 const loginDto = ref({
     email: '',
@@ -69,7 +70,7 @@ const login = async () => {
         store().setMember(meResult.data.member)
         router.push({ path: '/bible/bible' })
     } catch (error) {
-        alert('로그인 실패 : 아이디 혹은 비밀번호를 확인하세요')
+        toastAlert.error('로그인 실패 : 아이디 혹은 비밀번호를 확인하세요')
     }
 }
 const email = ref('')
@@ -80,9 +81,9 @@ const closeModal = () => {
 const issueTemporaryPw = async (email) => {
     try {
         api.post(`/api/members/lost-password/${email}`)
-        alert('변경된 비밀번호가 이메일로 전송되었습니다.\n로그인 후 비밀번호를 변경해주세요.')
+        toastAlert.info('변경된 비밀번호가 이메일로 전송되었습니다.\n로그인 후 비밀번호를 변경해주세요.')
     } catch (error) {
-        alert(error.response.data)
+        toastAlert.error(error.response.data)
     } finally {
         closeModal()
     }

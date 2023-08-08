@@ -29,13 +29,13 @@
     </div>
 </template>
 <script setup>
+
 const proposal = ref({
     title: '',
     content: ''
 })
 const send = () => {
     api.post(`/api/proposal`, proposal.value)
-    alert('건의 / 신고를 제출했습니다.')
-    router.replace('/bible/bible')
+    router.replace({ path: '/bible/bible', query: { message: '건의 / 신고를 제출했습니다.' } })
 }
 </script>

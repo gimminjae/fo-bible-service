@@ -45,6 +45,7 @@ import {store} from "~/composables/store";
 import {api} from "~/composables/api";
 import cookieUtil from "~/composables/cookie";
 import router from "~/composables/router";
+import toastAlert from "~/composables/toast";
 
 const password = ref({
     oldPassword: '',
@@ -61,16 +62,16 @@ const logout = () => {
 }
 const changePassword = async () => {
     if(!(password.value.newPassword1 === password.value.newPassword2)) {
-        alert('두 개의 새 비밀번호가 일치하지 않습니다.')
+        toastAlert.warn('두 개의 새 비밀번호가 일치하지 않습니다.')
         return
     }
     try {
         await api.patch(`/api/members/password`, password.value)
-        alert('비밀번호가 변경되었습니다.\n다시 로그인 해주세요.')
+        toastAlert.info('비밀번호가 변경되었습니다.\n다시 로그인 해주세요.')
         logout()
         router.replace({ path: '/bible/bible' })
     } catch(error) {
-        alert(error.response.data)
+        toastAlert.error(error.response.data)
     }
 }
 </script>

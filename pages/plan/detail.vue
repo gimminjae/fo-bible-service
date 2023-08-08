@@ -131,6 +131,7 @@
 <script setup>
 import {api} from "~/composables/api";
 import {ref} from "vue";
+import toastAlert from "~/composables/toast";
 
 const tab = ref('Main')
 const planId = ref('')
@@ -169,7 +170,7 @@ const deletePlan = async () => {
     }
     try {
         await api.remove(`/api/plan/${planInfo.value.planId}`)
-        alert('삭제되었습니다.')
+        toastAlert.success('삭제되었습니다.')
         router.replace({ path: '/plan'})
     } catch(error) {
         console.log(error)
@@ -183,8 +184,7 @@ const savePlanStatus = async (verseStatus) => {
         planInfo.value = data
         modifiedBibleDetail.value = {}
     } catch(error) {
-        console.log(error)
-        alert('저장 실패: 다시 시도하세요')
+        toastAlert.error('저장 실패: 다시 시도하세요')
     }
 }
 const allClick = () => {

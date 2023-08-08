@@ -75,6 +75,7 @@ import { ref } from 'vue'
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 import {api} from "~/composables/api";
+import toastAlert from "~/composables/toast";
 
 const planId = ref('')
 const route = useRoute()
@@ -99,7 +100,7 @@ const format = (date) => {
 }
 const updatePlan = async () => {
     if(!planInfo.value.planName || !planInfo.value.startDate || !planInfo.value.endDate || !planInfo.value.oldGoalCount || !planInfo.value.newGoalCount) {
-        alert("비어있는 항목이 있습니다\n확인하고 다시 시도하세요.")
+        toastAlert.warn("비어있는 항목이 있습니다\n확인하고 다시 시도하세요.")
         return
     }
     planInfo.value.oldGoalCount = document.getElementById('oldGoalCount').value
@@ -108,7 +109,7 @@ const updatePlan = async () => {
         await api.put(`/api/plan`, planInfo.value)
         router.replace({ path: '/plan'})
     } catch(error) {
-        alert(error.response.data)
+        toastAlert.error(error.response.data)
     }
 }
 getPlan()

@@ -74,6 +74,7 @@
 import { ref } from 'vue'
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
+import toastAlert from "~/composables/toast";
 
 const startDate = ref('')
 const endDate = ref('')
@@ -88,7 +89,7 @@ const format = (date) => {
 }
 const savePlan = async () => {
     if(!planName.value || !startDate.value || !endDate.value) {
-        alert("비어있는 항목이 있습니다\n확인하고 다시 시도하세요.")
+        toastAlert.warn("비어있는 항목이 있습니다\n확인하고 다시 시도하세요.")
         return
     }
     try {
@@ -101,7 +102,7 @@ const savePlan = async () => {
         })
         router.replace({ path: '/plan'})
     } catch(error) {
-        alert(error.response.data)
+        toastAlert.error(error.response.data)
     }
 }
 </script>

@@ -41,26 +41,27 @@
 <script setup>
 import {store} from "~/composables/store";
 import router from "~/composables/router";
+import toastAlert from "~/composables/toast";
 
 const sendEmailYn = ref(false)
 const emailCode = ref('')
 const email = ref('')
 const sendEmail = async () => {
     if(email.value.trim() === '') {
-        alert('이메일을 입력하세요.')
+        toastAlert.warn('이메일을 입력하세요.')
         return
     }
     try {
         await api.post(`/api/members/confirmEmail/${email.value}`)
-        alert('메일이 전송되었습니다.')
+        toastAlert.success('메일이 전송되었습니다.')
         sendEmailYn.value = true
     } catch(error) {
-        alert(error.response.data)
+        toastAlert.error(error.response.data)
     }
 }
 const changeEmail = async () => {
     if(emailCode.value.trim() === '') {
-        alert('인증코드를 입력하세요.')
+        toastAlert.info('인증코드를 입력하세요.')
         return
     }
     try {
@@ -69,10 +70,10 @@ const changeEmail = async () => {
             authCode: emailCode.value
         })
         await api.patch(`/api/members/email/${email.value}`)
-        alert('이메일이 변경되었습니다.')
+        toastAlert.success('이메일이 변경되었습니다.')
         router.replace({ path: '/setting' })
     } catch(error) {
-        alert(error.response.data)
+        toastAlert.error(error.response.data)
     }
 }
 </script>
