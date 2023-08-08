@@ -69,7 +69,8 @@
                         <div class="stat-title">기간</div>
                         <div class="stat-value text-primary text-lg">{{ planInfo.startDate }}</div>
                         <div class="stat-value text-primary text-lg">~ {{ planInfo.endDate }}</div>
-                        <div class="stat-desc">{{ planInfo.restDay }}일 남았습니다.</div>
+                        <div v-if="planInfo.restDay > 0" class="stat-desc">{{ planInfo.restDay }}일 남았습니다.</div>
+                        <div v-else class="stat-desc">기간이 마감되었습니다.</div>
                     </div>
                 </div>
                 <div class="stats shadow">
@@ -89,7 +90,9 @@
 
                     <div class="stat">
                         <div class="stat-title">진행도</div>
-                        <div class="stat-value text-lg">하루에 <b class="text-yellow-50">{{ planInfo.readCountPerDay}}</b>장씩 읽으세요!</div>
+                        <div v-if="planInfo.restDay > 0 && planInfo.goalPercent < 100" class="stat-value text-lg">하루에 <b class="text-yellow-50">{{ planInfo.readCountPerDay}}</b>장씩 읽으세요!</div>
+                        <div v-if="planInfo.restDay >= 0 && planInfo.goalPercent === 100" class="stat-value text-lg">목표를 모두 달성했어요!^^</div>
+                        <div v-if="planInfo.restDay < 0 && planInfo.goalPercent < 100" class="stat-value text-lg">기간이 마감되었습니다.ㅠㅜ</div>
 <!--                        <div class="stat-actions">-->
 <!--                            <button class="btn btn-sm btn-success">체크하러 가기</button>-->
 <!--                        </div>-->
