@@ -31,7 +31,7 @@
                     <li v-if="!store().$state.member.memId" class="mx-5 my-10">회원가입</li>
                 </NuxtLink>
                 <NuxtLink to="/setting/proposal" v-if="store().$state.member.memId">
-                    <li class="mx-5 my-10">개발자에게 건의/신고</li>
+                    <li class="mx-5 my-10">건의/오류 신고</li>
                 </NuxtLink>
                 <li class="mx-5 my-10">
                     <div class="flex gap-3 justify-between">
