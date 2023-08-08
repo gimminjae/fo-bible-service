@@ -56,8 +56,8 @@
         <div v-if="tab === 'Main'">
             <div class="flex justify-end mr-3">
                 <div class="flex gap-2">
-                    <NuxtLink :to="{ path: `/plan/modify`, query: { planId: planInfo.planId } }" class="btn btn-secondary btn-sm">수정</NuxtLink>
-                    <button class="btn btn-error btn-sm" @click="deletePlan">삭제</button>
+                    <NuxtLink :to="{ path: `/plan/modify`, query: { planId: planInfo.planId } }" class="btn btn-secondary btn-sm"><i class="fa-solid fa-file-pen mr-1"></i>수정</NuxtLink>
+                    <button class="btn btn-error btn-sm" @click="deletePlan"><i class="fa-solid fa-trash-can mr-1"></i>삭제</button>
                 </div>
             </div>
             <div class="flex gap-3 mt-3 justify-center">
@@ -66,7 +66,7 @@
                         <!--                    <div class="stat-figure text-primary">-->
                         <!--                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>-->
                         <!--                    </div>-->
-                        <div class="stat-title">기간</div>
+                        <div class="stat-title"><i class="fa-regular fa-calendar mr-1"></i>기간</div>
                         <div class="stat-value text-primary text-lg">{{ planInfo.startDate }}</div>
                         <div class="stat-value text-primary text-lg">~ {{ planInfo.endDate }}</div>
                         <div v-if="planInfo.restDay > 0" class="stat-desc">{{ planInfo.restDay }}일 남았습니다.</div>
@@ -78,7 +78,7 @@
                         <!--                    <div class="stat-figure text-secondary">-->
                         <!--                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>-->
                         <!--                    </div>-->
-                        <div class="stat-title">목표</div>
+                        <div class="stat-title"><i class="fa-solid fa-bullseye mr-1"></i>목표</div>
                         <div class="stat-value text-secondary text-lg">구약 {{ planInfo.oldGoalCount }}독 신약
                             {{ planInfo.newGoalCount }}독
                         </div>
@@ -89,7 +89,7 @@
                 <div class="stats bg-primary text-primary-content">
 
                     <div class="stat">
-                        <div class="stat-title">진행도</div>
+                        <div class="stat-title"><i class="fa-solid fa-bars-progress mr-1"></i>진행도</div>
                         <div v-if="planInfo.restDay > 0 && planInfo.goalPercent < 100" class="stat-value text-lg">하루에 <b class="text-yellow-50">{{ planInfo.readCountPerDay}}</b>장씩 읽으세요!</div>
                         <div v-if="planInfo.restDay >= 0 && planInfo.goalPercent === 100" class="stat-value text-lg">목표를 모두 달성했어요!^^</div>
                         <div v-if="planInfo.restDay < 0 && planInfo.goalPercent < 100" class="stat-value text-lg">기간이 마감되었습니다.ㅠㅜ</div>
