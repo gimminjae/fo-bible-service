@@ -146,7 +146,7 @@ const getPlan = async () => {
         const {data} = await api.get(`/api/plan/${planId.value}`)
         planInfo.value = data
     } catch (error) {
-        console.log(error)
+        toastAlert.error(error.response.data)
     }
 }
 const changeTab = (value) => {
@@ -170,8 +170,7 @@ const deletePlan = async () => {
     }
     try {
         await api.remove(`/api/plan/${planInfo.value.planId}`)
-        toastAlert.success('삭제되었습니다.')
-        router.replace({ path: '/plan'})
+        router.replace({ path: '/plan', query: { message: '삭제되었습니다.' } })
     } catch(error) {
         console.log(error)
     }

@@ -53,9 +53,13 @@ import cookieUtil from "~/composables/cookie";
 import router from "~/composables/router";
 import {api} from "~/composables/api";
 import {store} from "~/composables/store";
+import routes from "~/composables/route";
 
 api.getMe()
 const logout = () => {
+    if (!confirm('로그아웃 하시겠습니까?')) {
+        return
+    }
     api.remove(`/api/members/logout`)
     cookieUtil.remove('accessToken')
     cookieUtil.remove('refreshToken')
@@ -95,4 +99,7 @@ const themes = [
     'coffee',
     'winter',
 ];
+onMounted(() => {
+    routes.alertRouteQuery()
+})
 </script>

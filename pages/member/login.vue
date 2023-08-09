@@ -49,8 +49,8 @@
 <script setup>
 import cookieUtil from "~/composables/cookie";
 import router from "~/composables/router";
-import {store} from "~/composables/store"
 import toastAlert from "~/composables/toast";
+import routes from "~/composables/route";
 
 const loginDto = ref({
     email: '',
@@ -62,13 +62,8 @@ const login = async () => {
         const result = await api.post(`/api/members/login?email=${loginDto.value.email}&password=${loginDto.value.password}`)
         cookieUtil.setWithMaxAge('accessToken', result.data.accessToken, 60 * 30)
         cookieUtil.setWithMaxAge('refreshToken', result.data.refreshToken, 60 * 60 * 24 * 30)
-        const meResult = await api.get(`/api/members/me`, {
-            headers: {
-                Authentication: cookieUtil.get('accessToken')
-            }
-        })
-        store().setMember(meResult.data.member)
-        router.push({ path: '/bible/bible' })
+        await api.getMe()
+        router.replace({ path: '/bible/bible' })
     } catch (error) {
         toastAlert.error('로그인 실패 : 아이디 혹은 비밀번호를 확인하세요')
     }
@@ -88,4 +83,7 @@ const issueTemporaryPw = async (email) => {
         closeModal()
     }
 }
+onMounted(() => {
+    routes.alertRouteQuery()
+})
 </script>

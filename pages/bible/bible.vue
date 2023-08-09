@@ -23,7 +23,6 @@ import cookieUtil from '~/composables/cookie';
 import {api} from "~/composables/api";
 import router from "~/composables/router"
 import bibles from "~/bible/objects/bibles";
-import toastAlert from "~/composables/toast";
 import routes from "~/composables/route";
 
 const recentBible = ref(cookieUtil.get('recentBible'))

@@ -29,6 +29,7 @@
 import {ref} from 'vue'
 import {store} from "~/composables/store";
 import {api} from "~/composables/api";
+import routes from "~/composables/route";
 
 const planList = ref([])
 const callDatas = async () => {
@@ -36,4 +37,7 @@ const callDatas = async () => {
     planList.value = result.data
 }
 callDatas()
+onMounted(() => {
+    routes.alertRouteQuery()
+})
 </script>

@@ -100,7 +100,7 @@ const savePlan = async () => {
             oldGoalCount: document.getElementById('oldGoalCount').value,
             newGoalCount: document.getElementById('newGoalCount').value
         })
-        router.replace({ path: '/plan'})
+        router.replace({ path: '/plan', query: { message: '읽기표가 생성되었습니다.' } })
     } catch(error) {
         toastAlert.error(error.response.data)
     }

@@ -67,9 +67,8 @@ const changePassword = async () => {
     }
     try {
         await api.patch(`/api/members/password`, password.value)
-        toastAlert.info('비밀번호가 변경되었습니다.\n다시 로그인 해주세요.')
         logout()
-        router.replace({ path: '/bible/bible' })
+        router.replace({ path: '/bible/bible', query: { message: '비밀번호가 변경되었습니다.\n다시 로그인 해주세요.' } })
     } catch(error) {
         toastAlert.error(error.response.data)
     }

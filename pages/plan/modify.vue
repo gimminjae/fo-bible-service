@@ -87,7 +87,7 @@ const getPlan = async () => {
         const {data} = await api.get(`/api/plan/${planId.value}`)
         planInfo.value = data
     } catch (error) {
-        console.log(error)
+        toastAlert.error(error.response.data)
     }
 }
 
@@ -107,7 +107,7 @@ const updatePlan = async () => {
     planInfo.value.newGoalCount = document.getElementById('newGoalCount').value
     try {
         await api.put(`/api/plan`, planInfo.value)
-        router.replace({ path: '/plan'})
+        router.replace({ path: '/plan', query: { message: '수정되었습니다.' } })
     } catch(error) {
         toastAlert.error(error.response.data)
     }

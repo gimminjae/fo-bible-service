@@ -70,8 +70,7 @@ const changeEmail = async () => {
             authCode: emailCode.value
         })
         await api.patch(`/api/members/email/${email.value}`)
-        toastAlert.success('이메일이 변경되었습니다.')
-        router.replace({ path: '/setting' })
+        router.replace({ path: '/setting', query: { message: '이메일이 변경되었습니다.' } })
     } catch(error) {
         toastAlert.error(error.response.data)
     }

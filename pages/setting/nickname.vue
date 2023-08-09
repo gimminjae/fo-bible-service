@@ -63,8 +63,7 @@ const changeNickname = async () => {
     }
     try {
         await api.patch(`/api/members/nickname/${nickname.value}`)
-        toastAlert.success('닉네임이 변경되었습니다.')
-        router.replace({ path: '/setting' })
+        router.replace({ path: '/setting', query: { message: '닉네임이 변경되었습니다.' } })
     } catch(error) {
         toastAlert.error(error.response.data)
     }

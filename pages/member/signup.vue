@@ -151,8 +151,7 @@ const signup = async () => {
     try {
         const result = await api.post(`/api/members/signup`, memberInfo.value)
         result.value = result
-        toastAlert.success('회원가입이 완료되었습니다.')
-        router.replace({ path: '/member/login' })
+        router.replace({ path: '/member/login', query: { message: '회원가입이 완료되었습니다.' } })
     } catch (error) {
         toastAlert.error(`회원가입 실패: ${error.response.data}`)
     }
