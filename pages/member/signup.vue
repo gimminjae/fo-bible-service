@@ -117,7 +117,7 @@ const confirm = async (type) => {
     let param = ''
     if(type === 'nickname') {
         if(memberInfo.value.nickname.trim() === '') {
-            toastAlert.warn('닉네임를 입력하세요')
+            toastAlert.warn('닉네임을 입력하세요')
             return
         }
         if(!(memberInfo.value.nickname.length >= 5 && memberInfo.value.nickname.length <= 10)) {
