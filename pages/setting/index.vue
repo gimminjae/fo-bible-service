@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="navbar bg-base-100 flex justify-around sticky top-0">
+        <div class="navbar bg-base-100 flex justify-around sticky top-0"> <!--bg-primary text-primary-content-->
             <h1>마이페이지</h1>
         </div>
         <div class="stats shadow flex justify-center" v-if="store().$state.member.memId">

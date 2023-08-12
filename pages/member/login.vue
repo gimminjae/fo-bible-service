@@ -51,6 +51,7 @@ import cookieUtil from "~/composables/cookie";
 import router from "~/composables/router";
 import toastAlert from "~/composables/toast";
 import routes from "~/composables/route";
+import {store} from "~/composables/store";
 
 const loginDto = ref({
     email: '',
@@ -85,5 +86,8 @@ const issueTemporaryPw = async (email) => {
 }
 onMounted(() => {
     routes.alertRouteQuery()
+    if (store().$state.member.memId) {
+        router.replace(`/plan`)
+    }
 })
 </script>

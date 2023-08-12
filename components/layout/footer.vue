@@ -23,8 +23,8 @@
 <script setup>
 import {store} from "~/composables/store";
 
-const goPlan = () => {
-    api.getMe()
+const goPlan = async () => {
+    await api.getMe()
     if(!store().$state.member.memId) {
         alert('로그인이 필요한 서비스입니다.')
         router.push({ path: '/member/login' })
