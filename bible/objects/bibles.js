@@ -1,0 +1,167 @@
+const bibles = {
+    bibles_ko: [
+        { bookName: '창세기', bookIndex: 1, totalChapter: 50 },
+        { bookName: '출애굽기', bookIndex: 2, totalChapter: 40 },
+        { bookName: '레위기', bookIndex: 3, totalChapter: 27 },
+        { bookName: '민수기', bookIndex: 4, totalChapter: 36 },
+        { bookName: '신명기', bookIndex: 5, totalChapter: 34 },
+        { bookName: '여호수아', bookIndex: 6, totalChapter: 24 },
+        { bookName: '사사기', bookIndex: 7, totalChapter: 21 },
+        { bookName: '룻기', bookIndex: 8, totalChapter: 4 },
+        { bookName: '사무엘상', bookIndex: 9, totalChapter: 31 },
+        { bookName: '사무엘하', bookIndex: 10, totalChapter: 24 },
+        { bookName: '열왕기상', bookIndex: 11, totalChapter: 22 },
+        { bookName: '열왕기하', bookIndex: 12, totalChapter: 25 },
+        { bookName: '역대상', bookIndex: 13, totalChapter: 29 },
+        { bookName: '역대하', bookIndex: 14, totalChapter: 36 },
+        { bookName: '에스라', bookIndex: 15, totalChapter: 10 },
+        { bookName: '느헤미야', bookIndex: 16, totalChapter: 13 },
+        { bookName: '에스더', bookIndex: 17, totalChapter: 10 },
+        { bookName: '욥기', bookIndex: 18, totalChapter: 42 },
+        { bookName: '시편', bookIndex: 19, totalChapter: 150 },
+        { bookName: '잠언', bookIndex: 20, totalChapter: 31 },
+        { bookName: '전도서', bookIndex: 21, totalChapter: 12 },
+        { bookName: '아가', bookIndex: 22, totalChapter: 8 },
+        { bookName: '이사야', bookIndex: 23, totalChapter: 66 },
+        { bookName: '예레미야', bookIndex: 24, totalChapter: 52 },
+        { bookName: '예레미야애가', bookIndex: 25, totalChapter: 5 },
+        { bookName: '에스겔', bookIndex: 26, totalChapter: 48 },
+        { bookName: '다니엘', bookIndex: 27, totalChapter: 12 },
+        { bookName: '호세아', bookIndex: 28, totalChapter: 14 },
+        { bookName: '요엘', bookIndex: 29, totalChapter: 3 },
+        { bookName: '아모스', bookIndex: 30, totalChapter: 9 },
+        { bookName: '오바댜', bookIndex: 31, totalChapter: 1 },
+        { bookName: '요나', bookIndex: 32, totalChapter: 4 },
+        { bookName: '미가', bookIndex: 33, totalChapter: 7 },
+        { bookName: '나훔', bookIndex: 34, totalChapter: 3 },
+        { bookName: '하박국', bookIndex: 35, totalChapter: 3 },
+        { bookName: '스바냐', bookIndex: 36, totalChapter: 3 },
+        { bookName: '학개', bookIndex: 37, totalChapter: 2 },
+        { bookName: '스가랴', bookIndex: 38, totalChapter: 14 },
+        { bookName: '말라기', bookIndex: 39, totalChapter: 4 },
+        { bookName: '마태복음', bookIndex: 40, totalChapter: 28 },
+        { bookName: '마가복음', bookIndex: 41, totalChapter: 16 },
+        { bookName: '누가복음', bookIndex: 42, totalChapter: 24 },
+        { bookName: '요한복음', bookIndex: 43, totalChapter: 21 },
+        { bookName: '사도행전', bookIndex: 44, totalChapter: 28 },
+        { bookName: '로마서', bookIndex: 45, totalChapter: 16 },
+        { bookName: '고린도전서', bookIndex: 46, totalChapter: 16 },
+        { bookName: '고린도후서', bookIndex: 47, totalChapter: 13 },
+        { bookName: '갈라디아서', bookIndex: 48, totalChapter: 6 },
+        { bookName: '에베소서', bookIndex: 49, totalChapter: 6 },
+        { bookName: '빌립보서', bookIndex: 50, totalChapter: 4 },
+        { bookName: '골로새서', bookIndex: 51, totalChapter: 4 },
+        { bookName: '데살로니가전서', bookIndex: 52, totalChapter: 5 },
+        { bookName: '데살로니가후서', bookIndex: 53, totalChapter: 3 },
+        { bookName: '디모데전서', bookIndex: 54, totalChapter: 6 },
+        { bookName: '디모데후서', bookIndex: 55, totalChapter: 4 },
+        { bookName: '디도서', bookIndex: 56, totalChapter: 3 },
+        { bookName: '빌레몬서', bookIndex: 57, totalChapter: 1 },
+        { bookName: '히브리서', bookIndex: 58, totalChapter: 13 },
+        { bookName: '야고보서', bookIndex: 59, totalChapter: 5 },
+        { bookName: '베드로전서', bookIndex: 60, totalChapter: 5 },
+        { bookName: '베드로후서', bookIndex: 61, totalChapter: 3 },
+        { bookName: '요한1서', bookIndex: 62, totalChapter: 5 },
+        { bookName: '요한2서', bookIndex: 63, totalChapter: 1 },
+        { bookName: '요한3서', bookIndex: 64, totalChapter: 1 },
+        { bookName: '유다서', bookIndex: 65, totalChapter: 1 },
+        { bookName: '요한계시록', bookIndex: 66, totalChapter: 22 }
+    ],
+    bibles_en: [
+        { bookName: 'Genesis', bookIndex: 1, totalChapter: 50 },
+        { bookName: 'Exodus', bookIndex: 2, totalChapter: 40 },
+        { bookName: 'Leviticus', bookIndex: 3, totalChapter: 27 },
+        { bookName: 'Numbers', bookIndex: 4, totalChapter: 36 },
+        { bookName: 'Deuteronomy', bookIndex: 5, totalChapter: 34 },
+        { bookName: 'Joshua', bookIndex: 6, totalChapter: 24 },
+        { bookName: 'Judges', bookIndex: 7, totalChapter: 21 },
+        { bookName: 'Ruth', bookIndex: 8, totalChapter: 4 },
+        { bookName: '1 Samuel', bookIndex: 9, totalChapter: 31 },
+        { bookName: '2 Samuel', bookIndex: 10, totalChapter: 24 },
+        { bookName: '1 Kings', bookIndex: 11, totalChapter: 22 },
+        { bookName: '2 Kings', bookIndex: 12, totalChapter: 25 },
+        { bookName: '1 Chronicles', bookIndex: 13, totalChapter: 29 },
+        { bookName: '2 Chronicles', bookIndex: 14, totalChapter: 36 },
+        { bookName: 'Ezra', bookIndex: 15, totalChapter: 10 },
+        { bookName: 'Nehemiah', bookIndex: 16, totalChapter: 13 },
+        { bookName: 'Esther', bookIndex: 17, totalChapter: 10 },
+        { bookName: 'The Book of Job', bookIndex: 18, totalChapter: 42 },
+        { bookName: 'Psalms', bookIndex: 19, totalChapter: 150 },
+        { bookName: 'Proverbs', bookIndex: 20, totalChapter: 31 },
+        { bookName: 'Ecclesiastes', bookIndex: 21, totalChapter: 12 },
+        { bookName: 'baby', bookIndex: 22, totalChapter: 8 },
+        { bookName: 'Isaiah', bookIndex: 23, totalChapter: 66 },
+        { bookName: 'Jeremiah', bookIndex: 24, totalChapter: 52 },
+        { bookName: 'Lamentations', bookIndex: 25, totalChapter: 5 },
+        { bookName: 'Ezekiel', bookIndex: 26, totalChapter: 48 },
+        { bookName: 'Daniel', bookIndex: 27, totalChapter: 12 },
+        { bookName: 'Hosea', bookIndex: 28, totalChapter: 14 },
+        { bookName: 'Joel', bookIndex: 29, totalChapter: 3 },
+        { bookName: 'Amos', bookIndex: 30, totalChapter: 9 },
+        { bookName: 'Obadiah', bookIndex: 31, totalChapter: 1 },
+        { bookName: 'Jonah', bookIndex: 32, totalChapter: 4 },
+        { bookName: 'Micah', bookIndex: 33, totalChapter: 7 },
+        { bookName: 'Nahum', bookIndex: 34, totalChapter: 3 },
+        { bookName: 'Habakkuk', bookIndex: 35, totalChapter: 3 },
+        { bookName: 'Zephaniah', bookIndex: 36, totalChapter: 3 },
+        { bookName: 'Haggai', bookIndex: 37, totalChapter: 2 },
+        { bookName: 'Zechariah', bookIndex: 38, totalChapter: 14 },
+        { bookName: 'Malachi', bookIndex: 39, totalChapter: 4 },
+        { bookName: 'Matthew', bookIndex: 40, totalChapter: 28 },
+        { bookName: 'Mark', bookIndex: 41, totalChapter: 16 },
+        { bookName: 'Luke', bookIndex: 42, totalChapter: 24 },
+        { bookName: 'Gospel of John', bookIndex: 43, totalChapter: 21 },
+        { bookName: 'Acts', bookIndex: 44, totalChapter: 28 },
+        { bookName: 'Romans', bookIndex: 45, totalChapter: 16 },
+        { bookName: '1 Corinthians', bookIndex: 46, totalChapter: 16 },
+        { bookName: '2 Corinthians', bookIndex: 47, totalChapter: 13 },
+        { bookName: 'Galatians', bookIndex: 48, totalChapter: 6 },
+        { bookName: 'Ephesians', bookIndex: 49, totalChapter: 6 },
+        { bookName: 'Philippians', bookIndex: 50, totalChapter: 4 },
+        { bookName: 'Colossians', bookIndex: 51, totalChapter: 4 },
+        { bookName: '1 Thessalonians', bookIndex: 52, totalChapter: 5 },
+        { bookName: '2 Thessalonians', bookIndex: 53, totalChapter: 3 },
+        { bookName: '1 Timothy', bookIndex: 54, totalChapter: 6 },
+        { bookName: '2 Timothy', bookIndex: 55, totalChapter: 4 },
+        { bookName: 'Titus', bookIndex: 56, totalChapter: 3 },
+        { bookName: 'Philemon', bookIndex: 57, totalChapter: 1 },
+        { bookName: 'Hebrews', bookIndex: 58, totalChapter: 13 },
+        { bookName: 'James', bookIndex: 59, totalChapter: 5 },
+        { bookName: '1 Peter', bookIndex: 60, totalChapter: 5 },
+        { bookName: '2 Peter', bookIndex: 61, totalChapter: 3 },
+        { bookName: '1 John', bookIndex: 62, totalChapter: 5 },
+        { bookName: '2 John', bookIndex: 63, totalChapter: 1 },
+        { bookName: '3 John', bookIndex: 64, totalChapter: 1 },
+        { bookName: 'Jude', bookIndex: 65, totalChapter: 1 },
+        { bookName: 'Revelation', bookIndex: 66, totalChapter: 22 }
+    ],
+    getEnBible() {
+        return this.bibles_en
+    },
+    getKoBible() {
+        return this.bibles_ko
+    },
+    getBibleByBookName(bookName) {
+        let bibleList = this.bibles_ko
+        let returnValue = null
+        bibleList.forEach(bible => {
+            if(bible.bookName === bookName) {
+                returnValue = bible
+            }
+        })
+        return returnValue
+    },
+    getBibleByBookIndex(bookIndex) {
+        bookIndex = Number(bookIndex)
+        let bibleList = this.bibles_ko
+        let returnValue = null
+        bibleList.forEach(bible => {
+            if(bible.bookIndex === bookIndex) {
+                returnValue = bible
+            }
+        })
+        return returnValue
+    }
+}
+
+export default bibles
