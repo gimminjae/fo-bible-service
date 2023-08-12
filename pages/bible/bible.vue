@@ -56,7 +56,7 @@ const moveChapter = async (mode) => {
         let presentBible = bibles.getBibleByBookName(bibleSearchInfo.value.bookName)
         let bible = bibles.getBibleByBookIndex(presentBible.bookIndex - 1)
         bibleSearchInfo.value.bookName = bible.bookName
-        bibleSearchInfo.value.chapter = bible.chapterCount
+        bibleSearchInfo.value.chapter = bible.totalChapter
     }
     try {
         await findBible()

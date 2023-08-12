@@ -19,7 +19,7 @@
                     {{ bible.bookName }}
                 </div>
                 <div class="collapse-content grid grid-cols-5 gap-4">
-                    <button v-for="chapter in bible.chapterCount" class="btn" @click="goBible(bible, chapter)">{{ chapter
+                    <button v-for="chapter in bible.totalChapter" class="btn" @click="goBible(bible, chapter)">{{ chapter
                         }}</button>
                 </div>
             </div>
