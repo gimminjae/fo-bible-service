@@ -1,23 +1,27 @@
 <template>
     <div class="mx-3">
-        <div class="navbar bg-base-100 fixed top-0">
-            <div class="flex-none">
-                <button class="btn btn-square btn-ghost" @click="useRouter().back()">
-                    <i class="fa-solid fa-chevron-left"></i>
-                </button>
-            </div>
-            <div class="flex-1">
-                <a class="btn btn-ghost normal-case text-xl">성경찾기</a>
+        <div class="navbar bg-base-100 fixed top-0 z-10">
+            <div>
+                <div class="flex-none">
+                    <button class="btn btn-square btn-ghost" @click="useRouter().back()">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                </div>
+                <div class="flex-1">
+                    <a class="btn btn-ghost normal-case text-xl">성경찾기</a>
+                </div>
             </div>
         </div>
-        <div v-for="bible in bibleList" tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-200">
-            <input type="checkbox" />
-            <div class="collapse-title text-xl font-medium">
-                {{ bible.bookName }}
-            </div>
-            <div class="collapse-content grid grid-cols-5 gap-4">
-                <button v-for="chapter in bible.chapterCount" class="btn" @click="goBible(bible, chapter)">{{ chapter
-                }}</button>
+        <div class="mt-20">
+            <div v-for="bible in bibleList" class="collapse collapse-arrow border border-base-300 bg-base-200">
+                <input type="checkbox" />
+                <div class="collapse-title text-xl font-medium">
+                    {{ bible.bookName }}
+                </div>
+                <div class="collapse-content grid grid-cols-5 gap-4">
+                    <button v-for="chapter in bible.totalChapter" class="btn" @click="goBible(bible, chapter)">{{ chapter
+                        }}</button>
+                </div>
             </div>
         </div>
     </div>

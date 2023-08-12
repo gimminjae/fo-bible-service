@@ -41,12 +41,12 @@
     </div>
 </template>
 <script setup>
-import {useStore} from "~/composables/store";
+import {store} from "~/composables/store";
 import {api} from "~/composables/api";
 import cookieUtil from "~/composables/cookie";
-import {routers} from "~/composables/router";
+import router from "~/composables/router";
+import toastAlert from "~/composables/toast";
 
-const store = useStore()
 const password = ref({
     oldPassword: '',
     newPassword1: '',
@@ -57,21 +57,20 @@ const logout = () => {
     api.remove(`/api/members/logout`)
     cookieUtil.remove('accessToken')
     cookieUtil.remove('refreshToken')
-    store.logout()
-    routers.push({ path: '/bible/bible' })
+    store().logout()
+    router.push({ path: '/bible/bible' })
 }
 const changePassword = async () => {
     if(!(password.value.newPassword1 === password.value.newPassword2)) {
-        alert('두 개의 새 비밀번호가 일치하지 않습니다.')
+        toastAlert.warn('두 개의 새 비밀번호가 일치하지 않습니다.')
         return
     }
     try {
         await api.patch(`/api/members/password`, password.value)
-        alert('비밀번호가 변경되었습니다.\n다시 로그인 해주세요.')
         logout()
-        routers.replace({ path: '/bible/bible' })
+        router.replace({ path: '/bible/bible', query: { message: '비밀번호가 변경되었습니다.\n다시 로그인 해주세요.' } })
     } catch(error) {
-        alert(error.message)
+        toastAlert.error(error.response.data)
     }
 }
 </script>

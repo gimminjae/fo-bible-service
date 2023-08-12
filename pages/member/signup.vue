@@ -65,7 +65,9 @@
 </template>
 <script setup>
 import {api} from "~/composables/api";
-import {routers} from "~/composables/router"
+import router from "~/composables/router"
+import toastAlert from "~/composables/toast";
+import 'vue3-toastify/dist/index.css';
 
 const memberInfo = ref({
     password: '',
@@ -82,28 +84,31 @@ const emailError = ref('')
 const validNickname = ref(false)
 const nicknameError = ref('')
 const confirmEmailCode = async () => {
+    if (emailCode.value === '') {
+        toastAlert.warn('인증코드를 입력하세요')
+    }
     try {
         await api.post(`/api/members/confirmEmailCode`, {
             email: memberInfo.value.email,
             authCode: emailCode.value
         })
-        alert('인증되었습니다.')
+        toastAlert.info('인증되었습니다.')
         validEmail.value = true
     } catch(error) {
-        alert(error)
+        toastAlert.error(error.response.data)
     }
 }
 const sendEmail = async () => {
     if(memberInfo.value.email.trim() === '') {
-        alert('이메일를 입력하세요')
+        toastAlert.warn('이메일를 입력하세요')
         return
     }
     try {
-        await api.post(`/api/members/confirmEmail/${memberInfo.value.email}`)
-        alert('메일이 발송되었습니다')
+        api.post(`/api/members/confirmEmail/${memberInfo.value.email}`)
+        toastAlert.success('메일이 발송되었습니다')
         sendEmailYn.value = true
     } catch(error) {
-        alert(error)
+        toastAlert.error(error.response.data)
     }
 }
 const confirm = async (type) => {
@@ -112,11 +117,12 @@ const confirm = async (type) => {
     let param = ''
     if(type === 'nickname') {
         if(memberInfo.value.nickname.trim() === '') {
-            alert('닉네임를 입력하세요')
+            toastAlert.warn('닉네임을 입력하세요')
             return
         }
-        if(memberInfo.value.nickname.length >= 5 && memberInfo.value.nickname.length <= 10) {
-            alert("닉네임은 5 ~ 10자 이어야 합니다.")
+        if(!(memberInfo.value.nickname.length >= 5 && memberInfo.value.nickname.length <= 10)) {
+            toastAlert.info("닉네임은 5 ~ 10자 이어야 합니다.")
+            return
         }
         path = 'confirmNicknameDuplication'
         param = memberInfo.value.nickname
@@ -128,26 +134,26 @@ const confirm = async (type) => {
         }
     } catch(error) {
         if(type === 'nickname') {
-            nicknameError.value = error
+            nicknameError.value = error.response.data
         }
-        console.log(error)
+        console.log(error.response.data)
     }
 }
 const signup = async () => {
     if(!validNickname.value || !validEmail.value) {
-        alert('요구사항이 모두 충족되지 않았습니다.')
+        toastAlert.warn('요구사항이 모두 충족되지 않았습니다.')
         return
     }
     if(memberInfo.value.password !== memberInfo.value.password2) {
-        alert('비밀번호가 일치하지 않습니다.')
+        toastAlert.warn('비밀번호가 일치하지 않습니다.')
         return
     }
     try {
         const result = await api.post(`/api/members/signup`, memberInfo.value)
         result.value = result
-        routers.replace({ path: '/member/login' })
+        router.replace({ path: '/member/login', query: { message: '회원가입이 완료되었습니다.' } })
     } catch (error) {
-        alert(`회원가입 실패: ${error}`)
+        toastAlert.error(`회원가입 실패: ${error.response.data}`)
     }
 }
 </script>

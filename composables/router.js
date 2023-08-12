@@ -1,14 +1,16 @@
-
-const router = useRouter()
-
-const replace = (data) => {
-    router.replace(data)
+const router = {
+    replace: (data) => {
+        useRouter().replace(data)
+    },
+    push: (data) => {
+        useRouter().push(data)
+    },
+    param: (data) => {
+        return useRouter().getRoutes(data)
+    },
+    getCurrentRoute: () => {
+        return useRouter().currentRoute
+    }
 }
-const push = (data) => {
-    router.push(data)
-}
 
-export const routers = {
-    replace,
-    push
-}
+export default router

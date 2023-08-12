@@ -10,7 +10,7 @@
                 <div class="form-control">
                     <div class="stat">
                         <div class="stat-title">현재 닉네임</div>
-                        <div class="">{{ store.$state.member.nickname }}</div>
+                        <div class="">{{ store().$state.member.nickname }}</div>
                         <!--                <div class="stat-desc text-secondary">31 tasks remaining</div>-->
                     </div>
                 </div>
@@ -19,7 +19,7 @@
                         <span class="label-text">닉네임</span>
                     </label>
                     <label class="input-group">
-                        <input v-model="nickname" @input="validNickname.value = false" type="text" placeholder="" class="input input-bordered" />
+                        <input v-model="nickname" @input="validNickname = false" type="text" placeholder="" class="input input-bordered" />
                         <span @click="checkDuplication">중복확인</span>
                     </label>
                 </div>
@@ -37,35 +37,35 @@
 </div>
 </template>
 <script setup>
-import {useStore} from "~/composables/store";
+import {store} from "~/composables/store";
+import router from "~/composables/router";
+import toastAlert from "~/composables/toast";
 
-const store = useStore()
 const validNickname = ref(false)
 const nickname = ref('')
 const nicknameError = ref('')
 const checkDuplication = async () => {
     if(nickname.value.trim() === '') {
-        alert('닉네임을 입력하세요')
+        toastAlert.warn('닉네임을 입력하세요')
         return
     }
     try {
         await api.get(`/api/members/confirmNicknameDuplication?nickname=${nickname.value}`)
         validNickname.value = true
     } catch(error) {
-        nicknameError.value = error.message
+        nicknameError.value = error.response.data
     }
 }
 const changeNickname = async () => {
     if(validNickname.value === false) {
-        alert('중복확인을 진행해주세요.')
+        toastAlert.info('중복확인을 진행해주세요.')
         return
     }
     try {
         await api.patch(`/api/members/nickname/${nickname.value}`)
-        alert('닉네임이 변경되었습니다.')
-        routers.replace({ path: '/setting' })
+        router.replace({ path: '/setting', query: { message: '닉네임이 변경되었습니다.' } })
     } catch(error) {
-        alert(error.message)
+        toastAlert.error(error.response.data)
     }
 }
 </script>

@@ -1,9 +1,9 @@
 import axios from 'axios'
 import cookieUtil from "~/composables/cookie";
-import {routers} from "~/composables/router";
-import {useStore} from "~/composables/store";
+import router from "~/composables/router";
+import {store} from "~/composables/store";
+import toastAlert from "~/composables/toast";
 
-const store = useStore()
 const getMe = async () => {
     const meResult = await axios.get(`/api/members/me`, {
         headers: {
@@ -23,29 +23,37 @@ const getMe = async () => {
                     Authentication: cookieUtil.get('accessToken')
                 }
             })
-            store.setMember(meResult.data.member)
+            store().setMember(meResult.data.member)
         } catch(error) {
 
         }
     }
-    store.setMember(meResult.data.member)
+    store().setMember(meResult.data.member)
 }
 const get = async (url) => {
     getMe()
     try {
-        const result = axios.get(url)
+        const result = axios.get(url, {
+            headers: {
+                Authentication: cookieUtil.get('accessToken')
+            }
+        })
         return result
     } catch (error) {
-        alert(error.message)
+        toastAlert.error(error.response.data)
     }
 }
 const post = async (url, data) => {
     getMe()
     try {
-        const result = axios.post(url, data)
+        const result = axios.post(url, data, {
+            headers: {
+                Authentication: cookieUtil.get('accessToken')
+            }
+        })
         return result
     } catch (error) {
-        alert(error.message)
+        toastAlert.error(error.response.data)
     }
 }
 const patch = async (url, data) => {
@@ -55,13 +63,13 @@ const patch = async (url, data) => {
                 Authentication: cookieUtil.get('accessToken')
             }
         })
-        store.setMember(meResult.data.member)
+        store().setMember(meResult.data.member)
         if(meResult.data.member === '') {
             try {
                 const { data } = await axios.get(`/api/members/regenAccessToken?refreshToken=${cookieUtil.get('refreshToken')}`)
                 cookieUtil.setWithMaxAge('accessToken', data, 60 * 30)
             } catch(error) {
-                routers.replace({ path: '/member/login'})
+                router.replace({ path: '/member/login'})
             }
             try {
                 const meResult = await axios.get(`/api/members/me`, {
@@ -69,7 +77,7 @@ const patch = async (url, data) => {
                         Authentication: cookieUtil.get('accessToken')
                     }
                 })
-                store.setMember(meResult.data.member)
+                store().setMember(meResult.data.member)
 
             } catch(error) {
 
@@ -85,7 +93,7 @@ const patch = async (url, data) => {
         })
         return result
     } catch (error) {
-        alert(error.message)
+        toastAlert.error(error.response.data)
     }
 }
 const put = async (url, data) => {
@@ -95,13 +103,13 @@ const put = async (url, data) => {
                 Authentication: cookieUtil.get('accessToken')
             }
         })
-        store.setMember(meResult.data.member)
+        store().setMember(meResult.data.member)
         if(meResult.data.member === '') {
             try {
                 const { data } = await axios.get(`/api/members/regenAccessToken?refreshToken=${cookieUtil.get('refreshToken')}`)
                 cookieUtil.setWithMaxAge('accessToken', data, 60 * 30)
             } catch(error) {
-                routers.replace({ path: '/member/login'})
+                router.replace({ path: '/member/login'})
             }
             try {
                 const meResult = await axios.get(`/api/members/me`, {
@@ -109,7 +117,7 @@ const put = async (url, data) => {
                         Authentication: cookieUtil.get('accessToken')
                     }
                 })
-                store.setMember(meResult.data.member)
+                store().setMember(meResult.data.member)
 
             } catch(error) {
 
@@ -125,7 +133,7 @@ const put = async (url, data) => {
         })
         return result
     } catch (error) {
-        alert(error.message)
+        toastAlert.error(error.response.data)
     }
 }
 const remove = async (url) => {
@@ -135,13 +143,13 @@ const remove = async (url) => {
                 Authentication: cookieUtil.get('accessToken')
             }
         })
-        store.setMember(meResult.data.member)
+        store().setMember(meResult.data.member)
         if(meResult.data.member === '') {
             try {
                 const { data } = await axios.get(`/api/members/regenAccessToken?refreshToken=${cookieUtil.get('refreshToken')}`)
                 cookieUtil.setWithMaxAge('accessToken', data, 60 * 30)
             } catch(error) {
-                routers.replace({ path: '/member/login'})
+                router.replace({ path: '/member/login'})
             }
             try {
                  const meResult = await axios.get(`/api/members/me`, {
@@ -149,7 +157,7 @@ const remove = async (url) => {
                         Authentication: cookieUtil.get('accessToken')
                     }
                 })
-                store.setMember(meResult.data.member)
+                store().setMember(meResult.data.member)
 
             } catch(error) {
 
@@ -165,7 +173,7 @@ const remove = async (url) => {
         })
         return result
     } catch (error) {
-        alert(error.message)
+        toastAlert.error(error.response.data)
     }
 }
 export const api = {

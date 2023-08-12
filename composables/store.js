@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia'
 
-export const useStore = defineStore('member', {
+export const store = defineStore('member', {
     state: () => ({
         member: {
             memId: '',
@@ -35,13 +35,6 @@ export const useStore = defineStore('member', {
             // Remove member from local storage
             // localStorage.removeItem('member')
             this.removeMember()
-        },
-        checkLocalStorage({commit}) {
-            // Check if member is already logged in from previous session
-            const loggedInMember = localStorage.getItem('loggedInMember')
-            if (loggedInMember) {
-                commit('setLoggedInMember', JSON.parse(loggedInMember))
-            }
         }
     },
 })

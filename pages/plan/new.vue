@@ -1,0 +1,108 @@
+<template>
+  <div>
+      <div class="navbar bg-base-100 flex justify-around sticky top-0">
+          <h1>새로운 성경읽기표</h1>
+      </div>
+      <div class="mx-auto card w-96 bg-neutral text-neutral-content">
+          <div class="card-body items-center text-center">
+              <div class="form=control">
+                  <label class="label">
+                      <span class="label-text">읽기표 이름</span>
+                  </label>
+                  <label class="">
+                      <input class="input input-bordered" type="text" v-model="planName" />
+                  </label>
+              </div>
+              <div class="form-control">
+                  <label class="label">
+                      <span class="label-text">시작</span>
+                  </label>
+                  <label class="">
+                      <VueDatePicker v-model="startDate" auto-apply :format="format" />
+                  </label>
+                  <label class="label">
+                      <span class="label-text">종료</span>
+                  </label>
+                  <label class="">
+                      <VueDatePicker v-model="endDate" auto-apply :format="format" />
+                  </label>
+              </div>
+              <div class="form-control">
+                  <div>
+                      <label class="label">
+                          <span class="label-text">구약</span>
+                      </label>
+                      <label class="">
+                          <input id="oldGoalCount" type="range" min="1" max="5" value="1" class="range" step="1"/>
+                          <div class="w-full flex justify-between text-xs px-2">
+                              <span>1</span>
+                              <span>2</span>
+                              <span>3</span>
+                              <span>4</span>
+                              <span>5</span>
+                          </div>
+                      </label>
+
+                  </div>
+                  <div>
+                      <label class="label">
+                          <span class="label-text">신약</span>
+                      </label>
+                      <label class="">
+                          <input id="newGoalCount" type="range" min="1" max="5" value="1" class="range" step="1"/>
+                          <div class="w-full flex justify-between text-xs px-2">
+                              <span>1</span>
+                              <span>2</span>
+                              <span>3</span>
+                              <span>4</span>
+                              <span>5</span>
+                          </div>
+                      </label>
+                  </div>
+              </div>
+              <div class="card-actions justify-end">
+                  <button class="btn btn-primary" @click="savePlan">만들기</button>
+                  <NuxtLink to="/plan" class="btn btn-ghost">취소</NuxtLink>
+              </div>
+          </div>
+      </div>
+      <div class="justify-center">
+      </div>
+  </div>
+</template>
+<script setup>
+import { ref } from 'vue'
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+import toastAlert from "~/composables/toast";
+
+const startDate = ref('')
+const endDate = ref('')
+const planName = ref('')
+
+const format = (date) => {
+    const day = date.getDate()
+    const month = date.getMonth() + 1
+    const year = date.getFullYear()
+
+    return `${year}-${month}-${day}`
+}
+const savePlan = async () => {
+    if(!planName.value || !startDate.value || !endDate.value) {
+        toastAlert.warn("비어있는 항목이 있습니다\n확인하고 다시 시도하세요.")
+        return
+    }
+    try {
+        await api.post(`/api/plan`, {
+            planName: planName.value,
+            startDate: startDate.value,
+            endDate: endDate.value,
+            oldGoalCount: document.getElementById('oldGoalCount').value,
+            newGoalCount: document.getElementById('newGoalCount').value
+        })
+        router.replace({ path: '/plan', query: { message: '읽기표가 생성되었습니다.' } })
+    } catch(error) {
+        toastAlert.error(error.response.data)
+    }
+}
+</script>
