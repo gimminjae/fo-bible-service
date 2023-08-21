@@ -11,24 +11,36 @@
                 <!--                </div>-->
                 <div class="stat-title"><i class="fa-solid fa-at mr-1"></i>{{ store().$state.member.email }}</div>
                 <div class="stat-value text-primary">{{ store().$state.member.nickname }}</div>
-                <div class="stat-desc"><i class="fa-solid fa-calendar mr-1"></i>가입일 : {{ store().$state.member.createDateTime }}</div>
+                <div class="stat-desc"><i class="fa-solid fa-calendar mr-1"></i>가입일 :
+                    {{ store().$state.member.createDateTime }}
+                </div>
             </div>
         </div>
         <div class="">
             <ul>
                 <NuxtLink to="/member/login">
-                    <li v-if="!store().$state.member.memId" class="mx-5 my-10"><i class="fa-solid fa-arrow-right-to-bracket mr-1"></i>로그인</li>
+                    <li v-if="!store().$state.member.memId" class="mx-5 my-10"><i
+                            class="fa-solid fa-arrow-right-to-bracket mr-1"></i>로그인
+                    </li>
                 </NuxtLink>
-                <li v-if="store().$state.member.memId" class="mx-5 my-10" @click="logout"><i class="fa-solid fa-arrow-right-from-bracket mr-1"></i>로그아웃</li>
+                <li v-if="store().$state.member.memId" class="mx-5 my-10" @click="logout"><i
+                        class="fa-solid fa-arrow-right-from-bracket mr-1"></i>로그아웃
+                </li>
                 <!--                <NuxtLink to="/setting/email" v-if="store().$state.member.memId"><li class="mx-5 my-10">이메일 변경</li></NuxtLink>-->
                 <NuxtLink to="/setting/nickname">
-                    <li v-if="store().$state.member.memId" class="mx-5 my-10"><i class="fa-solid fa-user-pen mr-1"></i>닉네임 변경</li>
+                    <li v-if="store().$state.member.memId" class="mx-5 my-10"><i class="fa-solid fa-user-pen mr-1"></i>닉네임
+                        변경
+                    </li>
                 </NuxtLink>
                 <NuxtLink to="/setting/password">
-                    <li v-if="store().$state.member.memId" class="mx-5 my-10"><i class="fa-solid fa-key mr-1"></i>비밀번호 변경</li>
+                    <li v-if="store().$state.member.memId" class="mx-5 my-10"><i class="fa-solid fa-key mr-1"></i>비밀번호
+                        변경
+                    </li>
                 </NuxtLink>
                 <NuxtLink to="/member/signup">
-                    <li v-if="!store().$state.member.memId" class="mx-5 my-10"><i class="fa-solid fa-user-plus mr-1"></i>회원가입</li>
+                    <li v-if="!store().$state.member.memId" class="mx-5 my-10"><i
+                            class="fa-solid fa-user-plus mr-1"></i>회원가입
+                    </li>
                 </NuxtLink>
                 <NuxtLink to="/setting/proposal" v-if="store().$state.member.memId">
                     <li class="mx-5 my-10"><i class="fa-solid fa-circle-exclamation mr-1"></i>건의/오류 신고</li>
@@ -44,6 +56,17 @@
                         </select>
                     </div>
                 </li>
+                <li class="mx-5 my-10">
+                    <div class="flex gap-3 justify-between">
+                        <div class="align-middle">
+                            <h3><i class="fa-solid fa-mobile-screen mr-1"></i>폰트</h3>
+                        </div>
+                        <select class="select select-bordered" v-model="selectedFont" @change="changeFont">
+                            <option disabled selected>Font</option>
+                            <option v-for="font of fonts" :key="font">{{ font }}</option>
+                        </select>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
@@ -54,6 +77,7 @@ import router from "~/composables/router";
 import {api} from "~/composables/api";
 import {store} from "~/composables/store";
 import routes from "~/composables/route";
+import {ref} from "vue";
 
 api.getMe()
 const logout = () => {
@@ -67,6 +91,11 @@ const logout = () => {
     router.push({path: '/bible/bible'})
 }
 const colorMode = useColorMode();
+const selectedFont = ref(cookieUtil.get('font') ? cookieUtil.get('font') : '폰트선택')
+const changeFont = () => {
+    cookieUtil.set('font', selectedFont.value)
+    location.reload()
+}
 const themes = [
     'system',
     'light',
@@ -99,6 +128,11 @@ const themes = [
     'coffee',
     'winter',
 ];
+const fonts = [
+    '폰트 없음',
+    'HakgyoansimWoojuR',
+    'HakgyoansimGaeulsopungB'
+]
 onMounted(() => {
     routes.alertRouteQuery()
 })
