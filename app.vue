@@ -10,9 +10,6 @@ import { ref } from 'vue'
 import cookieUtil from "~/composables/cookie";
 
 const font = ref(cookieUtil.get('font'))
-const reloadFont = () => {
-    font.value = cookieUtil.get('font')
-}
 </script>
 <style>
 @font-face {
