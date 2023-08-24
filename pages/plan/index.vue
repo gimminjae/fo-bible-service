@@ -16,6 +16,7 @@
                         <div class="badge badge-secondary">{{ plan.goalPercent }} %</div>
                     </h2>
                     <p>구약 {{ plan.oldGoalCount }}독! 신약 {{ plan.newGoalCount }}독!</p>
+                    <progress class="progress progress-primary w-56" :value="plan.goalPercent" max="100"></progress>
                     <div class="card-actions justify-end">
                         <div class="badge badge-outline"><i class="fa-regular fa-calendar mr-1"></i> 시작일 {{ plan.startDate }}</div>
                         <div class="badge badge-outline"><i class="fa-regular fa-calendar mr-1"></i> 종료일 {{ plan.endDate }}</div>
