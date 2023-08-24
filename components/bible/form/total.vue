@@ -10,16 +10,14 @@
             <BibleFormBibleSearchType2 @verse-change="verseChange"/> <!-- v-if="formType === 'select'" -->
 <!--            <button class="btn btn-sm">확인</button>-->
         </div>
-        <div class="flex justify-between gap-3">
-            <button class="btn btn-circle btn-sm btn-outline ml-3" @click="clickMoveChapter('left')">
-<!--                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>-->
-                ◀︎
-            </button>
-            <button class="btn btn-circle btn-sm btn-outline mr-3" @click="clickMoveChapter('right')">
-<!--                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>-->
-                ▶︎
-            </button>
-        </div>
+<!--        <div class="flex justify-between gap-3">-->
+<!--            <button class="btn btn-circle btn-sm btn-outline ml-3" @click="clickMoveChapter('left')">-->
+<!--                ◀︎-->
+<!--            </button>-->
+<!--            <button class="btn btn-circle btn-sm btn-outline mr-3" @click="clickMoveChapter('right')">-->
+<!--                ▶︎-->
+<!--            </button>-->
+<!--        </div>-->
     </div>
 </template>
 <script setup>
