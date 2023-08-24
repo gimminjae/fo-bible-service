@@ -61,13 +61,33 @@
                         <div class="align-middle">
                             <h3><i class="fa-solid fa-mobile-screen mr-1"></i>폰트</h3>
                         </div>
-                        <select class="select select-bordered" v-model="selectedFont" @change="changeFont">
-                            <option disabled selected>Font</option>
-                            <option v-for="font of fonts" :key="font">{{ font }}</option>
-                        </select>
+                        <button class="btn btn-outline" @click="fontPopup = true">폰트 변경</button>
                     </div>
                 </li>
             </ul>
+        </div>
+        <div class="flex justify-center mx-auto my-auto">
+            <div v-if="fontPopup" class="fixed top-20 modal-box z-10">
+                <div class="mb-3 flex justify-between">
+                    <h1 class="text-4xl">폰트 선택</h1>
+                    <button class="btn btn-square" @click="fontPopup = false">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+                <ul>
+                    <li class="mb-2" v-for="font in fonts">
+                        <div class="flex justify-between align-middle">
+                            <p :style="'font-family: ' + font.value">{{ font.text }}</p>
+                            <button :class="'btn btn-outline'" :disabled="selectedFont === font.value" @click="changeFont(font.value)">선택</button>
+                        </div>
+                        <hr class="my-1">
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </template>
@@ -90,10 +110,11 @@ const logout = () => {
     store().logout()
     router.push({path: '/bible/bible'})
 }
+const fontPopup = ref(false)
 const colorMode = useColorMode();
 const selectedFont = ref(cookieUtil.get('font') ? cookieUtil.get('font') : '폰트선택')
-const changeFont = () => {
-    cookieUtil.set('font', selectedFont.value)
+const changeFont = (font) => {
+    cookieUtil.set('font', font)
     location.reload()
 }
 const themes = [
@@ -129,9 +150,38 @@ const themes = [
     'winter',
 ];
 const fonts = [
-    '폰트 없음',
-    'HakgyoansimWoojuR',
-    'HakgyoansimGaeulsopungB'
+    {
+        text: '기본 폰트',
+        value: 'basic'
+    },
+    {
+        text: '학교안심 우주',
+        value: 'HakgyoansimWoojuR',
+    },
+    {
+        text: '학교안심 가을소풍',
+        value: 'HakgyoansimGaeulsopungB',
+    },
+    {
+        text: '강원특별자지도체',
+        value: 'GangwonState'
+    },
+    {
+        text: '교보문고 2022',
+        value: 'KyoboHandwriting2022khn'
+    },
+    {
+        text: '오뮤 다예쁨체',
+        value: 'omyu_pretty'
+    },
+    {
+        text: '태백 은하수체',
+        value: 'TAEBAEKmilkyway'
+    },
+    {
+        text: 'KCC차쌤체',
+        value: 'KCCChassam'
+    }
 ]
 onMounted(() => {
     routes.alertRouteQuery()
