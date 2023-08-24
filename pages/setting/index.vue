@@ -49,6 +49,7 @@
                     <div class="flex gap-3 justify-between">
                         <div class="align-middle">
                             <h3><i class="fa-solid fa-mobile-screen mr-1"></i>테마</h3>
+                            <p class="text-xs text-warning whitespace-nowrap">일부 테마에서 글씨가 잘 보이지 않을 수 있습니다.</p>
                         </div>
                         <select class="select select-bordered" v-model="colorMode.preference">
                             <option disabled selected>Theme</option>
@@ -60,6 +61,8 @@
                     <div class="flex gap-3 justify-between">
                         <div class="align-middle">
                             <h3><i class="fa-solid fa-mobile-screen mr-1"></i>폰트</h3>
+                            <p class="text-xs text-info">원하는 폰트가 있으시다면</p>
+                            <p class="text-xs text-info">'눈누'사이트를 참고하셔서 건의사항으로 남겨주세요^^</p>
                         </div>
                         <button class="btn btn-outline" @click="fontPopup = true">폰트 변경</button>
                     </div>
