@@ -1,4 +1,5 @@
 import {toast} from "vue3-toastify";
+import Swal from "sweetalert2";
 
 const toastAlert = {
     option: {
@@ -33,6 +34,31 @@ const toastAlert = {
             pauseOnHover: true,
             // position: ''
         });
+    },
+    confirm: (title, text, confirmTitle, confirmText) => {
+        Swal.fire({
+            title: title,
+            text: text,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'Success!',
+                    confirmText,
+                    'success'
+                )
+            }
+        }).catch((error) => {
+            Swal.fire(
+                'Failed!',
+                error.response.message,
+                'error'
+            )
+        })
     }
 }
 //     closeButton: SomeVNode, // CloseBtnType
