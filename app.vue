@@ -7,6 +7,7 @@
 </template>
 <script setup>
 import { ref } from 'vue'
+import 'vue3-toastify/dist/index.css';
 import cookieUtil from "~/composables/cookie";
 
 const font = ref(cookieUtil.get('font'))

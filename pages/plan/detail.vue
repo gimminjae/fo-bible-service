@@ -92,7 +92,7 @@
                         <div class="stat-title"><i class="fa-solid fa-bars-progress mr-1"></i>진행도</div>
                         <div v-if="planInfo.restDay > 0 && planInfo.goalPercent < 100" class="stat-value text-lg">하루에 <b class="text-yellow-50">{{ planInfo.readCountPerDay}}</b>장씩 읽으세요!</div>
                         <div v-if="planInfo.restDay >= 0 && planInfo.goalPercent === 100" class="stat-value text-lg">목표를 모두 달성했어요!^^</div>
-                        <div v-if="planInfo.restDay < 0 && planInfo.goalPercent < 100" class="stat-value text-lg">기간이 마감되었습니다.ㅠㅜ</div>
+                        <div v-if="planInfo.restDay <= 0 && planInfo.goalPercent < 100" class="stat-value text-lg">기간이 마감되었습니다.ㅠㅜ</div>
 <!--                        <div class="stat-actions">-->
 <!--                            <button class="btn btn-sm btn-success">체크하러 가기</button>-->
 <!--                        </div>-->
@@ -165,7 +165,7 @@ const changeMode = () => {
     mode.value = !mode.value
 }
 const deletePlan = async () => {
-    if(!confirm('삭제되면 복구할 수 없습니다.\n삭제하시겠습니까?')) {
+    if(!(await toast.confirm('삭제되면 복구할 수 없습니다.\n삭제하시겠습니까?', '', '삭제되었습니다!', ''))) {
         return
     }
     try {

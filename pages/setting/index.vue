@@ -103,8 +103,8 @@ import routes from "~/composables/route";
 import {ref} from "vue";
 
 api.getMe()
-const logout = () => {
-    if (!confirm('로그아웃 하시겠습니까?')) {
+const logout = async () => {
+    if (!(await toast.confirm('로그아웃 하시겠습니까?'))) {
         return
     }
     api.remove(`/api/members/logout`)
