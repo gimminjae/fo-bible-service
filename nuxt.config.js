@@ -19,7 +19,7 @@ export default defineNuxtConfig({
     server: {
       proxy: {
         "/api": {
-          target: "http://localhost:8080",
+          target: process.env.BO_GW_API_URL,
           changeOrigin: true,
         },
       },
