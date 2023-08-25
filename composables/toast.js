@@ -35,8 +35,8 @@ const toastAlert = {
             // position: ''
         });
     },
-    confirm: (title, text, confirmTitle, confirmText) => {
-        Swal.fire({
+    confirm: async (title, text, confirmTitle, confirmText) => {
+        return (await Swal.fire({
             title: title,
             text: text,
             icon: 'warning',
@@ -44,21 +44,18 @@ const toastAlert = {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire(
-                    'Success!',
-                    confirmText,
-                    'success'
-                )
-            }
-        }).catch((error) => {
-            Swal.fire(
-                'Failed!',
-                error.response.message,
-                'error'
-            )
-        })
+        })).isConfirmed
+            // .then((result) => {
+            //     console.log('result: ', result)
+            //     return result.isConfirmed
+                // if (result.isConfirmed) {
+                //     Swal.fire(
+                //         'Success!',
+                //         confirmText,
+                //         'success'
+                //     )
+                // }
+            // })
     }
 }
 //     closeButton: SomeVNode, // CloseBtnType
