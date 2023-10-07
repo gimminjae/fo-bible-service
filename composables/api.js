@@ -4,6 +4,7 @@ import router from "~/composables/router";
 import {store} from "~/composables/store";
 import toastAlert from "~/composables/toast";
 
+const PROXY = "/proxy"
 const getMe = async () => {
     const meResult = await axios.get(`/api/members/me`, {
         headers: {
@@ -33,7 +34,7 @@ const getMe = async () => {
 const get = async (url) => {
     getMe()
     try {
-        const result = axios.get(url, {
+        const result = axios.get(`${PROXY}/${encodeURI(url)}`, {
             headers: {
                 Authentication: cookieUtil.get('accessToken')
             }
@@ -46,7 +47,7 @@ const get = async (url) => {
 const post = async (url, data) => {
     getMe()
     try {
-        const result = axios.post(url, data, {
+        const result = axios.post(`${PROXY}/${url}`, data, {
             headers: {
                 Authentication: cookieUtil.get('accessToken')
             }
@@ -58,7 +59,7 @@ const post = async (url, data) => {
 }
 const patch = async (url, data) => {
     try {
-        const meResult = await axios.get(`/api/members/me`, {
+        const meResult = await axios.get(`${PROXY}/api/members/me`, {
             headers: {
                 Authentication: cookieUtil.get('accessToken')
             }
@@ -66,13 +67,13 @@ const patch = async (url, data) => {
         store().setMember(meResult.data.member)
         if(meResult.data.member === '') {
             try {
-                const { data } = await axios.get(`/api/members/regenAccessToken?refreshToken=${cookieUtil.get('refreshToken')}`)
+                const { data } = await axios.get(`${PROXY}/api/members/regenAccessToken?refreshToken=${cookieUtil.get('refreshToken')}`)
                 cookieUtil.setWithMaxAge('accessToken', data, 60 * 30)
             } catch(error) {
                 router.replace({ path: '/member/login'})
             }
             try {
-                const meResult = await axios.get(`/api/members/me`, {
+                const meResult = await axios.get(`${PROXY}/api/members/me`, {
                     headers: {
                         Authentication: cookieUtil.get('accessToken')
                     }
@@ -86,7 +87,7 @@ const patch = async (url, data) => {
     } catch(error) {
     }
     try {
-        const result = axios.patch(url, data, {
+        const result = axios.patch(`${PROXY}/${url}`, data, {
             headers: {
                 Authentication: cookieUtil.get('accessToken')
             }
@@ -106,13 +107,13 @@ const put = async (url, data) => {
         store().setMember(meResult.data.member)
         if(meResult.data.member === '') {
             try {
-                const { data } = await axios.get(`/api/members/regenAccessToken?refreshToken=${cookieUtil.get('refreshToken')}`)
+                const { data } = await axios.get(`${PROXY}/api/members/regenAccessToken?refreshToken=${cookieUtil.get('refreshToken')}`)
                 cookieUtil.setWithMaxAge('accessToken', data, 60 * 30)
             } catch(error) {
                 router.replace({ path: '/member/login'})
             }
             try {
-                const meResult = await axios.get(`/api/members/me`, {
+                const meResult = await axios.get(`${PROXY}/api/members/me`, {
                     headers: {
                         Authentication: cookieUtil.get('accessToken')
                     }
@@ -126,7 +127,7 @@ const put = async (url, data) => {
     } catch(error) {
     }
     try {
-        const result = axios.put(url, data, {
+        const result = axios.put(`${PROXY}/${url}`, data, {
             headers: {
                 Authentication: cookieUtil.get('accessToken')
             }
@@ -138,7 +139,7 @@ const put = async (url, data) => {
 }
 const remove = async (url) => {
     try {
-        const meResult = await axios.get(`/api/members/me`, {
+        const meResult = await axios.get(`${PROXY}/api/members/me`, {
             headers: {
                 Authentication: cookieUtil.get('accessToken')
             }
@@ -146,13 +147,13 @@ const remove = async (url) => {
         store().setMember(meResult.data.member)
         if(meResult.data.member === '') {
             try {
-                const { data } = await axios.get(`/api/members/regenAccessToken?refreshToken=${cookieUtil.get('refreshToken')}`)
+                const { data } = await axios.get(`${PROXY}/api/members/regenAccessToken?refreshToken=${cookieUtil.get('refreshToken')}`)
                 cookieUtil.setWithMaxAge('accessToken', data, 60 * 30)
             } catch(error) {
                 router.replace({ path: '/member/login'})
             }
             try {
-                 const meResult = await axios.get(`/api/members/me`, {
+                 const meResult = await axios.get(`${PROXY}/api/members/me`, {
                     headers: {
                         Authentication: cookieUtil.get('accessToken')
                     }
@@ -166,7 +167,7 @@ const remove = async (url) => {
     } catch(error) {
     }
     try {
-        const result = axios.delete(url, {
+        const result = axios.delete(`${PROXY}/${url}`, {
             headers: {
                 Authentication: cookieUtil.get('accessToken')
             }
