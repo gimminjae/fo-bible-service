@@ -48,7 +48,7 @@ const changeTab = (selectedTab) => {
 }
 
 const goBible = (bible, chapter) => {
-    cookieUtil.set('recentBible', `${bible.bookName} ${chapter}`)
+    cookieUtil.set('recentBible', `${bible.bookIndex} ${chapter}`)
     router.replace({ path: '/bible/bible' })
 }
 </script>

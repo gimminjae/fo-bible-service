@@ -56,23 +56,25 @@ const copyVerse = () => {
 }
 const moveChapter = async (mode) => {
     if (mode === 'left') {
-        if (bibleSearchInfo.value.bookName === '창세기' && Number(bibleSearchInfo.value.chapter) === 1) return
+        if (bibleSearchInfo.value.book === '1' && Number(bibleSearchInfo.value.chapter) === 1) return
         bibleSearchInfo.value.chapter = Number(bibleSearchInfo.value.chapter) - 1
     } else {
-        if (bibleSearchInfo.value.bookName === '요한계시록' && Number(bibleSearchInfo.value.chapter) === 22) return
+        if (bibleSearchInfo.value.book === '66' && Number(bibleSearchInfo.value.chapter) === 22) return
         bibleSearchInfo.value.chapter = Number(bibleSearchInfo.value.chapter) + 1
     }
     if (Number(bibleSearchInfo.value.chapter) === 0) {
-        let presentBible = bibles.getBibleByBookName(bibleSearchInfo.value.bookName)
+        let presentBible = bibles.getBibleByBookIndex(bibleSearchInfo.value.book)
         let bible = bibles.getBibleByBookIndex(presentBible.bookIndex - 1)
+        bibleSearchInfo.value.book = bible.bookIndex
         bibleSearchInfo.value.bookName = bible.bookName
         bibleSearchInfo.value.chapter = bible.totalChapter
     }
     try {
         await findBible()
     } catch (error) {
-        let presentBible = bibles.getBibleByBookName(bibleSearchInfo.value.bookName)
+        let presentBible = bibles.getBibleByBookIndex(bibleSearchInfo.value.book)
         let bible = bibles.getBibleByBookIndex(presentBible.bookIndex + 1)
+        bibleSearchInfo.value.book = bible.bookIndex
         bibleSearchInfo.value.bookName = bible.bookName
         bibleSearchInfo.value.chapter = 1
         await findBible()
@@ -104,18 +106,20 @@ const findVerse = () => {
     });
 }
 const findBible = async () => {
-    cookieUtil.set('recentBible', `${bibleSearchInfo.value.bookName} ${bibleSearchInfo.value.chapter}`)
+    cookieUtil.set('recentBible', `${bibleSearchInfo.value.book} ${bibleSearchInfo.value.chapter}`)
     bibleInfos.value = await getBible()
 }
 const getBible = async () => {
-    return (await api.get(`/api/bibleverse/input?bookName=${bibleSearchInfo.value.bookName}&chapter=${bibleSearchInfo.value.chapter}&verse=${bibleSearchInfo.value.verse}`)).data
+    return (await api.get(`/api/bibleverse?book=${bibleSearchInfo.value.book}&chapter=${bibleSearchInfo.value.chapter}&verse=${bibleSearchInfo.value.verse}`)).data
 }
 const loadRecentBible = () => {
     if (recentBible.value.length === 0) {
-        recentBible.value = '창세기 1'
+        recentBible.value = '1 1'
     }
-    bibleSearchInfo.value.bookName = recentBible.value.split(' ')[0]
+    bibleSearchInfo.value.book = recentBible.value.split(' ')[0]
     bibleSearchInfo.value.chapter = recentBible.value.split(' ')[1]
+    bibleSearchInfo.value.bookName = bibles.getBibleByBookIndex(bibleSearchInfo.value.book).bookName
+
     findBible()
 }
 /**
