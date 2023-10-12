@@ -7,7 +7,8 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
-    '@nuxtjs/color-mode'
+    '@nuxtjs/color-mode',
+    '@nuxtjs/proxy'
   ],
   colorMode: {
     preference: 'dark', // default theme
@@ -28,6 +29,9 @@ export default defineNuxtConfig({
   proxy: {
     "/api": {
       target: process.env.BO_GW_API_URL,
+      path: {
+        '^/api/': '/api/'
+      },
       changeOrigin: true,
     },
   }
