@@ -8,7 +8,7 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
     '@nuxtjs/color-mode',
-    '@nuxtjs/proxy'
+    // '@nuxtjs/proxy'
   ],
   colorMode: {
     preference: 'dark', // default theme
@@ -16,16 +16,16 @@ export default defineNuxtConfig({
     classSuffix: ''
   },
   devtools: { enabled: true },
-  vite: {
-    server: {
-      proxy: {
-        "/api": {
-          target: process.env.BO_GW_API_URL,
-          changeOrigin: true,
-        },
-      },
-    },
-  },
+  // vite: {
+  //   server: {
+  //     proxy: {
+  //       "/api": {
+  //         target: process.env.BO_GW_API_URL,
+  //         changeOrigin: true,
+  //       },
+  //     },
+  //   },
+  // },
   proxy: {
     "/api": {
       target: process.env.BO_GW_API_URL,
