@@ -1,6 +1,6 @@
 [[redirects]]
 from = "/api/*"
-to = "http://3.34.136.203:8080/:splat"
+to = "http://3.34.136.203:8080"
 status = 200
 force = true
 port = 3000
