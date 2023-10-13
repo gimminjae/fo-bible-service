@@ -110,7 +110,11 @@ const findBible = async () => {
     bibleInfos.value = await getBible()
 }
 const getBible = async () => {
-    return (await api.get(`/api/bibleverse?book=${bibleSearchInfo.value.book}&chapter=${bibleSearchInfo.value.chapter}&verse=${bibleSearchInfo.value.verse}`)).data
+    return (await api.get(`/api/bibleverse?book=${bibleSearchInfo.value.book}&chapter=${bibleSearchInfo.value.chapter}`, {
+        headers: {
+            Authentication: cookieUtil.get('accessToken')
+        }
+    })).data
 }
 const loadRecentBible = () => {
     if (recentBible.value.length === 0) {
