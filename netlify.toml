@@ -4,3 +4,4 @@ to = "http://3.34.136.203:8080/:splat"
 status = 200
 force = true
 port = 3000
+targetPort = 8080
