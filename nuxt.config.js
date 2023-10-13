@@ -26,6 +26,10 @@ export default defineNuxtConfig({
   //     },
   //   },
   // },
+  axios: {
+    proxy: true,
+    credentials: true,
+  },
   proxy: {
     "/api": {
       target: process.env.BO_GW_API_URL,
