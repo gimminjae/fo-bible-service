@@ -32,7 +32,7 @@ export default {
     credentials: true,
   },
   proxy: {
-    "/api/": 'http://3.34.136.203:8080',
+    "/api": 'http://3.34.136.203:8080',
     // "/api": {
     //   target: 'http://3.34.136.203:8080',
     //   path: {
