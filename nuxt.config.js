@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import { defineNuxtConfig } from 'nuxt/config';
-export default defineNuxtConfig({
+// import { defineNuxtConfig } from 'nuxt/config';
+export default {
   build: {
     transpile: ['@vuepic/vue-datepicker']
   },
@@ -8,7 +8,8 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
     '@nuxtjs/color-mode',
-    // '@nuxtjs/proxy'
+    // '@nuxtjs/proxy',
+    // '@nuxtjs/axios'
   ],
   colorMode: {
     preference: 'dark', // default theme
@@ -20,7 +21,7 @@ export default defineNuxtConfig({
     server: {
       proxy: {
         "/api": {
-          target: process.env.BO_GW_API_URL,
+          target: 'http://3.34.136.203:8080',
           changeOrigin: true,
         },
       },
@@ -31,16 +32,13 @@ export default defineNuxtConfig({
     credentials: true,
   },
   proxy: {
-    "/api": {
-      target: process.env.BO_GW_API_URL,
-      path: {
-        '^/api/': '/api/'
-      },
-      changeOrigin: true,
-    },
+    "/api/": 'http://3.34.136.203:8080',
+    // "/api": {
+    //   target: 'http://3.34.136.203:8080',
+    //   path: {
+    //     '^/api/': '/api/'
+    //   },
+    //   changeOrigin: true,
+    // },
   }
-})
-
-// export default defineNuxtConfig({
-//   modules: ['@pinia/nuxt']
-// })
+}
