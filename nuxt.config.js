@@ -16,16 +16,16 @@ export default defineNuxtConfig({
     classSuffix: ''
   },
   devtools: { enabled: true },
-  // vite: {
-  //   server: {
-  //     proxy: {
-  //       "/api": {
-  //         target: process.env.BO_GW_API_URL,
-  //         changeOrigin: true,
-  //       },
-  //     },
-  //   },
-  // },
+  vite: {
+    server: {
+      proxy: {
+        "/api": {
+          target: process.env.BO_GW_API_URL,
+          changeOrigin: true,
+        },
+      },
+    },
+  },
   axios: {
     proxy: true,
     credentials: true,
