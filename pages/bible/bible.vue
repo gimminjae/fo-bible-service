@@ -106,7 +106,7 @@ const findVerse = () => {
     });
 }
 const findBible = async () => {
-    cookieUtil.set('recentBible', `${bibleSearchInfo.value.book} ${bibleSearchInfo.value.chapter}`)
+    cookieUtil.set('recentBible', bibleSearchInfo.value.book + ' ' + bibleSearchInfo.value.chapter)
     bibleInfos.value = await getBible()
 }
 const getBible = async () => {
