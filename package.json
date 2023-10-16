@@ -28,5 +28,6 @@
     "sweetalert2": "^11.7.27",
     "vue-clipboard": "^0.0.1",
     "vue3-toastify": "^0.1.11"
-  }
+  },
+  "proxy": "http://3.34.136.203:8080"
 }
