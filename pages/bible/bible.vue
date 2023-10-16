@@ -106,7 +106,7 @@ const findVerse = () => {
     });
 }
 const findBible = async () => {
-    cookieUtil.set('recentBible', bibleSearchInfo.value.book + ' ' + bibleSearchInfo.value.chapter)
+    cookieUtil.set('recentBible', `${bibleSearchInfo.value.book},${bibleSearchInfo.value.chapter}`)
     bibleInfos.value = await getBible()
 }
 const getBible = async () => {
@@ -118,10 +118,10 @@ const getBible = async () => {
 }
 const loadRecentBible = () => {
     if (recentBible.value.length === 0) {
-        recentBible.value = '1 1'
+        recentBible.value = '1,1'
     }
-    bibleSearchInfo.value.book = recentBible.value.split(' ')[0]
-    bibleSearchInfo.value.chapter = recentBible.value.split(' ')[1]
+    bibleSearchInfo.value.book = recentBible.value.split(',')[0]
+    bibleSearchInfo.value.chapter = recentBible.value.split(',')[1]
     bibleSearchInfo.value.bookName = bibles.getBibleByBookIndex(bibleSearchInfo.value.book).bookName
 
     findBible()
