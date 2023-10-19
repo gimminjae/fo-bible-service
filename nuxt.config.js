@@ -34,12 +34,13 @@ export default {
   },
   proxy: {
     // "/api": process.env.BO_GW_API_URL,
-    "/api": "http://3.34.136.203:8080"
-    // "/api": {
-    //   target: 'http://3.34.136.203:8080',
-    //   path: {
-    //     '^/api/': '/api/'
-    //   },
+    // "/api": "http://3.34.136.203:8080"
+    "/api": {
+      target: 'http://3.34.136.203:8080',
+      path: {
+        '^/api/': '/api/'
+      }
+    }
     //   changeOrigin: true,
     // },
   }
