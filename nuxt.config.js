@@ -21,7 +21,8 @@ export default {
     server: {
       proxy: {
         "/api": {
-          target: process.env.BO_GW_API_URL,
+          // target: process.env.BO_GW_API_URL,
+          target: "http://3.34.136.203:8080",
           changeOrigin: true,
         },
       },
@@ -32,7 +33,8 @@ export default {
     credentials: true,
   },
   proxy: {
-    "/api": process.env.BO_GW_API_URL,
+    // "/api": process.env.BO_GW_API_URL,
+    "/api": "http://3.34.136.203:8080"
     // "/api": {
     //   target: 'http://3.34.136.203:8080',
     //   path: {
