@@ -8,8 +8,8 @@ export default {
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
     '@nuxtjs/color-mode',
-    // '@nuxtjs/proxy',
-    // '@nuxtjs/axios'
+    // '@nuxtjs/axios',
+    // '@nuxtjs/proxy'
   ],
   colorMode: {
     preference: 'dark', // default theme
@@ -29,8 +29,10 @@ export default {
     },
   },
   axios: {
-    proxy: true,
-    credentials: true,
+    proxy:true,
+    baseURL: "http://3.34.136.203:8080",
+    proxyHeaders: false,
+    credentials: false
   },
   proxy: {
     // "/api": process.env.BO_GW_API_URL,
@@ -39,9 +41,9 @@ export default {
       target: 'http://3.34.136.203:8080',
       path: {
         '^/api/': '/api/'
-      }
+      },
+      changeOrigin: true
     }
-    //   changeOrigin: true,
     // },
   }
 }
