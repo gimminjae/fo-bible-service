@@ -107,7 +107,7 @@ const logout = async () => {
     if (!(await toast.confirm('로그아웃 하시겠습니까?'))) {
         return
     }
-    api.remove(`/api/members/logout`)
+    await api.remove(`/api/members/logout`)
     cookieUtil.remove('accessToken')
     cookieUtil.remove('refreshToken')
     store().logout()
