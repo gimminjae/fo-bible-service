@@ -1,8 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 // import { defineNuxtConfig } from 'nuxt/config';
 export default {
-// <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4493633870090510"
-//         crossorigin="anonymous"></script>
   head: {
     script: [
       {
