@@ -49,7 +49,7 @@
                     <div class="flex gap-3 justify-between">
                         <div class="align-middle">
                             <h3><i class="fa-solid fa-mobile-screen mr-1"></i>테마</h3>
-                            <p class="text-xs text-warning whitespace-nowrap">일부 테마에서 글씨가 잘 보이지 않을 수 있습니다.</p>
+                            <p class="text-xs text-warning">일부 테마에서 글씨가 잘 보이지 않을 수 있습니다.</p>
                         </div>
                         <select class="select select-bordered" v-model="colorMode.preference">
                             <option disabled selected>Theme</option>
